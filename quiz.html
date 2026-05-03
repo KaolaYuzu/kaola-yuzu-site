@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你適合哪一種 AI 音樂發行路線？</title>
+
+  <style>
+    /* ===========================
+       CSS VARIABLES & RESET
+    =========================== */
+    :root {
+      --bg:           #08090f;
+      --bg-card:      #0e1019;
+      --bg-card-hov:  #13161f;
+      --accent:       #00c9b1;
+      --accent-dim:   rgba(0, 201, 177, 0.12);
+      --accent-glow:  rgba(0, 201, 177, 0.22);
+      --accent-bdr:   rgba(0, 201, 177, 0.38);
+      --txt-hi:       #edeef5;
+      --txt-med:      #8b8fa8;
+      --txt-lo:       #50536a;
+      --bdr:          rgba(255,255,255,0.07);
+      --bdr-hi:       rgba(255,255,255,0.13);
+      --warn-bg:      rgba(245,160,60,0.08);
+      --warn-bdr:     rgba(245,160,60,0.28);
+      --warn-txt:     #e0a04a;
+      --info-bg:      rgba(99,102,241,0.08);
+      --info-bdr:     rgba(99,102,241,0.28);
+      --info-txt:     #a5b4fc;
+      --r-sm:  8px;
+      --r-md:  14px;
+      --r-lg:  22px;
+      --ease:  0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,201,177,0.06) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      color: var(--txt-hi);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px 80px;
+    }
+
+    /* ===========================
+       LAYOUT
+    =========================== */
+    .app { width: 100%; max-width: 540px; padding-top: 52px; }
+
+    /* ===========================
+       SCREENS
+    =========================== */
+    .screen { display: none; }
+    .screen.active {
+      display: block;
+      animation: fadeUp 0.38s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===========================
+       SHARED
+    =========================== */
+    .tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid var(--accent-bdr); border-radius: 4px;
+      padding: 5px 11px; margin-bottom: 22px;
+    }
+    .tag::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    .divider { height: 1px; background: var(--bdr); margin: 28px 0; }
+    .small-note { font-size: 11.5px; color: var(--txt-lo); line-height: 1.65; text-align: center; }
+
+    /* ===========================
+       LANDING
+    =========================== */
+    .landing-title {
+      font-size: clamp(26px, 8vw, 40px); font-weight: 800;
+      line-height: 1.18; letter-spacing: -0.03em; color: var(--txt-hi); margin-bottom: 18px;
+    }
+    .landing-title .hl { color: var(--accent); }
+    .landing-sub { font-size: 15px; line-height: 1.75; color: var(--txt-med); margin-bottom: 36px; }
+
+    .wave-deco { display: flex; align-items: flex-end; gap: 3px; height: 28px; margin-bottom: 32px; opacity: 0.35; }
+    .wave-bar  { width: 3px; background: var(--accent); border-radius: 2px; animation: wavebar 1.4s ease-in-out infinite; }
+    .wave-bar:nth-child(1)  { height: 40%;  animation-delay: 0s; }
+    .wave-bar:nth-child(2)  { height: 70%;  animation-delay: 0.1s; }
+    .wave-bar:nth-child(3)  { height: 100%; animation-delay: 0.2s; }
+    .wave-bar:nth-child(4)  { height: 55%;  animation-delay: 0.15s; }
+    .wave-bar:nth-child(5)  { height: 80%;  animation-delay: 0.05s; }
+    .wave-bar:nth-child(6)  { height: 45%;  animation-delay: 0.25s; }
+    .wave-bar:nth-child(7)  { height: 65%;  animation-delay: 0.1s; }
+    .wave-bar:nth-child(8)  { height: 90%;  animation-delay: 0.2s; }
+    .wave-bar:nth-child(9)  { height: 50%;  animation-delay: 0s; }
+    .wave-bar:nth-child(10) { height: 75%;  animation-delay: 0.15s; }
+    .wave-bar:nth-child(11) { height: 30%;  animation-delay: 0.3s; }
+    .wave-bar:nth-child(12) { height: 60%;  animation-delay: 0.08s; }
+    @keyframes wavebar { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.4); } }
+
+    .start-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; background: var(--accent); color: #07080f;
+      font-size: 15.5px; font-weight: 800; letter-spacing: 0.01em;
+      padding: 18px 28px; border: none; border-radius: var(--r-md);
+      cursor: pointer; transition: all var(--ease); margin-bottom: 20px;
+    }
+    .start-btn:hover { background: #00e2ca; transform: translateY(-2px); box-shadow: 0 10px 36px var(--accent-glow); }
+    .start-btn:active { transform: translateY(0); box-shadow: none; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+    .pill {
+      font-size: 12px; color: var(--txt-med);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--bdr);
+      border-radius: 20px; padding: 5px 12px;
+    }
+
+    /* ===========================
+       QUIZ
+    =========================== */
+    .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+    .progress-lbl { font-size: 11px; color: var(--txt-lo); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+    .progress-num { font-size: 12px; color: var(--txt-med); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    .progress-track { height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
+    .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--accent), #00e2ca); border-radius: 2px; transition: width 0.45s cubic-bezier(0.4,0,0.2,1); }
+
+    /* Question card */
+    .q-card { background: var(--bg-card); border: 1px solid var(--bdr); border-radius: var(--r-lg); padding: 26px 22px 22px; margin-bottom: 14px; }
+    .q-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .q-text  { font-size: 18px; font-weight: 700; line-height: 1.4; letter-spacing: -0.015em; color: var(--txt-hi); }
+
+    /* 複選提示小字 */
+    .q-multi-hint { font-size: 11px; color: var(--txt-lo); margin-top: 7px; letter-spacing: 0.02em; }
+
+    /* Options */
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 10px; }
+
+    /* 選項按鈕基底（radio & checkbox 共用） */
+    .opt-btn {
+      display: flex; align-items: flex-start; gap: 13px;
+      width: 100%; background: var(--bg-card); border: 1px solid var(--bdr);
+      border-radius: var(--r-md); padding: 15px 17px;
+      cursor: pointer; text-align: left; color: var(--txt-hi); font-family: inherit;
+      transition: background var(--ease), border-color var(--ease), box-shadow var(--ease);
+    }
+    .opt-btn:hover    { background: var(--bg-card-hov); border-color: var(--bdr-hi); }
+    .opt-btn.selected { background: var(--accent-dim); border-color: var(--accent-bdr); box-shadow: 0 0 0 1px var(--accent-bdr) inset; }
+
+    /* 選滿 2 項後，其餘未選項目變暗 */
+    .opt-btn.dimmed       { opacity: 0.35; cursor: default; }
+    .opt-btn.dimmed:hover { background: var(--bg-card); border-color: var(--bdr); }
+
+    /* ── Radio indicator（圓形） ── */
+    .opt-radio {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--txt-lo); flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .opt-btn.selected .opt-radio { background: var(--accent); border-color: var(--accent); }
+
+    .opt-radio-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #07080f; opacity: 0; transform: scale(0.4);
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .opt-btn.selected .opt-radio-dot { opacity: 1; transform: scale(1); }
+
+    /* ── Checkbox indicator（圓角方形 + 打勾） ── */
+    .opt-btn.is-multi .opt-radio { border-radius: 5px; }
+
+    .opt-btn.is-multi .opt-radio-dot {
+      width: 9px; height: 6px;
+      background: transparent; border-radius: 0;
+      border-left: 2.2px solid #07080f; border-bottom: 2.2px solid #07080f;
+      transform: rotate(-45deg) scale(0.4) translate(0, -1px); opacity: 0;
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .opt-btn.is-multi.selected .opt-radio-dot { opacity: 1; transform: rotate(-45deg) scale(1) translate(0, -1px); }
+
+    .opt-text { font-size: 14px; line-height: 1.5; color: var(--txt-med); transition: color var(--ease); font-weight: 400; }
+    .opt-btn.selected .opt-text { color: var(--txt-hi); font-weight: 500; }
+
+    /* 選項上限提示 */
+    .multi-limit-msg {
+      display: none; font-size: 12px; color: var(--warn-txt);
+      background: var(--warn-bg); border: 1px solid var(--warn-bdr);
+      border-radius: var(--r-sm); padding: 9px 14px; margin-bottom: 12px;
+      animation: fadeUp 0.2s ease both;
+    }
+    .multi-limit-msg.visible { display: block; }
+
+    /* Navigation */
+    .quiz-nav { display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-top: 12px; }
+
+    .btn-back {
+      background: transparent; color: var(--txt-med); border: 1px solid var(--bdr);
+      border-radius: var(--r-md); padding: 15px 18px; cursor: pointer;
+      font-family: inherit; font-size: 14px; font-weight: 500; transition: all var(--ease); white-space: nowrap;
+    }
+    .btn-back:hover:not(:disabled) { border-color: var(--bdr-hi); color: var(--txt-hi); }
+    .btn-back:disabled { opacity: 0.25; cursor: default; }
+
+    .btn-next {
+      background: var(--accent); color: #07080f; border: none;
+      border-radius: var(--r-md); padding: 15px 24px;
+      cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 800; transition: all var(--ease);
+    }
+    .btn-next:hover:not(:disabled) { background: #00e2ca; box-shadow: 0 6px 28px var(--accent-glow); }
+    .btn-next:disabled { background: rgba(255,255,255,0.06); color: var(--txt-lo); cursor: default; }
+
+    .q-slide { animation: slideRight 0.28s cubic-bezier(0.4,0,0.2,1) both; }
+
+    /* ===========================
+       RESULT
+    =========================== */
+    .result-eyebrow {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      border: 1px solid var(--accent-bdr); border-radius: 4px;
+      padding: 5px 11px; margin-bottom: 14px;
+    }
+    .result-headline {
+      font-size: clamp(24px, 7vw, 34px); font-weight: 800;
+      line-height: 1.18; letter-spacing: -0.025em; margin-bottom: 10px; color: var(--txt-hi);
+    }
+    .result-platforms { font-size: 13px; color: var(--txt-med); margin-bottom: 28px; line-height: 1.5; }
+    .result-platforms .platform-name { color: var(--accent); font-weight: 600; }
+
+    .info-card { background: var(--bg-card); border: 1px solid var(--bdr); border-radius: var(--r-md); padding: 20px; margin-bottom: 10px; }
+    .card-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt-lo); margin-bottom: 8px; }
+    .card-body  { font-size: 14px; line-height: 1.7; color: var(--txt-med); }
+
+    .risk-card { background: var(--warn-bg); border: 1px solid var(--warn-bdr); border-radius: var(--r-md); padding: 20px; margin-bottom: 10px; }
+    .risk-card .card-label { color: var(--warn-txt); }
+    .risk-card .card-body  { color: #c9955a; }
+
+    .notice-card { background: var(--info-bg); border: 1px solid var(--info-bdr); border-radius: var(--r-md); padding: 18px 20px; margin-bottom: 10px; }
+    .notice-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #818cf8; margin-bottom: 7px; }
+    .notice-body  { font-size: 13px; line-height: 1.65; color: var(--info-txt); }
+
+    /* CTA block */
+    .cta-block {
+      background: linear-gradient(140deg, rgba(0,201,177,0.1) 0%, rgba(0,201,177,0.03) 100%);
+      border: 1px solid var(--accent-bdr); border-radius: var(--r-lg);
+      padding: 26px 22px; text-align: center; margin: 20px 0 12px;
+      position: relative; overflow: hidden;
+    }
+    .cta-block::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,201,177,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-main { font-size: 17px; font-weight: 800; line-height: 1.4; color: var(--txt-hi); margin-bottom: 8px; letter-spacing: -0.01em; }
+    .cta-sub  { font-size: 12px; color: var(--txt-lo); line-height: 1.65; }
+
+    .cta-form-row { display: flex; flex-direction: column; gap: 9px; margin-bottom: 11px; }
+
+    .cta-input {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--bdr-hi);
+      border-radius: var(--r-sm); color: var(--txt-hi); font-family: inherit; font-size: 14px;
+      padding: 13px 15px; outline: none; transition: border-color var(--ease), box-shadow var(--ease);
+    }
+    .cta-input::placeholder { color: var(--txt-lo); }
+    .cta-input:focus { border-color: var(--accent-bdr); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .cta-submit-btn {
+      width: 100%; background: var(--accent); color: #07080f; border: none;
+      border-radius: var(--r-sm); padding: 13px 20px;
+      font-family: inherit; font-size: 14.5px; font-weight: 800; cursor: pointer; transition: all var(--ease);
+    }
+    .cta-submit-btn:hover { background: #00e2ca; box-shadow: 0 6px 24px var(--accent-glow); }
+
+    .cta-limit-note { font-size: 11px; color: var(--txt-lo); }
+
+    .cta-feedback {
+      display: none; margin-top: 13px; font-size: 12.5px; line-height: 1.6;
+      color: var(--warn-txt); background: var(--warn-bg); border: 1px solid var(--warn-bdr);
+      border-radius: var(--r-sm); padding: 11px 14px; text-align: left;
+      animation: fadeUp 0.22s ease both;
+    }
+    .cta-feedback.visible { display: block; }
+
+    /* Restart button */
+    .restart-btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; background: transparent; color: var(--txt-med); border: 1px solid var(--bdr);
+      border-radius: var(--r-md); padding: 15px; font-family: inherit; font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all var(--ease); margin-bottom: 32px;
+    }
+    .restart-btn:hover { color: var(--txt-hi); border-color: var(--bdr-hi); }
+
+    /* ── Affiliate recommendation block ── */
+    .aff-block { margin: 22px 0 10px; }
+
+    .aff-panel {
+      background: var(--bg-card); border: 1px solid var(--bdr);
+      border-radius: var(--r-lg); padding: 22px; overflow: hidden;
+      position: relative;
+    }
+    .aff-panel::before {
+      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 260px; height: 160px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,201,177,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .aff-heading { position: relative; margin-bottom: 18px; }
+    .aff-title {
+      font-size: 16px; font-weight: 800; letter-spacing: -0.01em;
+      color: var(--txt-hi); margin-bottom: 8px;
+    }
+    .aff-desc { font-size: 12.5px; line-height: 1.7; color: var(--txt-med); }
+
+    .aff-cards { display: grid; grid-template-columns: 1fr; gap: 12px; position: relative; }
+
+    .aff-card {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--bdr);
+      border-radius: var(--r-md); padding: 18px; transition: border-color var(--ease), background var(--ease), transform var(--ease);
+    }
+    .aff-card:hover { background: rgba(255,255,255,0.045); border-color: var(--bdr-hi); }
+    .aff-card.primary { border-color: var(--accent-bdr); background: linear-gradient(140deg, rgba(0,201,177,0.1), rgba(255,255,255,0.03)); }
+
+    .aff-kicker {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--txt-lo); margin-bottom: 7px;
+    }
+    .aff-card.primary .aff-kicker { color: var(--accent); }
+
+    .aff-platform {
+      font-size: 19px; font-weight: 800; color: var(--txt-hi);
+      letter-spacing: -0.015em; margin-bottom: 11px;
+    }
+
+    .aff-benefits { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .aff-benefits li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 12.5px; line-height: 1.45; color: var(--txt-med);
+    }
+    .aff-benefits li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 6px; opacity: 0.8;
+    }
+
+    .aff-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+
+    .aff-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; border-radius: var(--r-sm); padding: 11px 14px;
+      font-family: inherit; font-size: 13px; font-weight: 800;
+      cursor: pointer; transition: all var(--ease); white-space: nowrap;
+    }
+
+    .aff-btn.primary {
+      background: var(--accent); border: 1px solid var(--accent); color: #07080f;
+    }
+    .aff-btn.primary:hover {
+      background: #00e2ca; border-color: #00e2ca; color: #07080f;
+      box-shadow: 0 4px 18px var(--accent-glow); transform: translateY(-1px);
+    }
+
+    .aff-btn.secondary {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--bdr-hi); color: var(--txt-hi);
+    }
+    .aff-btn.secondary:hover {
+      background: var(--accent-dim); border-color: var(--accent-bdr); color: var(--accent);
+    }
+
+    @media (max-width: 380px) {
+      .landing-title   { font-size: 24px; }
+      .q-text          { font-size: 16px; }
+      .result-headline { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div style="margin-bottom:18px;"><a href="/" style="color:#8b8fa8;text-decoration:none;font-size:12px;letter-spacing:.04em;">← 回 Kaola Yuzu 主站</a></div>
+
+  <!-- SCREEN 1: LANDING -->
+  <div id="screen-landing" class="screen active">
+    <div class="tag">AI 音樂發行路線測驗</div>
+
+    <div class="wave-deco" aria-hidden="true">
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+    </div>
+
+    <h1 class="landing-title">
+      你適合哪一種<br><span class="hl">AI 音樂</span>發行路線？
+    </h1>
+    <p class="landing-sub">
+      不是每個創作者都適合同一個發行平台。先判斷你的作品數量、AI 創作狀態、留架需求、Content ID 需求與長期成本，再決定要用哪一種工具。
+    </p>
+
+    <button class="start-btn" onclick="startQuiz()">
+      開始 1 分鐘測驗
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="feature-pills">
+      <span class="pill">7 道題目</span>
+      <span class="pill">無需登入</span>
+      <span class="pill">不收集個資</span>
+      <span class="pill">結果可截圖</span>
+    </div>
+
+    <div class="divider"></div>
+    <p class="small-note">本測驗不是平台排名，也不是法律意見。<br>正式發行前仍應以各平台官方最新條款為準。</p>
+  </div>
+
+
+  <!-- SCREEN 2: QUIZ -->
+  <div id="screen-quiz" class="screen">
+    <div class="progress-row">
+      <span class="progress-lbl">進度</span>
+      <span class="progress-num" id="progress-num">1 / 7</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+
+    <div class="q-card" id="q-card">
+      <div class="q-label" id="q-label">Q1</div>
+      <div class="q-text"  id="q-text"></div>
+      <div class="q-multi-hint" id="q-multi-hint" style="display:none;">可選最多 2 項</div>
+    </div>
+
+    <div class="options" id="options-list"></div>
+
+    <div class="multi-limit-msg" id="multi-limit-msg">
+      這題最多選 2 項，請選最重要的兩個。
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← 上一題</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>繼續</button>
+    </div>
+
+    <div class="divider"></div>
+    <p class="small-note">本測驗不是平台排名，也不是法律意見。</p>
+  </div>
+
+
+  <!-- SCREEN 3: RESULT -->
+  <div id="screen-result" class="screen">
+    <div class="result-eyebrow">你的發行路線</div>
+    <h2 class="result-headline" id="result-title"></h2>
+    <p  class="result-platforms" id="result-platforms"></p>
+
+    <div class="info-card">
+      <div class="card-label">為什麼你會得到這個結果</div>
+      <div class="card-body" id="result-why"></div>
+    </div>
+
+    <div class="risk-card">
+      <div class="card-label">⚠ 你要注意的風險</div>
+      <div class="card-body" id="result-risk"></div>
+    </div>
+
+    <div id="special-notices"></div>
+
+    <!-- Affiliate buttons：由 showResult() 動態注入 -->
+    <div id="affiliate-buttons"></div>
+
+    <div class="cta-block">
+      <div class="cta-main">免費領取完整比較表</div>
+      <div class="cta-sub" style="margin-bottom:18px;">留下 Email，我會把完整 AI 音樂發行商比較表寄給你。內容包含平台費用、AI 上架限制、Content ID 條件、停止續費後留架方式與等待時間整理。</div>
+      <div class="cta-form-row">
+        <input type="email" id="cta-email" class="cta-input" placeholder="輸入你的 Email" autocomplete="email" inputmode="email" />
+        <button class="cta-submit-btn" onclick="handleCtaSubmit()">寄送比較表給我</button>
+      </div>
+      <div class="cta-limit-note">不寄垃圾信。之後你也可以隨時取消訂閱。</div>
+      <div id="cta-feedback" class="cta-feedback"></div>
+    </div>
+
+    <button class="restart-btn" onclick="restartQuiz()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7a6 6 0 1 0 1.5-3.9M1 3v4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      重新測驗
+    </button>
+
+    <p class="small-note">本測驗不是平台排名，也不是法律意見。<br>正式發行前仍應以各平台官方最新條款為準。</p>
+  </div>
+
+</div><!-- /app -->
+
+
+<script>
+  /* ===========================
+     DATA: QUESTIONS
+     multi: true  → 複選，最多選 MULTI_MAX 項
+     multi: false → 單選
+  =========================== */
+  const MULTI_MAX = 2;
+
+  const questions = [
+    {
+      id: 'q1', multi: false,
+      text: '你目前一年大概會發幾首歌？',
+      options: [
+        { label: '1–3 首',            key: 'q1a' },
+        { label: '4–12 首',           key: 'q1b' },
+        { label: '12 首以上',          key: 'q1c' },
+        { label: '還不確定，先測市場', key: 'q1d' }
+      ]
+    },
+    {
+      id: 'q2', multi: true,
+      text: '你最在意哪件事？',
+      options: [
+        { label: '便宜快速上架',              key: 'q2a' },
+        { label: '正式合規、文件完整',          key: 'q2b' },
+        { label: '停止續費後作品不要消失',      key: 'q2c' },
+        { label: '長期 catalog / 自動化管理',   key: 'q2d' },
+        { label: 'Content ID / 社群平台變現',   key: 'q2e' }
+      ]
+    },
+    {
+      id: 'q3', multi: false,
+      text: '你的作品主要是哪一種？',
+      options: [
+        { label: '一般原創音樂',                    key: 'q3a' },
+        { label: 'AI-assisted，有人類明確參與修改',  key: 'q3b' },
+        { label: '高比例 AI-generated',              key: 'q3c' },
+        { label: '中文／華語作品',                   key: 'q3d' },
+        { label: '英文 AI 音樂',                     key: 'q3e' }
+      ]
+    },
+    {
+      id: 'q4', multi: true,
+      text: '你對 Content ID / UGC 變現的需求？',
+      options: [
+        { label: '不重要，先上架就好',                            key: 'q4a' },
+        { label: '可能需要，但不是第一優先',                      key: 'q4b' },
+        { label: '很重要，我想追蹤 YouTube / TikTok / IG 使用',  key: 'q4c' },
+        { label: '我不清楚，但想知道風險',                        key: 'q4d' }
+      ]
+    },
+    {
+      id: 'q5', multi: true,
+      text: '你對「停止續費後留架」的態度？',
+      options: [
+        { label: '不在意，先測試就好',             key: 'q5a' },
+        { label: '很在意，我希望作品長期存在',      key: 'q5b' },
+        { label: '可以接受抽成留架',               key: 'q5c' },
+        { label: '不想每首歌都另外付 Legacy 費用', key: 'q5d' }
+      ]
+    },
+    {
+      id: 'q6', multi: true,
+      text: '你現在的發行管理狀態？',
+      options: [
+        { label: '只是想先把歌發出去',                             key: 'q6a' },
+        { label: '有整理基本資料',                                 key: 'q6b' },
+        { label: '有版本命名、創作紀錄、音訊檢查',                 key: 'q6c' },
+        { label: '想建立完整 catalog / payout / royalty 管理流程', key: 'q6d' }
+      ]
+    },
+    {
+      id: 'q7', multi: false,
+      text: '你目前的預算偏好？',
+      options: [
+        { label: '最低 upfront cost',             key: 'q7a' },
+        { label: '年費可以接受',                   key: 'q7b' },
+        { label: '單曲／專輯一次性付費可以接受',   key: 'q7c' },
+        { label: '願意為長期管理與系統化多付一點', key: 'q7d' }
+      ]
+    }
+  ];
+
+
+  /* ===========================
+     DATA: RESULTS
+  =========================== */
+  const results = {
+    r1: {
+      title:     '便宜快速測試型',
+      platforms: 'DistroKid / RouteNote',
+      why:       '你目前比較適合先用低門檻方式把作品推出去測市場。你的重點不是建立完整發行系統，而是先驗證作品反應、上架流程與聽眾回饋。',
+      risk:      'DistroKid 表面年費低，但 Content ID、Social Media Pack、Leave a Legacy、翻唱授權、Dolby Atmos 等可能變成額外成本。RouteNote Free 可以降低前期成本，但會以收入分潤交換。'
+    },
+    r2: {
+      title:     '正式合規型',
+      platforms: 'TuneCore',
+      why:       '你比較適合走正式、文件完整、資料清楚的發行路線。你願意整理 AI 工具來源、授權資料、創作紀錄與作品資訊，比起只追求最低價格，你更重視合規與可追溯性。',
+      risk:      '這類路線適合願意整理資料的人。正式發行前，仍要確認平台對 AI-assisted 或 AI-generated 音樂的最新政策。'
+    },
+    r3: {
+      title:     '零成本市場測試型',
+      platforms: 'RouteNote Free',
+      why:       '你目前最適合先用低成本方式測試市場反應。這條路線適合還不確定作品方向、受眾反應或發行節奏的人。',
+      risk:      'RouteNote Free 的優點是 upfront cost 低，但會以收入分潤交換。它適合測試，不一定適合追求最大收益或完整商業化。'
+    },
+    r4: {
+      title:     '停止續費後仍想留架型',
+      platforms: 'LANDR / RouteNote / Amuse / CD Baby / Too Lost',
+      why:       '你重視作品長期存在，不希望停止續費後作品直接消失。這代表你開始把音樂視為 catalog，而不只是一次性發佈。',
+      risk:      '不同平台的留架方式不同。LANDR 取消後可留架但抽成；RouteNote 可維持 Free；Amuse 取消或降級後可能抽成；DistroKid 則需要加購 Leave a Legacy；Too Lost 停止訂閱後也有抽成留架邏輯。正式選擇前要把長期成本算進去。'
+    },
+    r5: {
+      title:     '英文 AI 音樂／低頻發行型',
+      platforms: 'LANDR',
+      why:       '如果你主要做英文 AI 音樂、發行量不高、每月不超過 12 首，且重視低年費與停止續費後留架，LANDR 類型的發行路線可能適合你。',
+      risk:      'LANDR 對 AI-generated songs 有每月數量限制，而且中文標題不適合作 Apple Music 主力策略。AI-generated songs 在部分 Content ID / 社群平台變現上也有限制，不能只看能不能上架。'
+    },
+    r6: {
+      title:     '系統化 Catalog 管理型',
+      platforms: 'Too Lost',
+      why:       '你不是只想發幾首歌，而是想把音樂作品做成 catalog、流程管理、發行資料、收益、payout 與長期資產。你比較適合觀察系統型發行後台，而不是只看單次上架費用。',
+      risk:      'Too Lost 具備 catalog、release、royalty、payout、analytics、API 等系統化特徵，但 AI-generated content 仍需要 QC，也可能被發行商或 DSP 拒收。AI-generated 或 AI-assisted elements 不應被視為一定符合 YouTube Content ID eligibility。'
+    },
+    r7: {
+      title:     'Content ID / UGC 變現型',
+      platforms: 'TuneCore / UnitedMasters / DistroKid / Too Lost',
+      why:       '你很在意 YouTube、TikTok、Instagram、Facebook 等平台上的音樂辨識、使用追蹤與可能收益。這條路線的核心不是只看能不能上架，而是看作品是否符合 Content ID / UGC 變現條件。',
+      risk:      '不能只看平台有沒有 Content ID 功能，還要看 AI 音樂是否符合 eligibility、是否要加購、抽成比例、平台支援範圍，以及 non-exclusive loops、samples、AI-generated elements 是否會影響資格。'
+    }
+  };
+
+
+  /* ===========================
+     DATA: SCORE MAPPING
+     每個 answer key → 對各結果的加分
+     複選題每個已選 key 各自跑一次
+  =========================== */
+  const scoreMap = {
+    // Q1 單選
+    q1a: { r5: 1, r2: 1 },
+    q1b: { r5: 1, r2: 1, r4: 1 },
+    q1c: { r6: 3, r1: 1 },
+    q1d: { r3: 2, r1: 1 },
+
+    // Q2 複選
+    q2a: { r1: 3, r3: 1 },
+    q2b: { r2: 4 },
+    q2c: { r4: 3, r5: 1, r6: 1 },
+    q2d: { r6: 6 },
+    q2e: { r7: 4, r2: 1 },
+
+    // Q3 單選
+    q3a: { r2: 1, r5: 1 },
+    q3b: { r2: 2, r5: 1, r6: 1 },
+    q3c: { r2: 1, r6: 1 },
+    q3d: { r2: 1 },
+    q3e: { r5: 4 },
+
+    // Q4 複選
+    q4a: { r1: 2 },
+    q4b: { r2: 1, r4: 1 },
+    q4c: { r7: 3 },
+    q4d: { r7: 1 },
+
+    // Q5 複選
+    q5a: { r1: 1, r3: 1 },
+    q5b: { r4: 3, r5: 1, r6: 1 },
+    q5c: { r4: 3, r5: 1, r3: 1, r6: 1 },
+    q5d: { r4: 2, r1: -1 },
+
+    // Q6 複選
+    q6a: { r1: 2 },
+    q6b: { r2: 1, r3: 1 },
+    q6c: { r2: 2, r5: 1 },
+    q6d: { r6: 6 },
+
+    // Q7 單選
+    q7a: { r3: 2, r1: 1 },
+    q7b: { r1: 1, r5: 1, r2: 1 },
+    q7c: { r4: 1, r2: 1, r5: 1 },
+    q7d: { r6: 4, r2: 1 }
+  };
+
+
+  /* ===========================
+     DATA: SPECIAL NOTICES
+     觸發 key → notice 內容
+     單選題：answers[qIdx] === triggerKey
+     複選題：answers[qIdx] 陣列 includes triggerKey
+  =========================== */
+  const specialNotices = {
+    q3c: {
+      label: 'AI 內容提醒',
+      text:  '高比例 AI-generated 作品更需要整理創作來源、工具使用紀錄、授權依據與人工參與證明。部分平台或 DSP 可能要求 QC，也可能拒收或限制 Content ID / UGC 變現。'
+    },
+    q3d: {
+      label: '華語作品提醒',
+      text:  '如果你很重視 Apple Music，需特別注意不同平台對中文標題、華語作品與 DSP 支援的限制。不要只看平台能不能上架，要確認目標平台是否完整支援你的作品語言與標題格式。'
+    },
+    q4c: {
+      label: 'Content ID 提醒',
+      text:  'AI 音樂不應預設一定能做 Content ID 或 UGC 變現。請確認平台 eligibility、加購費用、抽成比例、是否支援 AI-assisted / AI-generated 內容，以及是否使用 non-exclusive loops / samples。'
+    }
+  };
+
+
+  /* ===========================
+     DATA: TIEBREAKER ORDER
+  =========================== */
+  const tiebreakerOrder = ['r6', 'r2', 'r7', 'r4', 'r5', 'r1', 'r3'];
+
+
+  /* ===========================
+     STATE
+     answers[qIndex]:
+       單選題 → string (answerKey) | undefined
+       複選題 → string[]
+  =========================== */
+  let currentQ = 0;
+  let answers  = {};
+
+
+  /* ===========================
+     HELPERS
+  =========================== */
+
+  /** 統一取得某題已選 key 的陣列 */
+  function getSelectedKeys(qIdx) {
+    const q   = questions[qIdx];
+    const ans = answers[qIdx];
+    if (ans === undefined || ans === null) return [];
+    if (q.multi) return Array.isArray(ans) ? ans : [];
+    return typeof ans === 'string' ? [ans] : [];
+  }
+
+  /** 是否已有至少 1 個選擇 */
+  function hasAnswer(qIdx) {
+    return getSelectedKeys(qIdx).length > 0;
+  }
+
+
+  /* ===========================
+     NAVIGATION
+  =========================== */
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function startQuiz() {
+    currentQ = 0;
+    answers  = {};
+    showScreen('screen-quiz');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q     = questions[currentQ];
+    const total = questions.length;
+
+    // 進度
+    document.getElementById('progress-num').textContent  = `${currentQ + 1} / ${total}`;
+    document.getElementById('progress-fill').style.width = `${(currentQ / total) * 100}%`;
+
+    // 題目文字
+    document.getElementById('q-label').textContent = `Q${currentQ + 1}`;
+    document.getElementById('q-text').textContent  = q.text;
+
+    // 複選提示
+    document.getElementById('q-multi-hint').style.display = q.multi ? '' : 'none';
+
+    // 隱藏上限提示
+    document.getElementById('multi-limit-msg').classList.remove('visible');
+
+    // 動畫
+    const card = document.getElementById('q-card');
+    card.classList.remove('q-slide');
+    void card.offsetWidth;
+    card.classList.add('q-slide');
+
+    // 渲染選項
+    renderOptions();
+
+    // 按鈕狀態
+    document.getElementById('btn-back').disabled    = currentQ === 0;
+    document.getElementById('btn-next').disabled    = !hasAnswer(currentQ);
+    document.getElementById('btn-next').textContent = currentQ === total - 1 ? '查看結果 →' : '繼續';
+  }
+
+  /** 渲染選項按鈕（含已選狀態還原、dimmed 狀態） */
+  function renderOptions() {
+    const q            = questions[currentQ];
+    const selectedKeys = getSelectedKeys(currentQ);
+    const atMax        = q.multi && selectedKeys.length >= MULTI_MAX;
+
+    const list = document.getElementById('options-list');
+    list.innerHTML = '';
+
+    q.options.forEach(opt => {
+      const isSelected = selectedKeys.includes(opt.key);
+      const isDimmed   = q.multi && atMax && !isSelected;
+
+      const btn = document.createElement('button');
+      btn.className = [
+        'opt-btn',
+        q.multi    ? 'is-multi' : '',
+        isSelected ? 'selected' : '',
+        isDimmed   ? 'dimmed'   : ''
+      ].filter(Boolean).join(' ');
+
+      btn.innerHTML = `
+        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+        <div class="opt-text">${opt.label}</div>
+      `;
+
+      btn.addEventListener('click', () => {
+        if (q.multi) toggleMulti(opt.key);
+        else         selectSingle(opt.key);
+      });
+
+      list.appendChild(btn);
+    });
+  }
+
+  /** 單選：直接覆寫，清除其他 */
+  function selectSingle(key) {
+    answers[currentQ] = key;
+    renderOptions();
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  /** 複選：切換，最多 MULTI_MAX 項 */
+  function toggleMulti(key) {
+    let selected = Array.isArray(answers[currentQ]) ? [...answers[currentQ]] : [];
+    const idx    = selected.indexOf(key);
+
+    if (idx > -1) {
+      // 已選 → 取消
+      selected.splice(idx, 1);
+      document.getElementById('multi-limit-msg').classList.remove('visible');
+    } else {
+      if (selected.length >= MULTI_MAX) {
+        // 超過上限 → 顯示提示，不新增
+        document.getElementById('multi-limit-msg').classList.add('visible');
+        return;
+      }
+      selected.push(key);
+      document.getElementById('multi-limit-msg').classList.remove('visible');
+    }
+
+    answers[currentQ] = selected;
+    renderOptions();
+    document.getElementById('btn-next').disabled = selected.length === 0;
+  }
+
+  function nextQuestion() {
+    if (!hasAnswer(currentQ)) return;
+    if (currentQ < questions.length - 1) {
+      currentQ++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQ > 0) {
+      currentQ--;
+      renderQuestion();
+    }
+  }
+
+  function restartQuiz() {
+    currentQ = 0;
+    answers  = {};
+
+    // 清空 affiliate 區塊
+    const affEl = document.getElementById('affiliate-buttons');
+    if (affEl) affEl.innerHTML = '';
+
+    // 重置 CTA
+    const emailInput = document.getElementById('cta-email');
+    const submitBtn  = document.querySelector('.cta-submit-btn');
+    const feedback   = document.getElementById('cta-feedback');
+    if (emailInput) { emailInput.value = ''; emailInput.disabled = false; }
+    if (submitBtn)  {
+      submitBtn.disabled    = false;
+      submitBtn.textContent = '寄送比較表給我';
+      submitBtn.style.background = '';
+      submitBtn.style.color      = '';
+    }
+    if (feedback) { feedback.classList.remove('visible'); feedback.textContent = ''; }
+
+    showScreen('screen-landing');
+  }
+
+
+  /* ===========================
+     SCORING
+  =========================== */
+
+  /** 計算分數：複選題每個已選 key 各自加分 */
+  function calculateScores() {
+    const scores = { r1: 0, r2: 0, r3: 0, r4: 0, r5: 0, r6: 0, r7: 0 };
+
+    questions.forEach((_, qIdx) => {
+      getSelectedKeys(qIdx).forEach(ansKey => {
+        const deltas = scoreMap[ansKey];
+        if (!deltas) return;
+        Object.entries(deltas).forEach(([rKey, delta]) => {
+          if (rKey in scores) scores[rKey] = Math.max(0, scores[rKey] + delta);
+        });
+      });
+    });
+
+    return scores;
+  }
+
+  /** 取最高分，平手依 tiebreaker */
+  function getTopResult(scores) {
+    const maxScore = Math.max(...Object.values(scores));
+    const tied     = Object.keys(scores).filter(k => scores[k] === maxScore);
+    if (tied.length === 1) return tied[0];
+    for (const r of tiebreakerOrder) {
+      if (tied.includes(r)) return r;
+    }
+    return tied[0];
+  }
+
+  /** 顯示結果頁 */
+  function showResult() {
+    const scores = calculateScores();
+    const topKey = getTopResult(scores);
+    const data   = results[topKey];
+
+    document.getElementById('result-title').textContent   = data.title;
+    document.getElementById('result-platforms').innerHTML =
+      `可能適合的平台：<span class="platform-name">${data.platforms}</span>`;
+    document.getElementById('result-why').textContent  = data.why;
+    document.getElementById('result-risk').textContent = data.risk;
+
+    // Special notices
+    // 用 getSelectedKeys() 統一處理單選與複選
+    const noticesEl = document.getElementById('special-notices');
+    noticesEl.innerHTML = '';
+
+    Object.entries(specialNotices).forEach(([triggerKey, notice]) => {
+      // triggerKey 格式 'q3c'：第 2 字元是題號（1-based）
+      const qIdx         = parseInt(triggerKey[1], 10) - 1;
+      const selectedKeys = getSelectedKeys(qIdx);
+
+      if (selectedKeys.includes(triggerKey)) {
+        const el = document.createElement('div');
+        el.className = 'notice-card';
+        el.innerHTML = `
+          <div class="notice-label">◈ ${notice.label}</div>
+          <div class="notice-body">${notice.text}</div>
+        `;
+        noticesEl.appendChild(el);
+      }
+    });
+
+    showScreen('screen-result');
+    renderAffiliateButtons(topKey);
+  }
+
+
+  /* ===========================
+     AFFILIATE LINKS
+     ★ 換成你自己的 affiliate URL 後即生效
+  =========================== */
+  // Email capture uses the local Vercel function: /api/subscribe
+
+  const affiliateLinks = {
+    LANDR:     "https://join.landr.com/referral/landr-studio/?utm_campaign=sales_platform_en_intl_1stpromoter&utm_medium=paid_referral&utm_source=landr&fpr=min-fang83",
+    DISTROKID: "https://distrokid.com/vip/seven/12579198",
+    ROUTENOTE: "https://www.routenote.com/rn/referral/2fc4fe41"
+  };
+
+  const infoLinks = {
+    LANDR:     "https://www.landr.com",
+    DISTROKID: "https://distrokid.com",
+    ROUTENOTE: "https://www.routenote.com"
+  };
+
+  // 每個結果固定 2 張平台卡：primary（推薦優先）+ secondary（備選方案）
+  const resultAffiliates = {
+    r1: [
+      { key: 'DISTROKID', label: 'DistroKid', role: 'primary'   },
+      { key: 'ROUTENOTE', label: 'RouteNote',  role: 'secondary' }
+    ],
+    r2: [
+      { key: 'LANDR',     label: 'LANDR',     role: 'primary'   },
+      { key: 'DISTROKID', label: 'DistroKid', role: 'secondary' }
+    ],
+    r3: [
+      { key: 'ROUTENOTE', label: 'RouteNote', role: 'primary'   },
+      { key: 'DISTROKID', label: 'DistroKid', role: 'secondary' }
+    ],
+    r4: [
+      { key: 'LANDR',     label: 'LANDR',     role: 'primary'   },
+      { key: 'ROUTENOTE', label: 'RouteNote', role: 'secondary' }
+    ],
+    r5: [
+      { key: 'LANDR',     label: 'LANDR',     role: 'primary'   },
+      { key: 'DISTROKID', label: 'DistroKid', role: 'secondary' }
+    ],
+    r6: [
+      { key: 'LANDR',     label: 'LANDR',     role: 'primary'   },
+      { key: 'DISTROKID', label: 'DistroKid', role: 'secondary' }
+    ],
+    r7: [
+      { key: 'DISTROKID', label: 'DistroKid', role: 'primary'   },
+      { key: 'LANDR',     label: 'LANDR',     role: 'secondary' }
+    ]
+  };
+
+  /** 開啟 affiliate 推薦連結並記錄點擊 */
+  function goAffiliate(platform) {
+    console.log("AFF_CLICK:", platform);
+    const url = affiliateLinks[platform];
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  /** 開啟平台一般介紹頁 / 官網並記錄點擊 */
+  function goInfo(platform) {
+    console.log("INFO_CLICK:", platform);
+    const url = infoLinks[platform];
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function getAffiliateCardMeta(role) {
+    if (role === 'primary') {
+      return {
+        kicker: '推薦優先',
+        benefits: [
+          '可能取得新用戶優惠',
+          '不會因此多付費',
+          '支持本工具持續更新'
+        ]
+      };
+    }
+    return {
+      kicker: '備選方案',
+      benefits: [
+        '多一個比較選項',
+        '適合不同預算或發行需求',
+        '實際優惠以平台顯示為準'
+      ]
+    };
+  }
+
+  /** 注入推薦平台連結區塊：每個平台有主要推薦連結 + 次要了解平台 */
+  function renderAffiliateButtons(resultKey) {
+    const container = document.getElementById('affiliate-buttons');
+    const cards     = resultAffiliates[resultKey] || [];
+    if (!cards.length) { container.innerHTML = ''; return; }
+
+    container.innerHTML = `
+      <div class="aff-block">
+        <div class="aff-panel">
+          <div class="aff-heading">
+            <div class="aff-title">推薦平台連結</div>
+            <div class="aff-desc">
+              你可以先了解平台差異，再決定是否使用推薦連結註冊。使用推薦連結通常可以獲得平台提供的新用戶優惠、折扣或推薦獎勵；實際優惠以平台頁面顯示為準。你不會因此多付費，部分平台也會提供我推薦獎勵，支持我持續整理這類免費工具與比較資料。
+            </div>
+          </div>
+          <div class="aff-cards">
+            ${cards.map(card => {
+              const meta = getAffiliateCardMeta(card.role);
+              return `
+                <div class="aff-card ${card.role}">
+                  <div class="aff-kicker">${meta.kicker}</div>
+                  <div class="aff-platform">${card.label}</div>
+                  <ul class="aff-benefits">
+                    ${meta.benefits.map(item => `<li>${item}</li>`).join('')}
+                  </ul>
+                  <div class="aff-actions">
+                    <button class="aff-btn primary" onclick="goAffiliate('${card.key}')">
+                      使用推薦連結 →
+                    </button>
+                    <button class="aff-btn secondary" onclick="goInfo('${card.key}')">
+                      先了解平台
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+
+  /* ===========================
+     CTA EMAIL → Google Apps Script
+  =========================== */
+  async function handleCtaSubmit() {
+    const input    = document.getElementById('cta-email');
+    const feedback = document.getElementById('cta-feedback');
+    const btn      = document.querySelector('.cta-submit-btn');
+    const val      = (input.value || '').trim();
+
+    // Email 格式驗證
+    if (!val || !val.includes('@') || !val.includes('.')) {
+      input.focus();
+      input.style.borderColor = 'var(--warn-bdr)';
+      setTimeout(() => { input.style.borderColor = ''; }, 1800);
+      return;
+    }
+
+    // 收集結果資訊
+    const payload = {
+      email:       val,
+      result_type: document.getElementById('result-title').textContent    || "",
+      platform:    document.getElementById('result-platforms').textContent || "",
+      source:      "music-distributor-quiz"
+    };
+
+    // 本機 log + localStorage
+    console.log("EMAIL_CAPTURED:", payload);
+    try { localStorage.setItem('lead_email', val); } catch(e) {}
+
+    // 送出前先 disable，防止重複送出
+    btn.disabled         = true;
+    btn.textContent      = '送出中…';
+    btn.style.background = 'rgba(255,255,255,0.08)';
+    btn.style.color      = 'var(--txt-med)';
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || data.status === 'error') {
+        throw new Error(data.message || 'subscribe failed');
+      }
+
+      feedback.textContent = data.status === 'duplicate'
+        ? '你已經登記過了，之後會優先收到完整比較表。'
+        : '已登記成功，完整比較表將在正式開放時優先寄送給你。';
+      feedback.classList.add('visible');
+
+      input.value    = '';
+      input.disabled = true;
+      btn.textContent = '已收到 ✓';
+    } catch(e) {
+      console.warn('subscribe error:', e);
+      feedback.textContent = '送出時發生問題，請稍後再試，或回主站使用訂閱表單。';
+      feedback.classList.add('visible');
+      btn.disabled         = false;
+      btn.textContent      = '再試一次';
+      btn.style.background = '';
+      btn.style.color      = '';
+    }
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="zh-TW" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaola Yuzu — 純素旅遊・居家生活・省錢技巧・音樂</title>
+<meta name="description" content="Kaola Yuzu — 旅遊・生活・音樂的母品牌官網">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   KAOLA YUZU V1.2 — CSS unchanged from V1.1 + functional additions
+   ============================================================ */
+:root {
+  --forest:   #1E2F23;
+  --yuzu:     #D9A04B;
+  --cream:    #F9F6F0;
+  --sage:     #8BA68E;
+  --earth:    #A68B7C;
+  --charcoal: #2D2D2D;
+  --mist:     #EBE7DF;
+  --white:    #FFFFFF;
+  --error:    #c0392b;
+  --success:  #27ae60;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+  --nav-h: 80px;
+  --max-w: 1200px;
+  --r: 2px;
+  --trans: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); font-size: 17px; line-height: 1.7; color: var(--charcoal); background: var(--cream); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+h1,h2,h3,h4 { font-family: var(--serif); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.1rem; font-style: italic; }
+p { color: rgba(45,45,45,0.78); }
+.label { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); display: inline-block; }
+.italic { font-style: italic; font-family: var(--serif); }
+a { color: inherit; text-decoration: none; transition: color var(--trans); }
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
+.section { padding: 120px 0; }
+.section--sm { padding: 60px 0; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+.flex { display: flex; align-items: center; gap: 16px; }
+.flex-sb { display: flex; align-items: center; justify-content: space-between; }
+.text-center { text-align: center; }
+.mt-16{margin-top:16px}.mt-24{margin-top:24px}.mt-48{margin-top:48px}
+.mb-16{margin-bottom:16px}.mb-24{margin-bottom:24px}.mb-48{margin-bottom:48px}
+
+/* Buttons */
+.btn { display: inline-block; padding: 15px 36px; font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all var(--trans); border: 1px solid transparent; text-align: center; }
+.btn-primary { background: var(--forest); color: var(--white); }
+.btn-primary:hover { background: #111c14; transform: translateY(-2px); }
+.btn-outline { background: transparent; color: var(--forest); border-color: var(--forest); }
+.btn-outline:hover { background: var(--forest); color: var(--white); }
+.btn-yuzu { background: var(--yuzu); color: var(--white); border-color: var(--yuzu); }
+.btn-yuzu:hover { background: #c08a38; }
+.btn-white { background: var(--white); color: var(--charcoal); border-color: var(--white); }
+.btn-link { display: inline-block; font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--forest); position: relative; padding-bottom: 4px; cursor: pointer; }
+.btn-link::after { content: ''; display: block; width: 100%; height: 1px; background: var(--yuzu); margin-top: 2px; transition: width var(--trans); }
+.btn-link:hover::after { width: 55%; }
+.btn-link--light { color: rgba(255,255,255,0.8); }
+.btn-link--light::after { background: var(--yuzu); }
+
+/* Navigation */
+.nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: transparent; z-index: 1000; transition: all var(--trans); }
+.nav.scrolled { background: rgba(249,246,240,0.92); backdrop-filter: blur(12px); height: 68px; border-bottom: 1px solid var(--mist); }
+.nav__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav__logo { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; color: var(--forest); cursor: pointer; }
+.nav__logo span { color: var(--yuzu); font-style: italic; font-weight: 400; }
+.nav__links { display: flex; list-style: none; gap: 36px; }
+.nav__links a { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); opacity: 0.55; transition: all var(--trans); }
+.nav__links a:hover, .nav__links a.active { opacity: 1; color: var(--forest); }
+.nav__lang { display: flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; border: 1px solid var(--mist); border-radius: 2px; padding: 6px 12px; cursor: pointer; transition: all var(--trans); color: var(--charcoal); opacity: 0.7; background: none; }
+.nav__lang:hover { opacity: 1; border-color: var(--sage); }
+.nav__lang .active-lang { color: var(--sage); }
+.nav__actions { display: flex; align-items: center; gap: 12px; }
+.nav__cta { padding: 10px 22px; font-size: 0.68rem; }
+.nav__burger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 6px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+.nav__burger span { display: block; width: 22px; height: 1px; background: var(--forest); transition: all var(--trans); }
+.nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__burger.open span:nth-child(2) { opacity: 0; }
+.nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile overlay + drawer */
+.nav__overlay { position: fixed; inset: 0; background: rgba(0,0,0,0); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.4s ease; pointer-events: none; }
+.nav__overlay.open { background: rgba(0,0,0,0.3); opacity: 1; visibility: visible; pointer-events: auto; }
+.nav__mobile { position: fixed; top: 0; right: -100%; width: 80%; max-width: 340px; height: 100vh; background: var(--white); z-index: 1001; padding: 88px 40px 60px; display: flex; flex-direction: column; gap: 24px; transition: right 0.4s cubic-bezier(0.23,1,0.32,1); box-shadow: -20px 0 60px rgba(0,0,0,0.06); overflow-y: auto; }
+.nav__mobile.open { right: 0; }
+.nav__mobile a { font-family: var(--serif); font-size: 2rem; color: var(--forest); min-height: 44px; display: flex; align-items: center; }
+.nav__mobile a:active { opacity: 0.5; }
+.nav__mobile-lang { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--mist); display: flex; gap: 16px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; }
+.nav__mobile-lang span { cursor: pointer; opacity: 0.5; padding: 8px 0; }
+.nav__mobile-lang span.active { opacity: 1; color: var(--sage); }
+body.menu-open { overflow: hidden; }
+.page-content { padding-top: 0; }
+
+/* Pages */
+.page { display: none; opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.page.active { display: block; opacity: 1; transform: translateY(0); }
+
+/* Hero */
+.hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--nav-h); position: relative; overflow: hidden; }
+.hero__grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; width: 100%; }
+.hero__eyebrow { margin-bottom: 24px; }
+.hero__title { margin-bottom: 28px; }
+.hero__title .highlight { color: var(--yuzu); font-style: italic; display: block; }
+.hero__desc { font-size: 1.15rem; max-width: 480px; margin-bottom: 40px; line-height: 1.8; }
+.hero__actions { display: flex; gap: 20px; flex-wrap: wrap; }
+.hero__visual { position: relative; height: 72vh; }
+.hero__img-container { width: 100%; height: 100%; position: relative; overflow: hidden; clip-path: polygon(8% 0, 100% 0, 100% 92%, 92% 100%, 0 100%, 0 8%); background: linear-gradient(150deg, var(--forest) 0%, var(--sage) 100%); }
+.hero__img-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2); font-family: var(--serif); font-style: italic; font-size: 1.1rem; pointer-events: none; user-select: none; }
+.hero__floating-label { position: absolute; bottom: 40px; left: -32px; background: var(--white); padding: 28px 32px; border: 1px solid var(--mist); max-width: 230px; box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+.hero__floating-label .number { font-family: var(--serif); font-size: 2.8rem; color: var(--yuzu); display: block; line-height: 1; margin-bottom: 8px; }
+.hero__floating-label p { font-size: 0.84rem; }
+
+/* Pillars */
+.pillars { background: var(--white); border-top: 1px solid var(--mist); }
+.pillar-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--mist); margin-top: 64px; }
+.pillar-card { padding: 56px 40px; background: var(--white); cursor: pointer; transition: all var(--trans); }
+.pillar-card:hover { background: var(--cream); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.06); }
+.pillar-card .pillar-num { color: var(--yuzu); margin-bottom: 20px; font-size: 0.7rem; }
+.pillar-card h3 { margin: 12px 0 16px; font-size: 1.5rem; }
+.pillar-card p { font-size: 0.94rem; margin-bottom: 28px; }
+
+/* Posts list */
+.posts-list { display: flex; flex-direction: column; gap: 0; }
+.post-row { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; padding: 64px 0; border-bottom: 1px solid var(--mist); cursor: pointer; transition: all var(--trans); }
+.post-row:first-child { border-top: 1px solid var(--mist); }
+.post-row:hover .post-row__title { color: var(--yuzu); }
+.post-row__thumb { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.post-row:nth-child(2) .post-row__thumb { background: linear-gradient(135deg, #c4d8c6, #7a9e7e); }
+.post-row:nth-child(3) .post-row__thumb { background: linear-gradient(135deg, #f2e0cc, #D9A04B); }
+.post-row__cat { font-family: var(--mono); font-size: 0.68rem; color: var(--yuzu); display: block; margin-bottom: 12px; letter-spacing: 0.08em; }
+.post-row__title { font-family: var(--serif); font-size: 1.6rem; line-height: 1.25; margin-bottom: 16px; transition: color var(--trans); }
+.post-row__excerpt { font-size: 0.92rem; line-height: 1.7; margin-bottom: 24px; }
+
+/* Reels */
+.reels-row { background: var(--cream); padding: 100px 0; }
+.reels-scroll { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; margin-top: 40px; -webkit-overflow-scrolling: touch; }
+.reels-scroll::-webkit-scrollbar { display: none; }
+.reel-item { flex-shrink: 0; width: 156px; height: 276px; border-radius: 4px; overflow: hidden; position: relative; cursor: pointer; transition: transform var(--trans); background: linear-gradient(160deg, var(--forest), #2d6b35); }
+.reel-item:nth-child(even) { background: linear-gradient(160deg, #704a30, var(--earth)); }
+.reel-item:nth-child(3n) { background: linear-gradient(160deg, #3a4d6b, #5a7ea0); }
+.reel-item:hover { transform: scale(1.04); }
+.reel-play { position: absolute; bottom: 14px; left: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--charcoal); }
+.reel-caption { position: absolute; bottom: 50px; left: 12px; right: 12px; font-size: 0.72rem; color: rgba(255,255,255,0.8); line-height: 1.35; }
+
+/* Music strip */
+.music-strip { background: var(--forest); color: var(--white); padding: 100px 0; }
+.music-strip__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.music-strip h2 { color: var(--white); margin: 12px 0 16px; }
+.platform-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.platform-btn { padding: 8px 16px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); cursor: pointer; transition: all var(--trans); text-transform: uppercase; text-decoration: none; display: inline-block; }
+.platform-btn:hover { border-color: var(--yuzu); color: var(--yuzu); }
+.music-card-mini { display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: background var(--trans); margin-bottom: 12px; text-decoration: none; }
+.music-card-mini:hover { background: rgba(255,255,255,0.1); }
+.music-card-mini__cover { width: 52px; height: 52px; flex-shrink: 0; background: linear-gradient(135deg, var(--yuzu), var(--earth)); }
+.music-card-mini:last-child .music-card-mini__cover { background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.music-card-mini__info h4 { font-family: var(--sans); font-style: normal; color: var(--white); font-size: 0.92rem; font-weight: 500; margin-bottom: 2px; }
+.music-card-mini__info p { font-size: 0.76rem; color: rgba(255,255,255,0.45); margin: 0; }
+
+/* CTA band + subscribe band */
+.cta-band { background: var(--yuzu); padding: 80px 0; text-align: center; }
+.cta-band h2 { color: var(--white); margin-bottom: 14px; }
+.cta-band p { color: rgba(255,255,255,0.82); margin-bottom: 32px; font-size: 1.05rem; }
+.subscribe-band { padding: 100px 0; text-align: center; background: var(--white); }
+.subscribe-band h2 { margin-bottom: 12px; }
+.subscribe-band > .wrap > p { max-width: 480px; margin: 0 auto 36px; }
+.subscribe-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto; }
+.subscribe-form input { flex: 1; padding: 14px 20px; border: 1px solid var(--mist); border-right: none; font-family: var(--sans); font-size: 0.9rem; background: var(--white); outline: none; transition: border-color var(--trans); }
+.subscribe-form input:focus { border-color: var(--sage); }
+.subscribe-form .btn { border-radius: 0; white-space: nowrap; }
+.subscribe-note { font-size: 0.72rem; color: #bbb; margin-top: 12px; }
+
+/* Blog */
+.blog-hero { background: var(--white); padding: 140px 0 60px; border-bottom: 1px solid var(--mist); }
+.blog-cats { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
+.blog-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; cursor: pointer; transition: opacity var(--trans); padding-bottom: 4px; border-bottom: 1px solid transparent; min-height: 44px; display: flex; align-items: center; }
+.blog-cat:hover, .blog-cat.active { opacity: 1; color: var(--forest); border-color: var(--yuzu); }
+.blog-main { padding: 80px 0; }
+.blog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 64px; }
+.blog-post-item { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 40px; align-items: center; padding: 48px 0; border-bottom: 1px solid var(--mist); cursor: pointer; }
+.blog-post-item:first-child { border-top: 1px solid var(--mist); }
+.blog-post-item:hover h3 { color: var(--yuzu); }
+.blog-post-item__thumb { aspect-ratio: 4/3; background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.blog-post-item:nth-child(2) .blog-post-item__thumb { background: linear-gradient(135deg, #c4d8c6, #7a9e7e); }
+.blog-post-item:nth-child(3) .blog-post-item__thumb { background: linear-gradient(135deg, #f2e0cc, #D9A04B); }
+.blog-post-item__cat { font-family: var(--mono); font-size: 0.68rem; color: var(--yuzu); display: block; margin-bottom: 10px; }
+.blog-post-item__title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 12px; transition: color var(--trans); }
+.blog-post-item__meta { font-size: 0.73rem; color: #aaa; font-family: var(--mono); margin-top: 14px; }
+.sidebar { display: flex; flex-direction: column; gap: 32px; }
+.sidebar-widget { border: 1px solid var(--mist); padding: 28px; background: var(--white); }
+.sidebar-widget h4 { font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--forest); margin-bottom: 20px; }
+.sidebar-form input { width: 100%; padding: 11px 14px; border: 1px solid var(--mist); font-family: var(--sans); font-size: 0.86rem; margin-bottom: 10px; outline: none; }
+.sidebar-form input:focus { border-color: var(--sage); }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { padding: 5px 12px; background: var(--cream); font-size: 0.76rem; cursor: pointer; transition: background var(--trans); }
+.tag:hover { background: var(--mist); }
+
+/* Post */
+.post-hero { background: var(--cream); padding: 120px 0 0; }
+.post-hero__meta { font-family: var(--mono); font-size: 0.72rem; color: var(--yuzu); margin-bottom: 20px; letter-spacing: 0.08em; }
+.post-hero__title { max-width: 760px; margin-bottom: 24px; }
+.post-hero__excerpt { max-width: 620px; font-size: 1.08rem; color: #555; margin-bottom: 40px; }
+.post-hero__thumb { width: 100%; max-width: 900px; height: 440px; margin-top: 48px; background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.post-body-wrap { display: grid; grid-template-columns: 1fr 280px; gap: 80px; padding: 80px 0; }
+.post-body h2 { font-size: 1.8rem; margin: 48px 0 20px; }
+.post-body h3 { font-size: 1.3rem; margin: 36px 0 14px; }
+.post-body p { margin-bottom: 22px; line-height: 1.8; }
+.post-body ul { margin: 16px 0 22px 22px; }
+.post-body li { margin-bottom: 8px; color: rgba(45,45,45,0.8); }
+.affiliate-box { background: var(--cream); border-left: 3px solid var(--yuzu); padding: 20px 24px; margin: 32px 0; }
+.affiliate-box .label { margin-bottom: 6px; }
+.affiliate-box p { margin: 0; font-size: 0.9rem; }
+.post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--mist); }
+.disqus-box { margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--mist); }
+.disqus-placeholder { height: 100px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 0.84rem; color: #aaa; margin-top: 16px; }
+
+/* Music */
+.music-hero { background: var(--forest); color: var(--white); padding: 160px 0 80px; position: relative; overflow: hidden; }
+.music-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(217,160,75,0.12) 0%, transparent 70%); pointer-events: none; }
+.music-hero .label { color: var(--yuzu); }
+.music-hero h1 { color: var(--white); margin: 16px 0 20px; }
+.music-hero p { color: rgba(255,255,255,0.65); max-width: 560px; font-size: 1.05rem; margin-bottom: 32px; }
+.music-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; margin-top: 80px; }
+.album-card { cursor: pointer; transition: transform var(--trans); }
+.album-card:hover { transform: translateY(-4px); }
+.album-art { aspect-ratio: 1; background: linear-gradient(135deg, var(--yuzu), var(--earth)); margin-bottom: 20px; position: relative; overflow: hidden; box-shadow: 0 16px 40px rgba(0,0,0,0.12); transition: transform var(--trans); }
+.album-card:nth-child(2) .album-art { background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.album-card:nth-child(3) .album-art { background: linear-gradient(135deg, #5a7ea0, #3a4d6b); }
+.album-card:hover .album-art { transform: scale(1.02); }
+.album-info h3 { font-family: var(--sans); font-weight: 600; font-size: 1rem; margin-bottom: 4px; letter-spacing: 0; }
+.album-info p { font-family: var(--serif); font-style: italic; font-size: 0.95rem; }
+.streaming-links { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--mist); flex-wrap: wrap; }
+.streaming-links a { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--sage); }
+.streaming-links a:hover { color: var(--yuzu); }
+
+/* Custom Music */
+.cm-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
+.cm-split__info { padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; background: var(--cream); padding-top: calc(var(--nav-h) + 80px); }
+.cm-split__info .label { margin-bottom: 20px; }
+.cm-split__info h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); margin-bottom: 32px; }
+.cm-split__info h1 .italic { display: block; color: var(--yuzu); }
+.cm-split__info p { max-width: 420px; font-size: 1.05rem; margin-bottom: 40px; line-height: 1.8; }
+.cm-split__visual { background: linear-gradient(160deg, var(--forest) 0%, #1a3d22 100%); display: flex; align-items: flex-end; justify-content: flex-start; padding: 48px; position: relative; overflow: hidden; }
+.cm-split__visual::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 70%, rgba(217,160,75,0.15) 0%, transparent 60%); pointer-events: none; }
+.cm-split__visual-text { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: rgba(255,255,255,0.25); position: relative; z-index: 1; user-select: none; }
+.cm-body { padding: 120px 0; }
+.cm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.cm-features { display: flex; flex-direction: column; gap: 24px; }
+.cm-feature { display: flex; gap: 20px; padding: 28px; border: 1px solid var(--mist); background: var(--white); transition: all var(--trans); }
+.cm-feature:hover { border-color: var(--yuzu); transform: translateX(4px); }
+.cm-feature__icon { width: 44px; height: 44px; flex-shrink: 0; background: var(--forest); color: var(--yuzu); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.cm-feature h3 { font-family: var(--sans); font-style: normal; font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.cm-feature p { font-size: 0.88rem; }
+.cm-process { margin-top: 64px; }
+.process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--mist); margin-top: 40px; }
+.step { padding: 32px 24px; background: var(--white); }
+.step-num { font-family: var(--mono); font-size: 0.72rem; color: var(--yuzu); display: block; margin-bottom: 14px; letter-spacing: 0.1em; }
+.step h4 { font-family: var(--sans); font-weight: 600; font-style: normal; font-size: 0.95rem; margin-bottom: 10px; }
+.step p { font-size: 0.84rem; }
+.cm-form-card { background: var(--white); border: 1px solid var(--mist); padding: 40px; position: sticky; top: 100px; }
+.cm-form-card h3 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 28px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; color: var(--forest); }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--mist); font-family: var(--sans); font-size: 0.9rem; background: var(--white); outline: none; transition: border-color var(--trans); appearance: none; -webkit-appearance: none; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sage); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-note { font-size: 0.72rem; color: #bbb; margin-top: 10px; text-align: center; }
+
+/* Resources */
+.res-hero { background: var(--white); padding: 140px 0 60px; border-bottom: 1px solid var(--mist); }
+.res-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--mist); margin-top: 60px; }
+.res-card { background: var(--white); padding: 40px; }
+.res-card h3 { font-family: var(--sans); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; color: var(--forest); }
+.res-list { display: flex; flex-direction: column; gap: 1px; background: var(--mist); }
+.res-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--cream); font-size: 0.88rem; cursor: pointer; transition: background var(--trans); text-decoration: none; color: inherit; min-height: 48px; }
+.res-item:hover { background: var(--mist); }
+.res-badge { font-size: 0.62rem; font-family: var(--mono); padding: 3px 8px; background: var(--forest); color: var(--white); letter-spacing: 0.08em; flex-shrink: 0; }
+
+/* Subscribe page */
+.sub-page { min-height: calc(100vh - var(--nav-h)); background: var(--cream); display: flex; align-items: center; padding: 120px 0; }
+.sub-card { max-width: 560px; margin: 0 auto; background: var(--white); border: 1px solid var(--mist); padding: 64px 56px; text-align: center; }
+.sub-icon { font-size: 2.2rem; display: block; margin-bottom: 24px; }
+.sub-card h2 { margin-bottom: 14px; }
+.sub-card > p { max-width: 380px; margin: 0 auto 36px; color: rgba(45,45,45,0.65); }
+.sub-perks { text-align: left; display: flex; flex-direction: column; gap: 12px; margin: 28px 0; }
+.sub-perk { display: flex; gap: 12px; font-size: 0.88rem; align-items: flex-start; }
+.sub-perk::before { content: '—'; color: var(--yuzu); font-family: var(--serif); flex-shrink: 0; }
+
+/* About */
+.about-hero { padding: 140px 0 80px; background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.about-photo { aspect-ratio: 3/4; background: linear-gradient(160deg, var(--sage), var(--forest)); display: flex; align-items: flex-end; padding: 28px; }
+.about-photo__caption { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-style: italic; }
+.about-content .label { margin-bottom: 20px; }
+.about-content h1 { margin-bottom: 32px; }
+.about-content p { margin-bottom: 20px; font-size: 1rem; line-height: 1.8; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+.about-tag { padding: 6px 16px; border: 1px solid var(--mist); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* Sitemap */
+.sitemap-page { background: var(--cream); min-height: 100vh; padding: 120px 0; }
+.sitemap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1px; background: var(--mist); margin-top: 56px; }
+.sitemap-node { background: var(--white); padding: 28px 24px; }
+.sitemap-node--root { grid-column: 1/-1; background: var(--forest); color: var(--white); text-align: center; padding: 48px 24px; }
+.sitemap-node--root h3 { color: var(--white); font-size: 2rem; }
+.sitemap-node__url { font-family: var(--mono); font-size: 0.68rem; color: var(--sage); margin-top: 6px; }
+.sitemap-node--root .sitemap-node__url { color: rgba(255,255,255,0.4); }
+.sitemap-node h4 { font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; color: var(--forest); }
+.sitemap-node p { font-size: 0.82rem; color: #777; }
+.sitemap-badge { display: inline-block; font-size: 0.62rem; font-family: var(--mono); letter-spacing: 0.08em; padding: 3px 10px; margin-top: 10px; }
+.badge-must { background: #d4f0da; color: #1a5c2a; }
+.badge-opt  { background: #fde8cc; color: #8a4a0a; }
+.sitemap-children { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--mist); margin-top: 14px; }
+.sitemap-child { background: var(--cream); padding: 10px 12px; font-size: 0.76rem; }
+.sitemap-child strong { display: block; font-family: var(--mono); font-size: 0.66rem; color: var(--forest); margin-bottom: 2px; }
+
+/* Footer */
+.footer { padding: 100px 0 60px; background: var(--white); border-top: 1px solid var(--mist); }
+.footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; }
+.footer__logo { font-family: var(--serif); font-size: 1.8rem; font-weight: 600; margin-bottom: 16px; }
+.footer__logo span { color: var(--yuzu); font-style: italic; font-weight: 400; }
+.footer__brand p { font-size: 0.88rem; max-width: 280px; margin-bottom: 24px; }
+.footer__col h4 { font-family: var(--sans); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; margin-bottom: 24px; color: var(--forest); font-style: normal; }
+.footer ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer ul a { font-size: 0.88rem; color: rgba(45,45,45,0.55); transition: color var(--trans); }
+.footer ul a:hover { color: var(--yuzu); }
+.footer__bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--mist); display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: rgba(45,45,45,0.35); }
+.footer__socials { display: flex; gap: 20px; }
+.footer__socials a:hover { color: var(--yuzu); }
+.footer-subscribe { display: flex; gap: 0; margin-top: 20px; max-width: 320px; }
+.footer-subscribe input { flex: 1; padding: 11px 16px; border: 1px solid var(--mist); border-right: none; font-family: var(--sans); font-size: 0.84rem; outline: none; }
+.footer-subscribe input:focus { border-color: var(--sage); }
+.footer-subscribe .btn { font-size: 0.68rem; padding: 11px 18px; }
+
+/* ============================================================
+   V1.2 NEW: Form validation styles
+   ============================================================ */
+.field-error { border-color: var(--error) !important; }
+.field-error-msg { font-size: 0.72rem; color: var(--error); margin-top: 4px; display: none; }
+.field-error-msg.visible { display: block; }
+.form-feedback { padding: 16px 20px; border-radius: 2px; margin-top: 16px; font-size: 0.88rem; font-weight: 500; display: none; }
+.form-feedback.success { display: block; background: #d4f0da; color: #1a5c2a; border-left: 3px solid var(--success); }
+.form-feedback.error   { display: block; background: #fde8e8; color: var(--error); border-left: 3px solid var(--error); }
+.btn-loading { opacity: 0.6; pointer-events: none; }
+.subscribe-inline-feedback { font-size: 0.78rem; margin-top: 10px; font-weight: 500; display: none; }
+.subscribe-inline-feedback.success { display: block; color: var(--success); }
+.subscribe-inline-feedback.error   { display: block; color: var(--error); }
+
+/* ============================================================
+   V1.2 NEW: Toast notification
+   ============================================================ */
+.toast { position: fixed; bottom: 80px; right: 28px; background: var(--forest); color: var(--white); padding: 14px 22px; font-size: 0.84rem; font-weight: 500; z-index: 9999; transform: translateY(20px); opacity: 0; transition: all 0.4s ease; pointer-events: none; max-width: 300px; }
+.toast.visible { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--success); }
+.toast.error   { background: var(--error); }
+
+/* ============================================================
+   V1.2 NEW: Language toggle
+   ============================================================ */
+.translate-widget { position: fixed; bottom: 28px; right: 28px; background: var(--white); border: 1px solid var(--mist); padding: 10px 18px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; box-shadow: 0 4px 20px rgba(0,0,0,0.07); cursor: pointer; z-index: 900; display: flex; align-items: center; gap: 8px; transition: all var(--trans); min-height: 44px; }
+.translate-widget:hover { border-color: var(--sage); box-shadow: 0 6px 28px rgba(0,0,0,0.1); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .wrap { padding: 0 32px; }
+  .hero__grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero { min-height: auto; padding: 120px 0 80px; }
+  .hero__visual { height: 55vw; min-height: 300px; }
+  .hero__floating-label { left: 0; }
+  .grid-3, .pillar-grid, .music-grid, .res-grid { grid-template-columns: 1fr 1fr; }
+  .music-strip__inner { grid-template-columns: 1fr; gap: 40px; }
+  .cm-split { grid-template-columns: 1fr; }
+  .cm-split__info { padding: 100px 40px 60px; }
+  .cm-split__visual { height: 320px; }
+  .cm-grid { grid-template-columns: 1fr; }
+  .cm-form-card { position: static; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .blog-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .post-body-wrap { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-photo { aspect-ratio: 16/9; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-h: 64px; }
+  .wrap { padding: 0 20px; }
+  /* Hide desktop nav items, show only burger */
+  .nav__links { display: none; }
+  .nav__lang { display: none; }
+  .nav__cta { display: none; }
+  .nav__burger { display: flex; }
+  .section { padding: 72px 0; }
+  h1 { font-size: 2.4rem; }
+  h2 { font-size: 1.8rem; }
+  .grid-3, .pillar-grid, .music-grid, .res-grid, .sitemap-grid, .process-steps { grid-template-columns: 1fr; }
+  .pillar-grid { gap: 0; }
+  .post-row { grid-template-columns: 1fr; gap: 20px; }
+  .blog-post-item { grid-template-columns: 1fr; gap: 20px; }
+  .footer__grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .subscribe-form { flex-direction: column; }
+  .subscribe-form input { border-right: 1px solid var(--mist); border-bottom: none; }
+  .subscribe-form .btn { width: 100%; }
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; text-align: center; }
+  .cm-split__info { padding: 80px 20px 48px; }
+  .sub-card { padding: 40px 24px; margin: 0 12px; }
+  .sitemap-children { grid-template-columns: 1fr; }
+  .reels-scroll { gap: 10px; }
+  .reel-item { width: 136px; height: 240px; }
+  .post-hero__thumb { height: 220px; }
+  .platform-links { gap: 8px; }
+  .footer-subscribe { max-width: 100%; }
+  /* Mobile: make all clickable areas larger */
+  .blog-cat { padding: 8px 0; }
+  .res-item { min-height: 52px; }
+}
+
+@media (max-width: 480px) {
+  .sub-card { padding: 32px 16px; margin: 0; }
+  .cm-split__info { padding: 72px 16px 40px; }
+  .hero__floating-label { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+   TOAST
+   ============================================================ -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+   NAVIGATION
+   ============================================================ -->
+<nav class="nav" id="mainNav">
+  <div class="wrap">
+    <div class="nav__inner">
+      <span class="nav__logo" onclick="showPage('home')" role="button" tabindex="0">Kaola <span>Yuzu</span></span>
+
+      <ul class="nav__links">
+        <li><a href="#" onclick="showPage('home');return false;" data-page="home" class="active" data-i18n="nav.home">Home</a></li>
+        <li><a href="#" onclick="showPage('about');return false;" data-page="about" data-i18n="nav.about">About</a></li>
+        <li><a href="#" onclick="showPage('blog');return false;" data-page="blog" data-i18n="nav.blog">Blog</a></li>
+        <li><a href="#" onclick="showPage('music');return false;" data-page="music" data-i18n="nav.music">Music</a></li>
+        <li><a href="#" onclick="showPage('custom-music');return false;" data-page="custom-music" data-i18n="nav.customMusic">Custom Music</a></li>
+        <li><a href="/quiz.html" data-i18n="nav.quiz">Quiz</a></li>
+        <li><a href="#" onclick="showPage('resources');return false;" data-page="resources" data-i18n="nav.resources">Resources</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="nav__lang" onclick="toggleLang()" id="langToggle" aria-label="Switch language">
+          <span class="active-lang">繁中</span>&nbsp;/&nbsp;EN
+        </button>
+        <a href="#" class="btn btn-primary nav__cta" onclick="showPage('subscribe');return false;" data-i18n="nav.subscribe">Subscribe</a>
+        <button class="nav__burger" id="burgerBtn" onclick="toggleMobile()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile overlay + drawer -->
+<div class="nav__overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+<div class="nav__mobile" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="#" onclick="handleMobileNav('home')" data-i18n="nav.home">Home</a>
+  <a href="#" onclick="handleMobileNav('about')" data-i18n="nav.about">About</a>
+  <a href="#" onclick="handleMobileNav('blog')" data-i18n="nav.blog">Blog</a>
+  <a href="#" onclick="handleMobileNav('music')" data-i18n="nav.music">Music</a>
+  <a href="#" onclick="handleMobileNav('custom-music')" data-i18n="nav.customMusic">Custom Music</a>
+  <a href="/quiz.html" onclick="closeMobileMenu()" data-i18n="nav.quiz">Quiz</a>
+  <a href="#" onclick="handleMobileNav('resources')" data-i18n="nav.resources">Resources</a>
+  <a href="#" onclick="handleMobileNav('subscribe')" data-i18n="nav.subscribe">Subscribe</a>
+  <div class="nav__mobile-lang">
+    <span class="active" onclick="setLang('zh')" role="button" tabindex="0">繁中</span>
+    <span onclick="setLang('en')" role="button" tabindex="0">EN</span>
+  </div>
+</div>
+
+<div class="page-content">
+
+<!-- ============================================================
+   SITEMAP (double-click logo)
+   ============================================================ -->
+<div class="page" id="page-sitemap">
+  <div class="sitemap-page">
+    <div class="wrap">
+      <span class="label">Site Architecture</span>
+      <h1 style="margin-top:12px">Kaola Yuzu V1 Sitemap</h1>
+      <p style="margin-top:14px;color:#777">完整頁面結構與 URL 規劃</p>
+      <div class="sitemap-grid">
+        <div class="sitemap-node sitemap-node--root">
+          <h3>Kaola Yuzu</h3>
+          <div class="sitemap-node__url">kaolayuzu.com</div>
+          <p style="color:rgba(255,255,255,0.5);font-size:0.84rem;margin-top:10px">母品牌官網 — 內容 · 音樂 · 服務 · 訂閱</p>
+        </div>
+        <div class="sitemap-node"><h4>Home /</h4><div class="sitemap-node__url">/</div><p>品牌入口、三大支柱、音樂、服務 CTA、訂閱</p><span class="sitemap-badge badge-must">必做</span></div>
+        <div class="sitemap-node"><h4>About</h4><div class="sitemap-node__url">/about</div><p>品牌定位、主理人背景</p><span class="sitemap-badge badge-must">必做</span></div>
+        <div class="sitemap-node"><h4>Blog</h4><div class="sitemap-node__url">/blog</div><p>三大分類 + 文章列表</p><span class="sitemap-badge badge-must">必做</span><div class="sitemap-children"><div class="sitemap-child"><strong>/blog/vegan-travel</strong>純素旅遊</div><div class="sitemap-child"><strong>/blog/home-living</strong>居家生活</div><div class="sitemap-child"><strong>/blog/save-money</strong>省錢技巧</div></div></div>
+        <div class="sitemap-node"><h4>Music</h4><div class="sitemap-node__url">/music</div><p>作品展示、串流平台</p><span class="sitemap-badge badge-must">必做</span></div>
+        <div class="sitemap-node"><h4>Custom Music</h4><div class="sitemap-node__url">/custom-music</div><p>服務說明、流程、詢問表單</p><span class="sitemap-badge badge-must">必做</span></div>
+        <div class="sitemap-node"><h4>Resources</h4><div class="sitemap-node__url">/resources</div><p>工具、聯盟推薦清單</p><span class="sitemap-badge badge-opt">建議</span></div>
+        <div class="sitemap-node"><h4>Subscribe</h4><div class="sitemap-node__url">/subscribe</div><p>Email 訂閱、訂閱說明</p><span class="sitemap-badge badge-must">必做</span></div>
+      </div>
+      <div style="margin-top:1px;background:var(--mist)">
+        <div style="background:var(--white);padding:28px 24px">
+          <p class="label" style="margin-bottom:8px">網域策略</p>
+          <p style="font-size:0.88rem">主網域：<strong>kaolayuzu.com</strong> | 保護型：veganwanders.com → 301 轉址至 /blog/vegan-travel</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   HOME PAGE
+   ============================================================ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="hero__content">
+          <div class="hero__eyebrow"><span class="label">Vegan Travel · Living · Music</span></div>
+          <h1 class="hero__title">
+            <span data-i18n="home.heroTitle1">探索生活的</span><br>
+            <span class="highlight" data-i18n="home.heroTitle2">每一種味道</span>
+          </h1>
+          <p class="hero__desc" data-i18n="home.heroDesc">Kaola Yuzu 是融合純素旅行體驗、居家生活美學與獨立音樂創作的空間。誠實的視角，真實的記錄。</p>
+          <div class="hero__actions">
+            <a href="#" class="btn btn-primary" onclick="showPage('blog');return false;" data-i18n="home.btnJournal">Read Journal</a>
+            <a href="#" class="btn btn-outline" onclick="showPage('music');return false;" data-i18n="home.btnMusic">Listen Music</a>
+            <a href="/quiz.html" class="btn btn-yuzu" data-i18n="home.btnQuiz">Music Distributor Quiz</a>
+          </div>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__img-container">
+            <!-- REPLACE: style="background-image:url('YOUR_HERO_PHOTO.jpg');background-size:cover;background-position:center" -->
+            <div class="hero__img-label">Hero Photo</div>
+          </div>
+          <div class="hero__floating-label">
+            <span class="number">30+</span>
+            <p class="label" style="margin:0;font-size:0.6rem;margin-bottom:8px" data-i18n="home.floatingLabel">Countries Explored</p>
+            <p style="font-size:0.84rem" data-i18n="home.floatingDesc">橫跨歐亞的純素感官之旅，記錄那些被忽略的城市細節。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pillars">
+    <div class="wrap">
+      <div class="text-center mb-48">
+        <span class="label" data-i18n="home.pillarsLabel">Our Pillars</span>
+        <h2 style="margin-top:12px" data-i18n="home.pillarsTitle">內容支柱</h2>
+      </div>
+      <div class="pillar-grid">
+        <div class="pillar-card" onclick="showPage('blog');return false;">
+          <span class="label pillar-num">01</span>
+          <h3 data-i18n="pillar1.title">純素旅遊</h3>
+          <p data-i18n="pillar1.desc">從紐西蘭的自然原味到日本的職人精神，探索全球最值得造訪的純素角落。</p>
+          <span class="btn-link" data-i18n="pillar1.link">Explore Travel</span>
+        </div>
+        <div class="pillar-card" onclick="showPage('blog');return false;">
+          <span class="label pillar-num">02</span>
+          <h3 data-i18n="pillar2.title">居家生活</h3>
+          <p data-i18n="pillar2.desc">擁抱動手做的樂趣，從植物養護到居家維修，打造一個真正屬於自己的避風港。</p>
+          <span class="btn-link" data-i18n="pillar2.link">Living Journal</span>
+        </div>
+        <div class="pillar-card" onclick="showPage('blog');return false;">
+          <span class="label pillar-num">03</span>
+          <h3 data-i18n="pillar3.title">省錢技巧</h3>
+          <p data-i18n="pillar3.desc">聰明消費不是吝嗇，而是將資源精準投入在能提升生命質感的體驗上。</p>
+          <span class="btn-link" data-i18n="pillar3.link">Smart Living</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--white);border-top:1px solid var(--mist)">
+    <div class="wrap">
+      <div class="flex-sb mb-48">
+        <div>
+          <span class="label">Journal</span>
+          <h2 style="margin-top:12px" data-i18n="home.latestTitle">最新文章</h2>
+        </div>
+        <a href="#" class="btn-link" onclick="showPage('blog');return false;" data-i18n="home.viewAll">View All Articles</a>
+      </div>
+      <div class="posts-list">
+        <div class="post-row" onclick="showPage('post');return false;">
+          <div class="post-row__thumb"></div>
+          <div>
+            <span class="post-row__cat" data-i18n="cat.veganTravel">Vegan Travel</span>
+            <h2 class="post-row__title" data-i18n="post1.title">紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦</h2>
+            <p class="post-row__excerpt" data-i18n="post1.excerpt">在奧克蘭的街道間，隱藏著許多令人驚豔的蔬食美味。這份清單不僅關於食物，更關於那些尊重土地的經營者。</p>
+            <span class="btn-link" data-i18n="common.readMore">Read More</span>
+          </div>
+        </div>
+        <div class="post-row" onclick="showPage('post');return false;">
+          <div class="post-row__thumb"></div>
+          <div>
+            <span class="post-row__cat" data-i18n="cat.homeLiving">Home Living</span>
+            <h2 class="post-row__title" data-i18n="post2.title">自學更換電燈開關：小改變帶來的居家儀式感</h2>
+            <p class="post-row__excerpt" data-i18n="post2.excerpt">不需要專業水電工，只要掌握基礎邏輯與安全知識，你也能親手升級家中的細節感。</p>
+            <span class="btn-link" data-i18n="common.readMore">Read More</span>
+          </div>
+        </div>
+        <div class="post-row" onclick="showPage('post');return false;">
+          <div class="post-row__thumb"></div>
+          <div>
+            <span class="post-row__cat" data-i18n="cat.smartLiving">Smart Living</span>
+            <h2 class="post-row__title" data-i18n="post3.title">日本超市掃貨必買清單｜純素零食、調味料完整版</h2>
+            <p class="post-row__excerpt" data-i18n="post3.excerpt">這次去日本帶回來的 20 樣好物，附上大概價格與哪家超市最好買。</p>
+            <span class="btn-link" data-i18n="common.readMore">Read More</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reels-row">
+    <div class="wrap">
+      <div class="flex-sb">
+        <div>
+          <span class="label">Short Video</span>
+          <h2 style="margin-top:10px" data-i18n="home.reelsTitle">Reels 精選</h2>
+        </div>
+        <!-- REPLACE href with your Instagram profile URL -->
+        <a href="https://www.instagram.com/REPLACE_YOUR_IG_HANDLE/" target="_blank" rel="noopener" class="btn-link" data-i18n="home.reelsMore">看更多</a>
+      </div>
+      <div class="reels-scroll">
+        <!-- REPLACE: wrap each reel-item in <a href="YOUR_IG_REEL_URL" target="_blank"> when ready -->
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel1">紐西蘭純素早午餐</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel2">冷氣清洗 DIY</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel3">日本超市掃貨</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel4">種多肉植物</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel5">香港純素點法</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel6">省錢購物秘訣</div></div>
+        <div class="reel-item"><div class="reel-play">▶</div><div class="reel-caption" data-i18n="reel7">沖繩海邊日記</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="music-strip">
+    <div class="wrap">
+      <div class="music-strip__inner">
+        <div>
+          <span class="label" style="color:var(--yuzu)">Music</span>
+          <h2 data-i18n="home.musicTitle">最新音樂作品</h2>
+          <p style="margin-bottom:28px" data-i18n="home.musicDesc">音樂是旅途的聲音紀錄。在各大串流平台收聽。</p>
+          <div class="platform-links">
+            <!-- REPLACE each href with your actual streaming profile URLs -->
+            <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
+            <a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
+            <a href="https://music.youtube.com/channel/REPLACE_YT_ID" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
+            <a href="https://www.kkbox.com/tw/tc/artist/REPLACE_KKBOX_ID" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
+          </div>
+          <a href="#" class="btn-link btn-link--light" style="margin-top:32px;display:inline-block" onclick="showPage('music');return false;" data-i18n="home.musicViewAll">查看全部作品</a>
+        </div>
+        <div>
+          <!-- REPLACE href with actual streaming links for each track -->
+          <a href="https://open.spotify.com/track/REPLACE_TRACK_1" target="_blank" rel="noopener" class="music-card-mini">
+            <div class="music-card-mini__cover"></div>
+            <div class="music-card-mini__info">
+              <h4 data-i18n="track1.title">作品名稱 01</h4>
+              <p data-i18n="track1.type">Single · 2025</p>
+            </div>
+          </a>
+          <a href="https://open.spotify.com/track/REPLACE_TRACK_2" target="_blank" rel="noopener" class="music-card-mini">
+            <div class="music-card-mini__cover"></div>
+            <div class="music-card-mini__info">
+              <h4 data-i18n="track2.title">作品名稱 02</h4>
+              <p data-i18n="track2.type">Single · 2024</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2 data-i18n="home.ctaTitle">需要專屬音樂嗎？</h2>
+      <p data-i18n="home.ctaDesc">品牌影片、活動配樂、個人紀念作品 — 量身訂製。</p>
+      <a href="#" class="btn btn-white" onclick="showPage('custom-music');return false;" data-i18n="home.ctaBtn">了解 Custom Music</a>
+    </div>
+  </section>
+
+  <section class="subscribe-band">
+    <div class="wrap">
+      <span class="label" data-i18n="common.newsletter">Newsletter</span>
+      <h2 style="margin-top:12px" data-i18n="home.subTitle">Stay in the Loop</h2>
+      <p data-i18n="home.subDesc">旅遊體驗、音樂新作、生活提案，第一時間送到信箱。</p>
+      <div class="subscribe-form" id="homeSubForm">
+        <input type="email" id="homeSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com" autocomplete="email">
+        <button class="btn btn-primary" onclick="submitSubscribe('homeSubForm','homeSubEmail','homeSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+      </div>
+      <div class="subscribe-inline-feedback" id="homeSubFeedback"></div>
+      <p class="subscribe-note" data-i18n="common.subNote">不定期發送，不推垃圾，隨時可取消。</p>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ============================================================
+   BLOG PAGE
+   ============================================================ -->
+<div class="page" id="page-blog">
+  <div class="blog-hero">
+    <div class="wrap">
+      <span class="label">Journal</span>
+      <h1 style="margin-top:12px" data-i18n="blog.title">Blog</h1>
+      <p style="margin-top:16px;max-width:520px" data-i18n="blog.desc">純素旅遊的真實記錄、居家生活的小小實驗、省錢技巧的親身驗證。</p>
+      <div class="blog-cats">
+        <span class="blog-cat active" data-i18n="blog.catAll">All</span>
+        <span class="blog-cat" data-i18n="blog.catVegan">🌿 Vegan Travel</span>
+        <span class="blog-cat" data-i18n="blog.catHome">🏡 Home Living</span>
+        <span class="blog-cat" data-i18n="blog.catSmart">💰 Smart Living</span>
+      </div>
+    </div>
+  </div>
+  <div class="blog-main">
+    <div class="wrap">
+      <div class="blog-layout">
+        <div>
+          <div class="blog-post-item" onclick="showPage('post');return false;">
+            <div class="blog-post-item__thumb"></div>
+            <div>
+              <span class="blog-post-item__cat" data-i18n="cat.veganTravel">Vegan Travel</span>
+              <h3 class="blog-post-item__title" data-i18n="post1.title">紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦</h3>
+              <p style="font-size:0.9rem" data-i18n="post1.short">從早午餐到晚餐，6 間讓我每次都想回去的純素餐廳完整介紹。</p>
+              <div class="blog-post-item__meta">2025.04.10 · 8 min</div>
+            </div>
+          </div>
+          <div class="blog-post-item" onclick="showPage('post');return false;">
+            <div class="blog-post-item__thumb"></div>
+            <div>
+              <span class="blog-post-item__cat" data-i18n="cat.homeLiving">Home Living</span>
+              <h3 class="blog-post-item__title" data-i18n="post2.title2">自己換冷氣濾網超省錢｜完整步驟 + 購買來源</h3>
+              <p style="font-size:0.9rem" data-i18n="post2.short">師傅要收 800，自己換只要 150。工具清單、步驟圖解一次搞定。</p>
+              <div class="blog-post-item__meta">2025.03.22 · 6 min</div>
+            </div>
+          </div>
+          <div class="blog-post-item" onclick="showPage('post');return false;">
+            <div class="blog-post-item__thumb"></div>
+            <div>
+              <span class="blog-post-item__cat" data-i18n="cat.smartLiving">Smart Living</span>
+              <h3 class="blog-post-item__title" data-i18n="post3.title">日本超市掃貨必買清單｜純素零食完整版</h3>
+              <p style="font-size:0.9rem" data-i18n="post3.short">這次去日本帶回來的 20 樣好物，附上大概價格與哪家超市最好買。</p>
+              <div class="blog-post-item__meta">2025.02.15 · 5 min</div>
+            </div>
+          </div>
+        </div>
+        <aside class="sidebar">
+          <div class="sidebar-widget sidebar-form">
+            <h4 data-i18n="common.newsletter">📧 Newsletter</h4>
+            <input type="email" id="blogSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com">
+            <button class="btn btn-primary" style="width:100%" onclick="submitSubscribe('blogSub','blogSubEmail','blogSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+            <div class="subscribe-inline-feedback" id="blogSubFeedback"></div>
+          </div>
+          <div class="sidebar-widget">
+            <h4 data-i18n="blog.tags">Tags</h4>
+            <div class="tag-cloud">
+              <span class="tag">紐西蘭</span><span class="tag">純素</span>
+              <span class="tag">日本</span><span class="tag">DIY</span>
+              <span class="tag">香港</span><span class="tag">省錢</span>
+              <span class="tag">植物</span><span class="tag">沖繩</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   SINGLE POST PAGE
+   ============================================================ -->
+<div class="page" id="page-post">
+  <div class="post-hero">
+    <div class="wrap">
+      <div class="post-hero__meta">Vegan Travel &nbsp;·&nbsp; 2025.04.10 &nbsp;·&nbsp; 8 min read</div>
+      <h1 class="post-hero__title" data-i18n="post1.title">紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦</h1>
+      <p class="post-hero__excerpt" data-i18n="post1.excerpt">從早午餐到晚餐，6 間讓我每次都想回去的純素餐廳完整介紹，附上地址、訂位方式與體驗推薦。</p>
+      <div class="post-hero__thumb">
+        <!-- REPLACE: style="background-image:url('YOUR_POST_COVER.jpg');background-size:cover;background-position:center" -->
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="post-body-wrap">
+      <article class="post-body">
+        <p data-i18n="post1.body1">這次去紐西蘭待了兩週，在奧克蘭幾乎每一天都在找純素選擇。整理了這份我親自去過並且會想回去的餐廳清單。</p>
+        <h2 data-i18n="post1.h2">為什麼奧克蘭的純素選擇這麼好？</h2>
+        <p data-i18n="post1.body2">奧克蘭的飲食文化受到大量移民影響，加上本地人對植物性飲食接受度高，幾乎每間咖啡廳都有純素選項。</p>
+        <h3>1. Little Bird Unbakery</h3>
+        <p data-i18n="post1.restaurant1">Ponsonby 的傳奇純素餐廳，以生食料理為主。推薦招牌 raw cake，每種口味都是藝術品等級。</p>
+        <div class="affiliate-box">
+          <span class="label" data-i18n="post.affiliateHotel">住宿推薦</span>
+          <!-- REPLACE href with your Agoda affiliate link -->
+          <p data-i18n="post1.affiliateHotelText">奧克蘭市中心 Agoda 精選 — <a href="https://www.agoda.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)" data-i18n="post.affiliateHotelLink">查看住宿優惠 →</a></p>
+        </div>
+        <h3>2. Wise Boys Burgers</h3>
+        <p data-i18n="post1.restaurant2">完全純素漢堡店，連肉食者都會被征服的那種。必點 Mac Daddy，搭配地瓜薯條。</p>
+        <div class="affiliate-box">
+          <span class="label" data-i18n="post.affiliateExp">體驗推薦</span>
+          <!-- REPLACE href with your Klook affiliate link -->
+          <p data-i18n="post1.affiliateExpText">Klook 紐西蘭跳傘體驗 — <a href="https://www.klook.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)" data-i18n="post.affiliateExpLink">立即預訂 →</a></p>
+        </div>
+        <div class="post-tags">
+          <span class="tag">紐西蘭</span><span class="tag">純素旅遊</span>
+          <span class="tag">奧克蘭</span><span class="tag">Klook</span>
+        </div>
+        <div class="disqus-box">
+          <span class="label" data-i18n="post.comments">Comments</span>
+          <!-- REPLACE: paste Disqus universal embed code here -->
+          <div class="disqus-placeholder" data-i18n="post.disqusPlaceholder">Disqus 留言區塊 — 嵌入後顯示於此</div>
+        </div>
+      </article>
+      <aside class="sidebar">
+        <div class="sidebar-widget sidebar-form">
+          <h4 data-i18n="common.newsletter">Newsletter</h4>
+          <input type="email" id="postSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com">
+          <button class="btn btn-primary" style="width:100%" onclick="submitSubscribe('postSub','postSubEmail','postSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+          <div class="subscribe-inline-feedback" id="postSubFeedback"></div>
+        </div>
+        <div class="sidebar-widget">
+          <h4 data-i18n="post.related">Related</h4>
+          <a href="#" onclick="showPage('post');return false;" style="display:block;font-size:0.86rem;margin-bottom:12px;color:var(--charcoal)" data-i18n="post.related1">香港茶餐廳純素點餐攻略 →</a>
+          <a href="#" onclick="showPage('post');return false;" style="display:block;font-size:0.86rem;color:var(--charcoal)" data-i18n="post.related2">日本超市純素掃貨清單 →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   MUSIC PAGE
+   ============================================================ -->
+<div class="page" id="page-music">
+  <div class="music-hero">
+    <div class="wrap">
+      <span class="label">Independent Artist</span>
+      <h1 data-i18n="music.heroTitle">Sonic Journey</h1>
+      <p data-i18n="music.heroDesc">音樂是我旅程的聲音記錄。從環境音採樣到獨立創作，每一首歌都是一段記憶的切片。</p>
+      <div class="platform-links">
+        <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
+        <a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
+        <a href="https://music.youtube.com/channel/REPLACE_YT_ID" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
+        <a href="https://www.kkbox.com/tw/tc/artist/REPLACE_KKBOX_ID" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
+        <a href="https://tidal.com/browse/artist/REPLACE_TIDAL_ID" target="_blank" rel="noopener" class="platform-btn">Tidal</a>
+      </div>
+    </div>
+  </div>
+  <section class="section" style="background:var(--white)">
+    <div class="wrap">
+      <span class="label">Discography</span>
+      <h2 style="margin-top:12px" data-i18n="music.discography">全部作品</h2>
+      <div class="music-grid mt-48">
+        <div class="album-card">
+          <div class="album-art"></div>
+          <!-- REPLACE: album art → background-image:url('album1.jpg') -->
+          <div class="album-info">
+            <h3 data-i18n="track1.title">作品名稱 01</h3>
+            <p data-i18n="track1.type">Single · 2025</p>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/track/REPLACE_TRACK_1" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://music.apple.com/song/REPLACE_TRACK_1" target="_blank" rel="noopener">Apple</a>
+              <a href="https://youtu.be/REPLACE_TRACK_1_YT" target="_blank" rel="noopener">YouTube</a>
+            </div>
+          </div>
+        </div>
+        <div class="album-card">
+          <div class="album-art"></div>
+          <div class="album-info">
+            <h3 data-i18n="track2.title">作品名稱 02</h3>
+            <p data-i18n="track2.type">Single · 2024</p>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/track/REPLACE_TRACK_2" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://music.apple.com/song/REPLACE_TRACK_2" target="_blank" rel="noopener">Apple</a>
+              <a href="https://www.kkbox.com/tw/tc/song/REPLACE_TRACK_2" target="_blank" rel="noopener">KKBOX</a>
+            </div>
+          </div>
+        </div>
+        <div class="album-card">
+          <div class="album-art"></div>
+          <div class="album-info">
+            <h3 data-i18n="track3.title">作品名稱 03</h3>
+            <p data-i18n="track3.type">Single · 2024</p>
+            <div class="streaming-links">
+              <a href="https://open.spotify.com/track/REPLACE_TRACK_3" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://youtu.be/REPLACE_TRACK_3_YT" target="_blank" rel="noopener">YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band" style="background:var(--forest)">
+    <div class="wrap">
+      <h2 data-i18n="music.ctaTitle">需要客製音樂？</h2>
+      <p style="color:rgba(255,255,255,0.7)" data-i18n="music.ctaDesc">品牌、活動、影片 — 量身製作。</p>
+      <a href="#" class="btn btn-yuzu" onclick="showPage('custom-music');return false;" data-i18n="music.ctaBtn">了解 Custom Music</a>
+    </div>
+  </section>
+  <section class="subscribe-band">
+    <div class="wrap">
+      <span class="label" data-i18n="common.newsletter">Newsletter</span>
+      <h2 style="margin-top:12px" data-i18n="music.subTitle">新歌第一時間通知</h2>
+      <p data-i18n="music.subDesc">新作品上線、幕後故事、創作日記。</p>
+      <div class="subscribe-form" id="musicSubForm">
+        <input type="email" id="musicSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com">
+        <button class="btn btn-primary" onclick="submitSubscribe('musicSubForm','musicSubEmail','musicSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+      </div>
+      <div class="subscribe-inline-feedback" id="musicSubFeedback"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+   CUSTOM MUSIC PAGE
+   ============================================================ -->
+<div class="page" id="page-custom-music">
+  <section class="cm-split">
+    <div class="cm-split__info">
+      <span class="label">Service</span>
+      <h1>Custom Music<br><span class="italic" data-i18n="cm.heroSub">for your stories</span></h1>
+      <p data-i18n="cm.heroDesc">為您的品牌、影像或個人時刻訂製獨一無二的聲音。我不只是製作音樂，我是在為您的故事尋找最貼切的聽覺頻率。</p>
+      <div class="flex" style="gap:16px;flex-wrap:wrap">
+        <a href="#cm-form" class="btn btn-primary" data-i18n="cm.inquiryBtn">Inquiry Now</a>
+        <span class="btn-link" onclick="document.getElementById('cm-process').scrollIntoView({behavior:'smooth'})" data-i18n="cm.processLink">了解流程</span>
+      </div>
+    </div>
+    <div class="cm-split__visual">
+      <!-- REPLACE: style="background-image:url('studio.jpg');background-size:cover;background-position:center" -->
+      <div class="cm-split__visual-text">The Art of Sound Design</div>
+    </div>
+  </section>
+
+  <div class="cm-body">
+    <div class="wrap">
+      <div class="cm-grid">
+        <div>
+          <span class="label" data-i18n="cm.whatLabel">What I Offer</span>
+          <h2 style="margin-top:12px;margin-bottom:40px" data-i18n="cm.servicesTitle">服務項目</h2>
+          <div class="cm-features">
+            <div class="cm-feature">
+              <div class="cm-feature__icon">🎬</div>
+              <div>
+                <h3 data-i18n="cm.service1Title">品牌 / 影片配樂</h3>
+                <p data-i18n="cm.service1Desc">廣告、企業形象影片、社群短片 — 讓音樂強化你想傳達的情感。</p>
+              </div>
+            </div>
+            <div class="cm-feature">
+              <div class="cm-feature__icon">🎊</div>
+              <div>
+                <h3 data-i18n="cm.service2Title">活動 / 儀式音樂</h3>
+                <p data-i18n="cm.service2Desc">婚禮、生日、週年慶 — 一首承載特定時刻的專屬歌曲。</p>
+              </div>
+            </div>
+            <div class="cm-feature">
+              <div class="cm-feature__icon">🎧</div>
+              <div>
+                <h3 data-i18n="cm.service3Title">Podcast / 頻道片頭</h3>
+                <p data-i18n="cm.service3Desc">建立聽覺品牌識別，讓聽眾一秒記住你。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cm-process" id="cm-process">
+            <span class="label" style="margin-top:64px;display:block">Workflow</span>
+            <h2 style="margin-top:12px;margin-bottom:0" data-i18n="cm.processTitle">製作流程</h2>
+            <div class="process-steps">
+              <div class="step"><span class="step-num">01</span><h4 data-i18n="cm.step1Title">需求溝通</h4><p data-i18n="cm.step1Desc">了解您的故事、風格偏好與使用場景。</p></div>
+              <div class="step"><span class="step-num">02</span><h4 data-i18n="cm.step2Title">初稿試聽</h4><p data-i18n="cm.step2Desc">提供核心旋律或氛圍小樣進行確認。</p></div>
+              <div class="step"><span class="step-num">03</span><h4 data-i18n="cm.step3Title">細節修正</h4><p data-i18n="cm.step3Desc">根據反饋進行編曲與混音的精確調整。</p></div>
+              <div class="step"><span class="step-num">04</span><h4 data-i18n="cm.step4Title">正式交付</h4><p data-i18n="cm.step4Desc">提供高品質母帶檔案與授權文件。</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="cm-form">
+          <div class="cm-form-card">
+            <h3 data-i18n="cm.formTitle">開始詢問</h3>
+            <div id="cmFormSuccess" class="form-feedback success" style="display:none" data-i18n="cm.formSuccess">✓ 收到了！通常 1–2 個工作天內回覆，感謝你的詢問。</div>
+            <div id="cmFormError" class="form-feedback error" style="display:none" data-i18n="cm.formError">送出失敗，請稍後再試或直接 Email 聯繫。</div>
+            <div id="cmFormFields">
+              <div class="form-group">
+                <label data-i18n="cm.fieldName">姓名</label>
+                <input type="text" id="cmName" data-i18n-placeholder="cm.namePlaceholder" placeholder="Your name" autocomplete="name">
+                <div class="field-error-msg" id="cmNameErr" data-i18n="cm.nameErr">請填寫姓名</div>
+              </div>
+              <div class="form-group">
+                <label data-i18n="cm.fieldEmail">Email</label>
+                <input type="email" id="cmEmail" placeholder="your@email.com" autocomplete="email">
+                <div class="field-error-msg" id="cmEmailErr" data-i18n="cm.emailErr">請填寫有效的 Email</div>
+              </div>
+              <div class="form-group">
+                <label data-i18n="cm.fieldType">使用類型</label>
+                <select id="cmType">
+                  <option value="" data-i18n="cm.typeDefault">選擇使用場景</option>
+                  <option data-i18n="cm.type1">品牌影片配樂</option>
+                  <option data-i18n="cm.type2">活動 / 婚禮</option>
+                  <option data-i18n="cm.type3">Podcast / 頻道</option>
+                  <option data-i18n="cm.type4">個人紀念</option>
+                  <option data-i18n="cm.type5">其他</option>
+                </select>
+                <div class="field-error-msg" id="cmTypeErr" data-i18n="cm.typeErr">請選擇使用場景</div>
+              </div>
+              <div class="form-group">
+                <label data-i18n="cm.fieldDesc">需求說明</label>
+                <textarea id="cmDesc" data-i18n-placeholder="cm.descPlaceholder" placeholder="描述你的需求、氛圍、參考範例…"></textarea>
+                <div class="field-error-msg" id="cmDescErr" data-i18n="cm.descErr">請簡單說明需求</div>
+              </div>
+              <button class="btn btn-primary" id="cmSubmitBtn" style="width:100%" onclick="submitCMForm()" data-i18n="cm.submitBtn">送出詢問</button>
+              <p class="form-note" data-i18n="cm.formNote">通常 1–2 個工作天內回覆</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="subscribe-band" style="border-top:1px solid var(--mist)">
+    <div class="wrap">
+      <span class="label" data-i18n="common.newsletter">Newsletter</span>
+      <h2 style="margin-top:12px" data-i18n="cm.subTitle">掌握最新消息</h2>
+      <p data-i18n="cm.subDesc">新作品、服務更新、偶爾的幕後故事。</p>
+      <div class="subscribe-form" id="cmSubForm">
+        <input type="email" id="cmSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com">
+        <button class="btn btn-primary" onclick="submitSubscribe('cmSubForm','cmSubEmail','cmSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+      </div>
+      <div class="subscribe-inline-feedback" id="cmSubFeedback"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+   RESOURCES PAGE
+   ============================================================ -->
+<div class="page" id="page-resources">
+  <div class="res-hero">
+    <div class="wrap">
+      <span class="label">Resources</span>
+      <h1 style="margin-top:12px" data-i18n="res.title">推薦資源</h1>
+      <p style="margin-top:16px;max-width:520px" data-i18n="res.desc">我實際在用的工具、平台與服務。部分連結含聯盟分潤，但只推薦真心覺得好的。</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="wrap">
+      <div class="res-grid">
+        <div class="res-card">
+          <h3 data-i18n="res.cat1">✈️ 旅遊訂房</h3>
+          <div class="res-list">
+            <!-- REPLACE href with your actual affiliate links -->
+            <a href="https://www.agoda.com/?cid=REPLACE_YOUR_AGODA_AFF_ID" target="_blank" rel="noopener sponsored" class="res-item">Agoda <span class="res-badge" data-i18n="res.badgeHotel">住宿</span></a>
+            <a href="https://www.trip.com/t/REPLACE_TRIP_AFF" target="_blank" rel="noopener sponsored" class="res-item">Trip.com <span class="res-badge" data-i18n="res.badgeFlightHotel">機+住</span></a>
+            <a href="https://www.booking.com/index.html?aid=REPLACE_BOOKING_AFF" target="_blank" rel="noopener sponsored" class="res-item">Booking.com <span class="res-badge" data-i18n="res.badgeHotel">住宿</span></a>
+          </div>
+        </div>
+        <div class="res-card">
+          <h3 data-i18n="res.cat2">🎫 旅遊體驗</h3>
+          <div class="res-list">
+            <a href="https://www.klook.com/?aid=REPLACE_KLOOK_AFF" target="_blank" rel="noopener sponsored" class="res-item">Klook <span class="res-badge" data-i18n="res.badgeExp">體驗</span></a>
+            <a href="https://www.kkday.com/?cid=REPLACE_KKDAY_AFF" target="_blank" rel="noopener sponsored" class="res-item">KKday <span class="res-badge" data-i18n="res.badgeExp">體驗</span></a>
+          </div>
+        </div>
+        <div class="res-card">
+          <h3 data-i18n="res.cat3">🏡 居家 &amp; 生活</h3>
+          <div class="res-list">
+            <!-- REPLACE href with your affiliate union/Shopee links -->
+            <a href="https://affiliate.shopee.tw/REPLACE_SHOPEE_AFF" target="_blank" rel="noopener sponsored" class="res-item" data-i18n="res.shopee">蝦皮 / 聯盟王 <span class="res-badge" data-i18n="res.badgeShopping">購物</span></a>
+            <a href="https://www.iherb.com/?rcode=REPLACE_IHERB_CODE" target="_blank" rel="noopener sponsored" class="res-item">iHerb <span class="res-badge" data-i18n="res.badgeVegan">純素品</span></a>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.78rem;color:#aaa;margin-top:24px" data-i18n="res.disclosure">* 本頁部分連結為聯盟行銷連結，透過連結購買我將獲得小額佣金，不影響你的購買價格。</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+   SUBSCRIBE PAGE
+   ============================================================ -->
+<div class="page" id="page-subscribe">
+  <div class="sub-page">
+    <div class="wrap">
+      <div class="sub-card">
+        <span class="sub-icon">📬</span>
+        <h2 data-i18n="sub.title">Stay in the Loop</h2>
+        <p data-i18n="sub.desc">旅遊體驗、生活記錄、音樂新作，第一時間送進信箱。</p>
+        <div class="sub-perks">
+          <div class="sub-perk" data-i18n="sub.perk1">新文章發布第一時間通知</div>
+          <div class="sub-perk" data-i18n="sub.perk2">新歌上線 + 幕後故事</div>
+          <div class="sub-perk" data-i18n="sub.perk3">旅遊前情報與省錢情報</div>
+          <div class="sub-perk" data-i18n="sub.perk4">Custom Music 服務更新</div>
+        </div>
+        <div id="subPageSuccess" class="form-feedback success" style="display:none" data-i18n="sub.success">✓ 訂閱成功！感謝加入，之後有新內容會第一時間通知你。</div>
+        <div id="subPageFields">
+          <div class="subscribe-form" style="max-width:100%;margin:0">
+            <input type="email" id="subPageEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com" autocomplete="email">
+            <button class="btn btn-primary" onclick="submitSubscribe('subPageFields','subPageEmail','subPageFeedback')" data-i18n="common.subscribe">Subscribe</button>
+          </div>
+          <div class="subscribe-inline-feedback" id="subPageFeedback"></div>
+        </div>
+        <p class="subscribe-note" style="margin-top:14px" data-i18n="common.subNote2">不定期發送，不推垃圾，隨時可取消。由 Brevo 寄送。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   ABOUT PAGE
+   ============================================================ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-photo">
+          <!-- REPLACE: style="background-image:url('about-photo.jpg');background-size:cover;background-position:center top" -->
+          <p class="about-photo__caption" data-i18n="about.photoCaption">紐西蘭某個清晨，2025</p>
+        </div>
+        <div class="about-content">
+          <span class="label">The Founder</span>
+          <h1>Kaola Yuzu</h1>
+          <p data-i18n="about.p1">Kaola Yuzu 是一個同時承載旅遊、生活與音樂創作的個人品牌。我去過的地方我都想記錄下來，不只是打卡，而是那個地方的味道、氣味、和那頓飯讓我感受到什麼。</p>
+          <p data-i18n="about.p2">純素飲食是一種選擇，但更是一種探索文化的視角——在每個城市找到真正尊重食材的餐廳，比找網紅店有趣多了。</p>
+          <p data-i18n="about.p3">居家生活的部分，我喜歡自己研究、自己修，那種自己搞定的成就感無可取代。</p>
+          <p data-i18n="about.p4">音樂是另一條線，也是旅途的聲音記錄。作品已上架各大串流平台，也承接客製音樂訂製。</p>
+          <div class="about-tags">
+            <span class="about-tag" data-i18n="about.tag1">Vegan Travel</span>
+            <span class="about-tag" data-i18n="about.tag2">DIY Living</span>
+            <span class="about-tag" data-i18n="about.tag3">Music Production</span>
+            <span class="about-tag" data-i18n="about.tag4">Smart Living</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="subscribe-band" style="border-top:1px solid var(--mist)">
+    <div class="wrap">
+      <h2 data-i18n="about.subTitle">持續關注</h2>
+      <p data-i18n="about.subDesc">訂閱收到最新文章與音樂更新。</p>
+      <div class="subscribe-form" id="aboutSubForm">
+        <input type="email" id="aboutSubEmail" data-i18n-placeholder="common.emailPlaceholder" placeholder="your@email.com">
+        <button class="btn btn-primary" onclick="submitSubscribe('aboutSubForm','aboutSubEmail','aboutSubFeedback')" data-i18n="common.subscribe">Subscribe</button>
+      </div>
+      <div class="subscribe-inline-feedback" id="aboutSubFeedback"></div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /page-content -->
+
+<!-- ============================================================
+   FOOTER
+   ============================================================ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo">Kaola <span>Yuzu</span></div>
+        <p data-i18n="footer.tagline">純素旅遊・居家生活・省錢技巧・音樂創作。真實體驗，誠實分享。</p>
+        <div class="footer-subscribe">
+          <input type="email" id="footerSubEmail" data-i18n-placeholder="common.newsletter" placeholder="Newsletter">
+          <button class="btn btn-primary" onclick="submitSubscribe('footerSub','footerSubEmail','footerSubFeedback')">→</button>
+        </div>
+        <div class="subscribe-inline-feedback" id="footerSubFeedback" style="max-width:320px;text-align:left"></div>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footer.content">Content</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('blog');return false;" data-i18n="footer.journal">Journal</a></li>
+          <li><a href="#" onclick="showPage('blog');return false;" data-i18n="cat.veganTravel">Vegan Travel</a></li>
+          <li><a href="#" onclick="showPage('blog');return false;" data-i18n="cat.homeLiving">Home Living</a></li>
+          <li><a href="#" onclick="showPage('blog');return false;" data-i18n="cat.smartLiving">Smart Living</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footer.music">Music</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('music');return false;" data-i18n="footer.works">作品</a></li>
+          <li><a href="#" onclick="showPage('custom-music');return false;">Custom Music</a></li>
+          <!-- REPLACE hrefs with your streaming profile URLs -->
+          <li><a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener">Spotify</a></li>
+          <li><a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener">Apple Music</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footer.more">More</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('about');return false;" data-i18n="nav.about">About</a></li>
+          <li><a href="#" onclick="showPage('resources');return false;" data-i18n="nav.resources">Resources</a></li>
+          <li><a href="#" onclick="showPage('subscribe');return false;" data-i18n="nav.subscribe">Subscribe</a></li>
+          <!-- REPLACE with your actual Instagram URL -->
+          <li><a href="https://www.instagram.com/REPLACE_YOUR_IG_HANDLE/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p data-i18n="footer.copyright">© 2025 Kaola Yuzu · kaolayuzu.com</p>
+      <div class="footer__socials">
+        <!-- REPLACE each href with your actual social profile URLs -->
+        <a href="https://www.instagram.com/REPLACE_YOUR_IG_HANDLE/" target="_blank" rel="noopener">IG</a>
+        <a href="https://www.youtube.com/@REPLACE_YT_HANDLE" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language floating widget -->
+<div class="translate-widget" onclick="toggleLang()" role="button" tabindex="0" aria-label="Switch language">
+  🌐 <span id="widgetLangLabel">繁中 / EN</span>
+</div>
+
+<!-- ============================================================
+   JAVASCRIPT
+   ============================================================ -->
+<script>
+/* ============================================================
+   1. i18n DICTIONARY
+   ============================================================ */
+const i18n = {
+  zh: {
+    'nav.home': 'Home', 'nav.about': 'About', 'nav.blog': 'Blog',
+    'nav.music': 'Music', 'nav.customMusic': 'Custom Music',
+    'nav.resources': 'Resources', 'nav.quiz': '測驗', 'nav.subscribe': 'Subscribe',
+    'home.heroTitle1': '探索生活的', 'home.heroTitle2': '每一種味道',
+    'home.heroDesc': 'Kaola Yuzu 是融合純素旅行體驗、居家生活美學與獨立音樂創作的空間。誠實的視角，真實的記錄。',
+    'home.btnJournal': 'Read Journal', 'home.btnMusic': 'Listen Music', 'home.btnQuiz': '測音樂發行路線',
+    'home.floatingLabel': 'Countries Explored',
+    'home.floatingDesc': '橫跨歐亞的純素感官之旅，記錄那些被忽略的城市細節。',
+    'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': '內容支柱',
+    'pillar1.title': '純素旅遊', 'pillar1.desc': '從紐西蘭的自然原味到日本的職人精神，探索全球最值得造訪的純素角落。', 'pillar1.link': 'Explore Travel',
+    'pillar2.title': '居家生活', 'pillar2.desc': '擁抱動手做的樂趣，從植物養護到居家維修，打造一個真正屬於自己的避風港。', 'pillar2.link': 'Living Journal',
+    'pillar3.title': '省錢技巧', 'pillar3.desc': '聰明消費不是吝嗇，而是將資源精準投入在能提升生命質感的體驗上。', 'pillar3.link': 'Smart Living',
+    'home.latestTitle': '最新文章', 'home.viewAll': 'View All Articles',
+    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living',
+    'post1.title': '紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦',
+    'post1.excerpt': '在奧克蘭的街道間，隱藏著許多令人驚豔的蔬食美味。這份清單不僅關於食物，更關於那些尊重土地的經營者。',
+    'post1.short': '從早午餐到晚餐，6 間讓我每次都想回去的純素餐廳完整介紹。',
+    'post1.body1': '這次去紐西蘭待了兩週，在奧克蘭幾乎每一天都在找純素選擇。整理了這份我親自去過並且會想回去的餐廳清單。',
+    'post1.h2': '為什麼奧克蘭的純素選擇這麼好？',
+    'post1.body2': '奧克蘭的飲食文化受到大量移民影響，加上本地人對植物性飲食接受度高，幾乎每間咖啡廳都有純素選項。',
+    'post1.restaurant1': 'Ponsonby 的傳奇純素餐廳，以生食料理為主。推薦招牌 raw cake，每種口味都是藝術品等級。',
+    'post1.restaurant2': '完全純素漢堡店，連肉食者都會被征服的那種。必點 Mac Daddy，搭配地瓜薯條。',
+    'post1.affiliateHotelText': '奧克蘭市中心 Agoda 精選 — <a href="https://www.agoda.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)">查看住宿優惠 →</a>',
+    'post1.affiliateExpText': 'Klook 紐西蘭跳傘體驗 — <a href="https://www.klook.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)">立即預訂 →</a>',
+    'post.affiliateHotel': '住宿推薦', 'post.affiliateExp': '體驗推薦',
+    'post.affiliateHotelLink': '查看住宿優惠 →', 'post.affiliateExpLink': '立即預訂 →',
+    'post.comments': 'Comments', 'post.disqusPlaceholder': 'Disqus 留言區塊 — 嵌入後顯示於此',
+    'post.related': 'Related', 'post.related1': '香港茶餐廳純素點餐攻略 →', 'post.related2': '日本超市純素掃貨清單 →',
+    'post2.title': '自學更換電燈開關：小改變帶來的居家儀式感',
+    'post2.title2': '自己換冷氣濾網超省錢｜完整步驟 + 購買來源',
+    'post2.excerpt': '不需要專業水電工，只要掌握基礎邏輯與安全知識，你也能親手升級家中的細節感。',
+    'post2.short': '師傅要收 800，自己換只要 150。工具清單、步驟圖解一次搞定。',
+    'post3.title': '日本超市掃貨必買清單｜純素零食、調味料完整版',
+    'post3.excerpt': '這次去日本帶回來的 20 樣好物，附上大概價格與哪家超市最好買。',
+    'post3.short': '這次去日本帶回來的 20 樣好物，附上大概價格與哪家超市最好買。',
+    'common.readMore': 'Read More', 'common.newsletter': 'Newsletter',
+    'common.emailPlaceholder': 'your@email.com', 'common.subscribe': 'Subscribe',
+    'common.subNote': '不定期發送，不推垃圾，隨時可取消。',
+    'common.subNote2': '不定期發送，不推垃圾，隨時可取消。由 Brevo 寄送。',
+    'home.reelsTitle': 'Reels 精選', 'home.reelsMore': '看更多',
+    'reel1':'紐西蘭純素早午餐','reel2':'冷氣清洗 DIY','reel3':'日本超市掃貨',
+    'reel4':'種多肉植物','reel5':'香港純素點法','reel6':'省錢購物秘訣','reel7':'沖繩海邊日記',
+    'home.musicTitle': '最新音樂作品', 'home.musicDesc': '音樂是旅途的聲音紀錄。在各大串流平台收聽。',
+    'home.musicViewAll': '查看全部作品',
+    'track1.title': '作品名稱 01', 'track1.type': 'Single · 2025',
+    'track2.title': '作品名稱 02', 'track2.type': 'Single · 2024',
+    'track3.title': '作品名稱 03', 'track3.type': 'Single · 2024',
+    'home.ctaTitle': '需要專屬音樂嗎？', 'home.ctaDesc': '品牌影片、活動配樂、個人紀念作品 — 量身訂製。', 'home.ctaBtn': '了解 Custom Music',
+    'home.subTitle': 'Stay in the Loop', 'home.subDesc': '旅遊體驗、音樂新作、生活提案，第一時間送到信箱。',
+    'blog.title': 'Blog', 'blog.desc': '純素旅遊的真實記錄、居家生活的小小實驗、省錢技巧的親身驗證。',
+    'blog.catAll': 'All', 'blog.catVegan': '🌿 Vegan Travel', 'blog.catHome': '🏡 Home Living', 'blog.catSmart': '💰 Smart Living',
+    'blog.tags': 'Tags',
+    'music.heroTitle': 'Sonic Journey', 'music.heroDesc': '音樂是我旅程的聲音記錄。從環境音採樣到獨立創作，每一首歌都是一段記憶的切片。',
+    'music.discography': '全部作品', 'music.ctaTitle': '需要客製音樂？', 'music.ctaDesc': '品牌、活動、影片 — 量身製作。', 'music.ctaBtn': '了解 Custom Music',
+    'music.subTitle': '新歌第一時間通知', 'music.subDesc': '新作品上線、幕後故事、創作日記。',
+    'cm.heroSub': 'for your stories', 'cm.heroDesc': '為您的品牌、影像或個人時刻訂製獨一無二的聲音。我不只是製作音樂，我是在為您的故事尋找最貼切的聽覺頻率。',
+    'cm.inquiryBtn': 'Inquiry Now', 'cm.processLink': '了解流程',
+    'cm.whatLabel': 'What I Offer', 'cm.servicesTitle': '服務項目',
+    'cm.service1Title': '品牌 / 影片配樂', 'cm.service1Desc': '廣告、企業形象影片、社群短片 — 讓音樂強化你想傳達的情感。',
+    'cm.service2Title': '活動 / 儀式音樂', 'cm.service2Desc': '婚禮、生日、週年慶 — 一首承載特定時刻的專屬歌曲。',
+    'cm.service3Title': 'Podcast / 頻道片頭', 'cm.service3Desc': '建立聽覺品牌識別，讓聽眾一秒記住你。',
+    'cm.processTitle': '製作流程',
+    'cm.step1Title': '需求溝通', 'cm.step1Desc': '了解您的故事、風格偏好與使用場景。',
+    'cm.step2Title': '初稿試聽', 'cm.step2Desc': '提供核心旋律或氛圍小樣進行確認。',
+    'cm.step3Title': '細節修正', 'cm.step3Desc': '根據反饋進行編曲與混音的精確調整。',
+    'cm.step4Title': '正式交付', 'cm.step4Desc': '提供高品質母帶檔案與授權文件。',
+    'cm.formTitle': '開始詢問',
+    'cm.formSuccess': '✓ 收到了！通常 1–2 個工作天內回覆，感謝你的詢問。',
+    'cm.formError': '送出失敗，請稍後再試或直接 Email 聯繫。',
+    'cm.fieldName': '姓名', 'cm.namePlaceholder': '你的名字',
+    'cm.fieldEmail': 'Email', 'cm.fieldType': '使用類型',
+    'cm.typeDefault': '選擇使用場景', 'cm.type1': '品牌影片配樂', 'cm.type2': '活動 / 婚禮',
+    'cm.type3': 'Podcast / 頻道', 'cm.type4': '個人紀念', 'cm.type5': '其他',
+    'cm.fieldDesc': '需求說明', 'cm.descPlaceholder': '描述你的需求、氛圍、參考範例…',
+    'cm.nameErr': '請填寫姓名', 'cm.emailErr': '請填寫有效的 Email',
+    'cm.typeErr': '請選擇使用場景', 'cm.descErr': '請簡單說明需求',
+    'cm.submitBtn': '送出詢問', 'cm.formNote': '通常 1–2 個工作天內回覆',
+    'cm.subTitle': '掌握最新消息', 'cm.subDesc': '新作品、服務更新、偶爾的幕後故事。',
+    'res.title': '推薦資源', 'res.desc': '我實際在用的工具、平台與服務。部分連結含聯盟分潤，但只推薦真心覺得好的。',
+    'res.cat1': '✈️ 旅遊訂房', 'res.cat2': '🎫 旅遊體驗', 'res.cat3': '🏡 居家 & 生活',
+    'res.badgeHotel': '住宿', 'res.badgeFlightHotel': '機+住', 'res.badgeExp': '體驗',
+    'res.badgeShopping': '購物', 'res.badgeVegan': '純素品',
+    'res.shopee': '蝦皮 / 聯盟王', 'res.disclosure': '* 本頁部分連結為聯盟行銷連結，透過連結購買我將獲得小額佣金，不影響你的購買價格。',
+    'sub.title': 'Stay in the Loop', 'sub.desc': '旅遊體驗、生活記錄、音樂新作，第一時間送進信箱。',
+    'sub.perk1': '新文章發布第一時間通知', 'sub.perk2': '新歌上線 + 幕後故事',
+    'sub.perk3': '旅遊前情報與省錢情報', 'sub.perk4': 'Custom Music 服務更新',
+    'sub.success': '✓ 訂閱成功！感謝加入，之後有新內容會第一時間通知你。',
+    'about.photoCaption': '紐西蘭某個清晨，2025',
+    'about.p1': 'Kaola Yuzu 是一個同時承載旅遊、生活與音樂創作的個人品牌。我去過的地方我都想記錄下來，不只是打卡，而是那個地方的味道、氣味、和那頓飯讓我感受到什麼。',
+    'about.p2': '純素飲食是一種選擇，但更是一種探索文化的視角——在每個城市找到真正尊重食材的餐廳，比找網紅店有趣多了。',
+    'about.p3': '居家生活的部分，我喜歡自己研究、自己修，那種自己搞定的成就感無可取代。',
+    'about.p4': '音樂是另一條線，也是旅途的聲音記錄。作品已上架各大串流平台，也承接客製音樂訂製。',
+    'about.tag1': 'Vegan Travel', 'about.tag2': 'DIY Living', 'about.tag3': 'Music Production', 'about.tag4': 'Smart Living',
+    'about.subTitle': '持續關注', 'about.subDesc': '訂閱收到最新文章與音樂更新。',
+    'footer.tagline': '純素旅遊・居家生活・省錢技巧・音樂創作。真實體驗，誠實分享。',
+    'footer.content': 'Content', 'footer.journal': 'Journal',
+    'footer.music': 'Music', 'footer.works': '作品', 'footer.more': 'More',
+    'footer.copyright': '© 2025 Kaola Yuzu · kaolayuzu.com',
+    'form.subSuccess': '✓ 已收到！感謝訂閱。',
+    'form.subError': '請輸入有效的 Email',
+    'form.subDup': '此 Email 已訂閱，謝謝！',
+  },
+  en: {
+    'nav.home': 'Home', 'nav.about': 'About', 'nav.blog': 'Blog',
+    'nav.music': 'Music', 'nav.customMusic': 'Custom Music',
+    'nav.resources': 'Resources', 'nav.quiz': 'Quiz', 'nav.subscribe': 'Subscribe',
+    'home.heroTitle1': 'Explore Every', 'home.heroTitle2': 'Flavor of Life',
+    'home.heroDesc': 'Kaola Yuzu is a space where vegan travel, home living aesthetics, and independent music creation come together. An honest lens, a real record.',
+    'home.btnJournal': 'Read Journal', 'home.btnMusic': 'Listen Music', 'home.btnQuiz': 'Distributor Quiz',
+    'home.floatingLabel': 'Countries Explored',
+    'home.floatingDesc': 'A vegan sensory journey across Asia and beyond, capturing overlooked city details.',
+    'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': 'Content Pillars',
+    'pillar1.title': 'Vegan Travel', 'pillar1.desc': 'From New Zealand\'s natural flavors to Japan\'s craftsmanship, exploring the world\'s best vegan corners.', 'pillar1.link': 'Explore Travel',
+    'pillar2.title': 'Home Living', 'pillar2.desc': 'Embracing DIY — from plant care to home repairs, building a sanctuary that is truly your own.', 'pillar2.link': 'Living Journal',
+    'pillar3.title': 'Smart Living', 'pillar3.desc': 'Spending wisely isn\'t being frugal — it\'s directing resources toward what truly elevates your life.', 'pillar3.link': 'Smart Living',
+    'home.latestTitle': 'Latest Articles', 'home.viewAll': 'View All Articles',
+    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living',
+    'post1.title': 'Auckland Vegan Restaurant Guide | 2025 First-Hand Recommendations',
+    'post1.excerpt': 'Hidden among Auckland\'s streets are amazing plant-based gems. This list is about more than food — it\'s about the people who respect their ingredients.',
+    'post1.short': 'A complete guide to 6 vegan restaurants I keep going back to, from brunch to dinner.',
+    'post1.body1': 'I spent two weeks in New Zealand, searching for vegan options in Auckland almost every day. Here\'s my list of restaurants I\'ve personally visited and would return to.',
+    'post1.h2': 'Why Are Vegan Options So Good in Auckland?',
+    'post1.body2': 'Auckland\'s food culture is shaped by diverse immigrant communities, and locals have a high acceptance of plant-based eating — nearly every café has vegan options.',
+    'post1.restaurant1': 'The legendary raw-food vegan restaurant in Ponsonby. Their raw cakes are works of art in every flavor.',
+    'post1.restaurant2': 'A fully vegan burger joint that will win over meat-eaters too. The Mac Daddy with sweet potato fries is a must.',
+    'post1.affiliateHotelText': 'Agoda featured stays in Auckland CBD — <a href="https://www.agoda.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)">View hotel deals →</a>',
+    'post1.affiliateExpText': 'Klook skydiving experience in New Zealand — <a href="https://www.klook.com/REPLACE_YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored" style="color:var(--sage)">Book now →</a>',
+    'post.affiliateHotel': 'Hotel Recommendation', 'post.affiliateExp': 'Experience Recommendation',
+    'post.affiliateHotelLink': 'View hotel deals →', 'post.affiliateExpLink': 'Book now →',
+    'post.comments': 'Comments', 'post.disqusPlaceholder': 'Disqus comment section — will appear after embedding',
+    'post.related': 'Related', 'post.related1': 'Hong Kong vegan dim sum ordering guide →', 'post.related2': 'Japan supermarket vegan haul →',
+    'post2.title': 'DIY Light Switch Replacement: Small Changes, Big Impact',
+    'post2.title2': 'Save Money Replacing Your AC Filter | Step-by-Step + Where to Buy',
+    'post2.excerpt': 'No electrician needed — just basic logic and safety knowledge to upgrade your home\'s details yourself.',
+    'post2.short': 'A technician charges 800; doing it yourself costs 150. Full tool list and step-by-step guide.',
+    'post3.title': 'Japan Supermarket Haul | Complete Vegan Snacks & Condiments List',
+    'post3.excerpt': '20 items I brought back from Japan, with approximate prices and which stores to find them.',
+    'post3.short': '20 items I brought back from Japan, with approximate prices and the best stores to find them.',
+    'common.readMore': 'Read More', 'common.newsletter': 'Newsletter',
+    'common.emailPlaceholder': 'your@email.com', 'common.subscribe': 'Subscribe',
+    'common.subNote': 'Occasional sends, no spam, unsubscribe anytime.',
+    'common.subNote2': 'Occasional sends, no spam, unsubscribe anytime. Sent via Brevo.',
+    'home.reelsTitle': 'Featured Reels', 'home.reelsMore': 'See More',
+    'reel1':'NZ Vegan Brunch','reel2':'DIY AC Cleaning','reel3':'Japan Market Haul',
+    'reel4':'Growing Succulents','reel5':'HK Vegan Ordering','reel6':'Smart Shopping Tips','reel7':'Okinawa Beach Diary',
+    'home.musicTitle': 'Latest Music', 'home.musicDesc': 'Music is the sound record of every journey. Listen on all major streaming platforms.',
+    'home.musicViewAll': 'View All Works',
+    'track1.title': 'Track Title 01', 'track1.type': 'Single · 2025',
+    'track2.title': 'Track Title 02', 'track2.type': 'Single · 2024',
+    'track3.title': 'Track Title 03', 'track3.type': 'Single · 2024',
+    'home.ctaTitle': 'Need Custom Music?', 'home.ctaDesc': 'Brand videos, event soundtracks, personal memorials — tailor-made.', 'home.ctaBtn': 'Learn about Custom Music',
+    'home.subTitle': 'Stay in the Loop', 'home.subDesc': 'Travel experiences, new music, and life tips — straight to your inbox.',
+    'blog.title': 'Blog', 'blog.desc': 'Real vegan travel records, home living experiments, and money-saving tips, all personally tested.',
+    'blog.catAll': 'All', 'blog.catVegan': '🌿 Vegan Travel', 'blog.catHome': '🏡 Home Living', 'blog.catSmart': '💰 Smart Living',
+    'blog.tags': 'Tags',
+    'music.heroTitle': 'Sonic Journey', 'music.heroDesc': 'Music is the sound record of my travels — from field recordings to original compositions, each track is a memory.',
+    'music.discography': 'All Works', 'music.ctaTitle': 'Need Custom Music?', 'music.ctaDesc': 'Brand, events, film — tailor-made.', 'music.ctaBtn': 'Learn about Custom Music',
+    'music.subTitle': 'New Music Alerts', 'music.subDesc': 'New releases, behind-the-scenes stories, and creative diaries.',
+    'cm.heroSub': 'for your stories', 'cm.heroDesc': 'I create unique sounds for your brand, visuals, or personal moments — not just music, but the right sonic frequency for your story.',
+    'cm.inquiryBtn': 'Inquiry Now', 'cm.processLink': 'See Process',
+    'cm.whatLabel': 'What I Offer', 'cm.servicesTitle': 'Services',
+    'cm.service1Title': 'Brand / Video Scoring', 'cm.service1Desc': 'Ads, corporate videos, social clips — music that amplifies the emotion you want to convey.',
+    'cm.service2Title': 'Event / Ceremony Music', 'cm.service2Desc': 'Weddings, birthdays, anniversaries — a song that carries a specific moment.',
+    'cm.service3Title': 'Podcast / Channel Intro', 'cm.service3Desc': 'Build an audio brand identity that listeners recognize in seconds.',
+    'cm.processTitle': 'Process',
+    'cm.step1Title': 'Brief', 'cm.step1Desc': 'We discuss your story, style preferences, and intended use.',
+    'cm.step2Title': 'Demo', 'cm.step2Desc': 'A core melody or atmosphere sample for your review.',
+    'cm.step3Title': 'Refine', 'cm.step3Desc': 'Precise arrangement and mixing adjustments based on your feedback.',
+    'cm.step4Title': 'Deliver', 'cm.step4Desc': 'High-quality master files and licensing documentation.',
+    'cm.formTitle': 'Start an Inquiry',
+    'cm.formSuccess': '✓ Received! I\'ll reply within 1–2 business days. Thank you!',
+    'cm.formError': 'Submission failed. Please try again or email me directly.',
+    'cm.fieldName': 'Name', 'cm.namePlaceholder': 'Your name',
+    'cm.fieldEmail': 'Email', 'cm.fieldType': 'Use Case',
+    'cm.typeDefault': 'Select a use case', 'cm.type1': 'Brand / Video Scoring', 'cm.type2': 'Event / Wedding',
+    'cm.type3': 'Podcast / Channel', 'cm.type4': 'Personal Memorial', 'cm.type5': 'Other',
+    'cm.fieldDesc': 'Description', 'cm.descPlaceholder': 'Describe your needs, mood, reference examples…',
+    'cm.nameErr': 'Please enter your name', 'cm.emailErr': 'Please enter a valid email',
+    'cm.typeErr': 'Please select a use case', 'cm.descErr': 'Please briefly describe your needs',
+    'cm.submitBtn': 'Send Inquiry', 'cm.formNote': 'Usually replies within 1–2 business days',
+    'cm.subTitle': 'Stay Updated', 'cm.subDesc': 'New releases, service updates, and occasional behind-the-scenes.',
+    'res.title': 'Resources', 'res.desc': 'Tools, platforms, and services I actually use. Some links are affiliate — I only recommend what I genuinely like.',
+    'res.cat1': '✈️ Hotels & Stays', 'res.cat2': '🎫 Travel Experiences', 'res.cat3': '🏡 Home & Lifestyle',
+    'res.badgeHotel': 'Hotel', 'res.badgeFlightHotel': 'Flight+Hotel', 'res.badgeExp': 'Experience',
+    'res.badgeShopping': 'Shopping', 'res.badgeVegan': 'Vegan Goods',
+    'res.shopee': 'Shopee / Affiliate Union', 'res.disclosure': '* Some links on this page are affiliate links. Purchasing through them earns me a small commission at no extra cost to you.',
+    'sub.title': 'Stay in the Loop', 'sub.desc': 'Travel, life, and new music — delivered to your inbox.',
+    'sub.perk1': 'First-to-know when new articles drop', 'sub.perk2': 'New music releases + behind-the-scenes',
+    'sub.perk3': 'Travel tips and money-saving alerts', 'sub.perk4': 'Custom Music service updates',
+    'sub.success': '✓ Subscribed! Thanks for joining. I\'ll let you know when there\'s something new.',
+    'about.photoCaption': 'Somewhere in New Zealand, early 2025',
+    'about.p1': 'Kaola Yuzu is a personal brand spanning travel, home life, and music creation. Every place I visit, I want to document — not just to check off a destination, but to capture its taste, its smell, and what that meal made me feel.',
+    'about.p2': 'Veganism is a choice, but more than that, it\'s a lens for exploring culture — finding restaurants in every city that truly respect their ingredients is far more interesting than chasing trendy spots.',
+    'about.p3': 'At home, I love researching and fixing things myself. The satisfaction of solving something on your own is irreplaceable.',
+    'about.p4': 'Music is another thread — a sonic record of my travels. My work is on all major streaming platforms, and I also take custom music commissions.',
+    'about.tag1': 'Vegan Travel', 'about.tag2': 'DIY Living', 'about.tag3': 'Music Production', 'about.tag4': 'Smart Living',
+    'about.subTitle': 'Stay Connected', 'about.subDesc': 'Subscribe for the latest articles and music updates.',
+    'footer.tagline': 'Vegan travel · Home living · Smart spending · Music. Real experiences, honest sharing.',
+    'footer.content': 'Content', 'footer.journal': 'Journal',
+    'footer.music': 'Music', 'footer.works': 'Works', 'footer.more': 'More',
+    'footer.copyright': '© 2025 Kaola Yuzu · kaolayuzu.com',
+    'form.subSuccess': '✓ Subscribed! Thank you.',
+    'form.subError': 'Please enter a valid email.',
+    'form.subDup': 'Already subscribed. Thank you!',
+  }
+};
+
+/* ============================================================
+   2. LANGUAGE SYSTEM
+   ============================================================ */
+let currentLang = 'zh';
+
+function applyLang(lang) {
+  const dict = i18n[lang];
+  // Text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      // Use innerHTML for items that might contain HTML (affiliate links)
+      if (key.includes('affiliateHotelText') || key.includes('affiliateExpText')) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+  // Placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (dict[key] !== undefined) el.placeholder = dict[key];
+  });
+  // HTML lang attribute
+  document.getElementById('htmlRoot').lang = lang === 'zh' ? 'zh-TW' : 'en';
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  applyLang(lang);
+
+  // Update nav lang button
+  const toggle = document.getElementById('langToggle');
+  const widget = document.getElementById('widgetLangLabel');
+  if (lang === 'en') {
+    toggle.innerHTML = '<span>繁中</span>&nbsp;/&nbsp;<span class="active-lang">EN</span>';
+    if (widget) widget.textContent = 'EN / 繁中';
+  } else {
+    toggle.innerHTML = '<span class="active-lang">繁中</span>&nbsp;/&nbsp;EN';
+    if (widget) widget.textContent = '繁中 / EN';
+  }
+
+  // Mobile lang buttons
+  document.querySelectorAll('.nav__mobile-lang span').forEach((s, i) => {
+    s.classList.toggle('active', (i === 0 && lang === 'zh') || (i === 1 && lang === 'en'));
+  });
+}
+
+function toggleLang() {
+  setLang(currentLang === 'zh' ? 'en' : 'zh');
+}
+
+/* ============================================================
+   3. NAVIGATION
+   ============================================================ */
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.style.display = 'block';
+    target.offsetHeight; // force reflow
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.nav__links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === pageId);
+  });
+  return false;
+}
+
+function openMobileMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('mobileOverlay').classList.add('open');
+  document.getElementById('burgerBtn').classList.add('open');
+  document.body.classList.add('menu-open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.getElementById('burgerBtn').classList.remove('open');
+  document.body.classList.remove('menu-open');
+}
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+}
+function handleMobileNav(pageId) {
+  showPage(pageId);
+  closeMobileMenu();
+  return false;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMobileMenu();
+});
+
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Double-click logo → sitemap
+document.querySelector('.nav__logo').addEventListener('dblclick', () => showPage('sitemap'));
+
+/* ============================================================
+   4. TOAST
+   ============================================================ */
+function showToast(msg, type = 'success', duration = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('visible');
+  setTimeout(() => t.classList.remove('visible'), duration);
+}
+
+/* ============================================================
+   5. EMAIL VALIDATION
+   ============================================================ */
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
+/* ============================================================
+   6. SUBSCRIBE FORM
+   Calls /api/subscribe (Vercel serverless → Brevo).
+   API key never touches the browser.
+   ============================================================ */
+async function submitSubscribe(formId, emailId, feedbackId) {
+  const emailEl    = document.getElementById(emailId);
+  const feedbackEl = document.getElementById(feedbackId);
+  const email      = emailEl ? emailEl.value.trim() : '';
+  const dict       = i18n[currentLang];
+
+  if (!feedbackEl) return;
+
+  // --- Client-side validation ---
+  if (!isValidEmail(email)) {
+    feedbackEl.className = 'subscribe-inline-feedback error';
+    feedbackEl.textContent = dict['form.subError'] || 'Please enter a valid email.';
+    if (emailEl) emailEl.focus();
+    return;
+  }
+
+  // --- Loading state ---
+  feedbackEl.className = 'subscribe-inline-feedback';
+  feedbackEl.textContent = currentLang === 'zh' ? '送出中…' : 'Submitting…';
+
+  try {
+    const res  = await fetch('/api/subscribe', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email })
+    });
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      feedbackEl.className = 'subscribe-inline-feedback success';
+      feedbackEl.textContent = dict['form.subSuccess'] || '✓ Subscribed!';
+      if (emailEl) emailEl.value = '';
+
+      // Subscribe page: hide form, show big success block
+      if (feedbackId === 'subPageFeedback') {
+        const successDiv = document.getElementById('subPageSuccess');
+        const fieldsDiv  = document.getElementById('subPageFields');
+        if (successDiv && fieldsDiv) {
+          fieldsDiv.style.display  = 'none';
+          successDiv.style.display = 'block';
+        }
+      }
+      showToast(dict['form.subSuccess'] || '✓ Subscribed!', 'success');
+
+    } else if (data.status === 'duplicate') {
+      feedbackEl.className = 'subscribe-inline-feedback success';
+      feedbackEl.textContent = dict['form.subDup'] || 'Already subscribed. Thank you!';
+      if (emailEl) emailEl.value = '';
+      showToast(dict['form.subDup'] || 'Already subscribed!', 'success');
+
+    } else {
+      throw new Error(data.message || 'error');
+    }
+
+  } catch (err) {
+    feedbackEl.className = 'subscribe-inline-feedback error';
+    feedbackEl.textContent = currentLang === 'zh'
+      ? '送出失敗，請稍後再試。'
+      : 'Submission failed. Please try again.';
+    showToast(feedbackEl.textContent, 'error');
+  }
+}
+
+/* ============================================================
+   7. CUSTOM MUSIC FORM
+   ============================================================ */
+async function submitCMForm() {
+  const dict = i18n[currentLang];
+  let valid = true;
+
+  // Name
+  const name = document.getElementById('cmName').value.trim();
+  const nameErr = document.getElementById('cmNameErr');
+  if (!name) {
+    document.getElementById('cmName').classList.add('field-error');
+    nameErr.classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('cmName').classList.remove('field-error');
+    nameErr.classList.remove('visible');
+  }
+
+  // Email
+  const email = document.getElementById('cmEmail').value.trim();
+  const emailErr = document.getElementById('cmEmailErr');
+  if (!isValidEmail(email)) {
+    document.getElementById('cmEmail').classList.add('field-error');
+    emailErr.classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('cmEmail').classList.remove('field-error');
+    emailErr.classList.remove('visible');
+  }
+
+  // Type
+  const type = document.getElementById('cmType').value;
+  const typeErr = document.getElementById('cmTypeErr');
+  if (!type) {
+    document.getElementById('cmType').classList.add('field-error');
+    typeErr.classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('cmType').classList.remove('field-error');
+    typeErr.classList.remove('visible');
+  }
+
+  // Description
+  const desc = document.getElementById('cmDesc').value.trim();
+  const descErr = document.getElementById('cmDescErr');
+  if (!desc) {
+    document.getElementById('cmDesc').classList.add('field-error');
+    descErr.classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('cmDesc').classList.remove('field-error');
+    descErr.classList.remove('visible');
+  }
+
+  if (!valid) return;
+
+  // --- Real submission to Formspree ---
+  // REPLACE_FORMSPREE_ENDPOINT: paste your Formspree form URL here
+  // e.g. https://formspree.io/f/xabc1234
+  const FORMSPREE_ENDPOINT = 'REPLACE_FORMSPREE_ENDPOINT';
+
+  const btn = document.getElementById('cmSubmitBtn');
+  const originalLabel = btn.textContent;
+  btn.classList.add('btn-loading');
+  btn.textContent = currentLang === 'zh' ? '送出中…' : 'Sending…';
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method:  'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:    document.getElementById('cmName').value.trim(),
+        email:   document.getElementById('cmEmail').value.trim(),
+        useCase: document.getElementById('cmType').value,
+        message: document.getElementById('cmDesc').value.trim(),
+        _subject: `[Custom Music] ${document.getElementById('cmType').value}`
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('cmFormFields').style.display = 'none';
+      document.getElementById('cmFormSuccess').style.display = 'block';
+      document.getElementById('cmFormError').style.display   = 'none';
+      showToast(dict['cm.formSuccess'] || '✓ Received!', 'success');
+    } else {
+      throw new Error('formspree_error');
+    }
+  } catch (err) {
+    document.getElementById('cmFormError').style.display = 'block';
+    showToast(dict['cm.formError'] || 'Submission failed.', 'error');
+  } finally {
+    btn.classList.remove('btn-loading');
+    btn.textContent = originalLabel;
+  }
+} // end submitCMForm
+
+// Clear field error on input
+['cmName','cmEmail','cmType','cmDesc'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => {
+    el.classList.remove('field-error');
+    const errEl = document.getElementById(id + 'Err');
+    if (errEl) errEl.classList.remove('visible');
+  });
+});
+
+/* ============================================================
+   8. BLOG CATEGORY FILTER
+   ============================================================ */
+document.querySelectorAll('.blog-cat').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.blog-cat').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ============================================================
+   9. INIT
+   ============================================================ */
+// Apply default language on load
+applyLang('zh');
+// Handle keyboard nav for logo and translate widget
+document.querySelector('.nav__logo').addEventListener('keydown', e => {
+  if (e.key === 'Enter') showPage('home');
+});
+document.querySelector('.translate-widget').addEventListener('keydown', e => {
+  if (e.key === 'Enter') toggleLang();
+});
+</script>
+
+</body>
+</html>
