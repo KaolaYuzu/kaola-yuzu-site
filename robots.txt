@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kaola-yuzu-site.vercel.app/sitemap.xml
