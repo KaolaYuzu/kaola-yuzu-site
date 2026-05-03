@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>你適合哪一種 AI 音樂發行路線？</title>
+  <title>Which AI Music Release Path Fits You?</title>
 
   <style>
     /* ===========================
@@ -399,12 +399,12 @@
 <body>
 
 <div class="app">
-  <div style="text-align:right;margin-bottom:12px;"><a href="/en/quiz.html" style="color:var(--accent);font-size:12px;text-decoration:none;font-weight:700;letter-spacing:.08em;">EN</a></div>
-  <div style="margin-bottom:18px;"><a href="/" style="color:#8b8fa8;text-decoration:none;font-size:12px;letter-spacing:.04em;">← 回 Kaola Yuzu 主站</a></div>
+  <div style="text-align:right;margin-bottom:12px;"><a href="/quiz.html" style="color:var(--accent);font-size:12px;text-decoration:none;font-weight:700;letter-spacing:.08em;">繁中</a></div>
+  <div style="margin-bottom:18px;"><a href="/" style="color:#8b8fa8;text-decoration:none;font-size:12px;letter-spacing:.04em;">← Back to Kaola Yuzu</a></div>
 
   <!-- SCREEN 1: LANDING -->
   <div id="screen-landing" class="screen active">
-    <div class="tag">AI 音樂發行路線測驗</div>
+    <div class="tag">AI Music Release Path Quiz</div>
 
     <div class="wave-deco" aria-hidden="true">
       <div class="wave-bar"></div><div class="wave-bar"></div>
@@ -416,33 +416,33 @@
     </div>
 
     <h1 class="landing-title">
-      你適合哪一種<br><span class="hl">AI 音樂</span>發行路線？
+      Which<br><span class="hl">AI Music</span>release path fits you?
     </h1>
     <p class="landing-sub">
-      不是每個創作者都適合同一個發行平台。先判斷你的作品數量、AI 創作狀態、留架需求、Content ID 需求與長期成本，再決定要用哪一種工具。
+      Not every creator needs the same distributor. Clarify your release volume, AI involvement, catalog needs, Content ID needs, and long-term costs before choosing a platform.
     </p>
 
     <button class="start-btn" onclick="startQuiz()">
-      開始 1 分鐘測驗
+      Start the 1-minute quiz
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
     <div class="feature-pills">
-      <span class="pill">7 道題目</span>
-      <span class="pill">無需登入</span>
-      <span class="pill">不收集個資</span>
-      <span class="pill">結果可截圖</span>
+      <span class="pill">7 questions</span>
+      <span class="pill">No login</span>
+      <span class="pill">No personal data collected</span>
+      <span class="pill">Screenshot-friendly</span>
     </div>
 
     <div class="divider"></div>
-    <p class="small-note">本測驗不是平台排名，也不是法律意見。<br>正式發行前仍應以各平台官方最新條款為準。</p>
+    <p class="small-note">This quiz is not a platform ranking or legal advice.<br>Before releasing, always check each platform’s latest official terms.</p>
   </div>
 
 
   <!-- SCREEN 2: QUIZ -->
   <div id="screen-quiz" class="screen">
     <div class="progress-row">
-      <span class="progress-lbl">進度</span>
+      <span class="progress-lbl">Progress</span>
       <span class="progress-num" id="progress-num">1 / 7</span>
     </div>
     <div class="progress-track">
@@ -452,38 +452,38 @@
     <div class="q-card" id="q-card">
       <div class="q-label" id="q-label">Q1</div>
       <div class="q-text"  id="q-text"></div>
-      <div class="q-multi-hint" id="q-multi-hint" style="display:none;">可選最多 2 項</div>
+      <div class="q-multi-hint" id="q-multi-hint" style="display:none;">Choose up to 2</div>
     </div>
 
     <div class="options" id="options-list"></div>
 
     <div class="multi-limit-msg" id="multi-limit-msg">
-      這題最多選 2 項，請選最重要的兩個。
+      Choose up to 2. Pick the two that matter most.
     </div>
 
     <div class="quiz-nav">
-      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← 上一題</button>
-      <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>繼續</button>
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Continue</button>
     </div>
 
     <div class="divider"></div>
-    <p class="small-note">本測驗不是平台排名，也不是法律意見。</p>
+    <p class="small-note">This quiz is not a platform ranking or legal advice.</p>
   </div>
 
 
   <!-- SCREEN 3: RESULT -->
   <div id="screen-result" class="screen">
-    <div class="result-eyebrow">你的發行路線</div>
+    <div class="result-eyebrow">Your release path</div>
     <h2 class="result-headline" id="result-title"></h2>
     <p  class="result-platforms" id="result-platforms"></p>
 
     <div class="info-card">
-      <div class="card-label">為什麼你會得到這個結果</div>
+      <div class="card-label">Why this result appears</div>
       <div class="card-body" id="result-why"></div>
     </div>
 
     <div class="risk-card">
-      <div class="card-label">⚠ 你要注意的風險</div>
+      <div class="card-label">⚠ What to watch for</div>
       <div class="card-body" id="result-risk"></div>
     </div>
 
@@ -493,22 +493,22 @@
     <div id="affiliate-buttons"></div>
 
     <div class="cta-block">
-      <div class="cta-main">免費領取完整比較表</div>
-      <div class="cta-sub" style="margin-bottom:18px;">留下 Email，我會把完整 AI 音樂發行商比較表寄給你。內容包含平台費用、AI 上架限制、Content ID 條件、停止續費後留架方式與等待時間整理。</div>
+      <div class="cta-main">Get the full comparison table</div>
+      <div class="cta-sub" style="margin-bottom:18px;">留下 Email，我會把完整 AI Music發行商比較表寄給你。內容包含平台費用、AI 上架限制、Content ID 條件、停止續費後留架方式與等待時間整理。</div>
       <div class="cta-form-row">
         <input type="email" id="cta-email" class="cta-input" placeholder="輸入你的 Email" autocomplete="email" inputmode="email" />
-        <button class="cta-submit-btn" onclick="handleCtaSubmit()">寄送比較表給我</button>
+        <button class="cta-submit-btn" onclick="handleCtaSubmit()">Send me the comparison</button>
       </div>
-      <div class="cta-limit-note">不寄垃圾信。之後你也可以隨時取消訂閱。</div>
+      <div class="cta-limit-note">No spam. You can unsubscribe anytime.</div>
       <div id="cta-feedback" class="cta-feedback"></div>
     </div>
 
     <button class="restart-btn" onclick="restartQuiz()">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7a6 6 0 1 0 1.5-3.9M1 3v4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      重新測驗
+      Restart quiz
     </button>
 
-    <p class="small-note">本測驗不是平台排名，也不是法律意見。<br>正式發行前仍應以各平台官方最新條款為準。</p>
+    <p class="small-note">This quiz is not a platform ranking or legal advice.<br>Before releasing, always check each platform’s latest official terms.</p>
   </div>
 
 </div><!-- /app -->
@@ -525,74 +525,74 @@
   const questions = [
     {
       id: 'q1', multi: false,
-      text: '你目前一年大概會發幾首歌？',
+      text: 'About how many songs do you release per year?',
       options: [
-        { label: '1–3 首',            key: 'q1a' },
-        { label: '4–12 首',           key: 'q1b' },
-        { label: '12 首以上',          key: 'q1c' },
-        { label: '還不確定，先測市場', key: 'q1d' }
+        { label: '1–3 songs',            key: 'q1a' },
+        { label: '4–12 songs',           key: 'q1b' },
+        { label: 'More than 12 songs',          key: 'q1c' },
+        { label: 'Not sure yet — testing the market', key: 'q1d' }
       ]
     },
     {
       id: 'q2', multi: true,
-      text: '你最在意哪件事？',
+      text: 'What matters most to you?',
       options: [
-        { label: '便宜快速上架',              key: 'q2a' },
-        { label: '正式合規、文件完整',          key: 'q2b' },
-        { label: '停止續費後作品不要消失',      key: 'q2c' },
-        { label: '長期 catalog / 自動化管理',   key: 'q2d' },
-        { label: 'Content ID / 社群平台變現',   key: 'q2e' }
+        { label: 'Low-cost, fast release',              key: 'q2a' },
+        { label: 'Formal compliance and documentation',          key: 'q2b' },
+        { label: 'Keep releases live after cancellation',      key: 'q2c' },
+        { label: 'Long-term catalog / automation management',   key: 'q2d' },
+        { label: 'Content ID / social platform monetization',   key: 'q2e' }
       ]
     },
     {
       id: 'q3', multi: false,
-      text: '你的作品主要是哪一種？',
+      text: 'What type of music are you releasing?',
       options: [
-        { label: '一般原創音樂',                    key: 'q3a' },
-        { label: 'AI-assisted，有人類明確參與修改',  key: 'q3b' },
-        { label: '高比例 AI-generated',              key: 'q3c' },
-        { label: '中文／華語作品',                   key: 'q3d' },
-        { label: '英文 AI 音樂',                     key: 'q3e' }
+        { label: 'Original music',                    key: 'q3a' },
+        { label: 'AI-assisted with clear human input',  key: 'q3b' },
+        { label: 'High-ratio AI-generated',              key: 'q3c' },
+        { label: 'Chinese / Mandarin works',                   key: 'q3d' },
+        { label: '英文 AI Music',                     key: 'q3e' }
       ]
     },
     {
       id: 'q4', multi: true,
-      text: '你對 Content ID / UGC 變現的需求？',
+      text: 'How important is Content ID / UGC monetization?',
       options: [
-        { label: '不重要，先上架就好',                            key: 'q4a' },
-        { label: '可能需要，但不是第一優先',                      key: 'q4b' },
-        { label: '很重要，我想追蹤 YouTube / TikTok / IG 使用',  key: 'q4c' },
-        { label: '我不清楚，但想知道風險',                        key: 'q4d' }
+        { label: 'Not important — release first',                            key: 'q4a' },
+        { label: 'May need it, but not first priority',                      key: 'q4b' },
+        { label: 'Very important — I want to track YouTube / TikTok / IG usage',  key: 'q4c' },
+        { label: 'Not sure, but I want to understand the risks',                        key: 'q4d' }
       ]
     },
     {
       id: 'q5', multi: true,
-      text: '你對「停止續費後留架」的態度？',
+      text: 'How do you feel about keeping releases live after cancellation?',
       options: [
-        { label: '不在意，先測試就好',             key: 'q5a' },
-        { label: '很在意，我希望作品長期存在',      key: 'q5b' },
-        { label: '可以接受抽成留架',               key: 'q5c' },
-        { label: '不想每首歌都另外付 Legacy 費用', key: 'q5d' }
+        { label: 'Not important — testing first',             key: 'q5a' },
+        { label: 'Very important — I want long-term catalog presence',      key: 'q5b' },
+        { label: 'I can accept revenue-share catalog retention',               key: 'q5c' },
+        { label: 'I do not want to pay separate legacy fees per release', key: 'q5d' }
       ]
     },
     {
       id: 'q6', multi: true,
-      text: '你現在的發行管理狀態？',
+      text: 'What is your current release management setup?',
       options: [
-        { label: '只是想先把歌發出去',                             key: 'q6a' },
-        { label: '有整理基本資料',                                 key: 'q6b' },
-        { label: '有版本命名、創作紀錄、音訊檢查',                 key: 'q6c' },
-        { label: '想建立完整 catalog / payout / royalty 管理流程', key: 'q6d' }
+        { label: 'I just want to release music first',                             key: 'q6a' },
+        { label: 'I organize basic metadata',                                 key: 'q6b' },
+        { label: 'I track versions, creation records, and audio checks',                 key: 'q6c' },
+        { label: 'I want catalog / payout / royalty management', key: 'q6d' }
       ]
     },
     {
       id: 'q7', multi: false,
-      text: '你目前的預算偏好？',
+      text: 'What is your budget preference?',
       options: [
-        { label: '最低 upfront cost',             key: 'q7a' },
-        { label: '年費可以接受',                   key: 'q7b' },
-        { label: '單曲／專輯一次性付費可以接受',   key: 'q7c' },
-        { label: '願意為長期管理與系統化多付一點', key: 'q7d' }
+        { label: 'Lowest upfront cost',             key: 'q7a' },
+        { label: 'Annual fee is acceptable',                   key: 'q7b' },
+        { label: 'One-time per single/album fee is acceptable',   key: 'q7c' },
+        { label: 'Willing to pay more for long-term management', key: 'q7d' }
       ]
     }
   ];
@@ -603,46 +603,46 @@
   =========================== */
   const results = {
     r1: {
-      title:     '便宜快速測試型',
+      title:     'Low-cost Testing Path',
       platforms: 'DistroKid / RouteNote',
-      why:       '你目前比較適合先用低門檻方式把作品推出去測市場。你的重點不是建立完整發行系統，而是先驗證作品反應、上架流程與聽眾回饋。',
+      why:       'A low-barrier release path may fit your current stage. The focus is not building a full release system yet, but testing audience response, the release process, and feedback.',
       risk:      'DistroKid 表面年費低，但 Content ID、Social Media Pack、Leave a Legacy、翻唱授權、Dolby Atmos 等可能變成額外成本。RouteNote Free 可以降低前期成本，但會以收入分潤交換。'
     },
     r2: {
-      title:     '正式合規型',
+      title:     'Formal / Compliance Path',
       platforms: 'TuneCore',
-      why:       '你比較適合走正式、文件完整、資料清楚的發行路線。你願意整理 AI 工具來源、授權資料、創作紀錄與作品資訊，比起只追求最低價格，你更重視合規與可追溯性。',
+      why:       'A more formal and documented release path fits your needs. You are willing to organize AI tool sources, rights information, creation records, and release data rather than choosing only by lowest price.',
       risk:      '這類路線適合願意整理資料的人。正式發行前，仍要確認平台對 AI-assisted 或 AI-generated 音樂的最新政策。'
     },
     r3: {
-      title:     '零成本市場測試型',
+      title:     'Zero-upfront Market Testing Path',
       platforms: 'RouteNote Free',
-      why:       '你目前最適合先用低成本方式測試市場反應。這條路線適合還不確定作品方向、受眾反應或發行節奏的人。',
+      why:       'A low-cost testing path may fit this stage. It works well if you are still clarifying your sound, audience response, or release rhythm.',
       risk:      'RouteNote Free 的優點是 upfront cost 低，但會以收入分潤交換。它適合測試，不一定適合追求最大收益或完整商業化。'
     },
     r4: {
-      title:     '停止續費後仍想留架型',
+      title:     'Catalog Retention Path',
       platforms: 'LANDR / RouteNote / Amuse / CD Baby / Too Lost',
-      why:       '你重視作品長期存在，不希望停止續費後作品直接消失。這代表你開始把音樂視為 catalog，而不只是一次性發佈。',
+      why:       'You care about long-term catalog presence and do not want releases to disappear after canceling. This means you are starting to treat music as a catalog, not a one-off upload.',
       risk:      '不同平台的留架方式不同。LANDR 取消後可留架但抽成；RouteNote 可維持 Free；Amuse 取消或降級後可能抽成；DistroKid 則需要加購 Leave a Legacy；Too Lost 停止訂閱後也有抽成留架邏輯。正式選擇前要把長期成本算進去。'
     },
     r5: {
-      title:     '英文 AI 音樂／低頻發行型',
+      title:     '英文 AI Music／低頻發行型',
       platforms: 'LANDR',
-      why:       '如果你主要做英文 AI 音樂、發行量不高、每月不超過 12 首，且重視低年費與停止續費後留架，LANDR 類型的發行路線可能適合你。',
-      risk:      'LANDR 對 AI-generated songs 有每月數量限制，而且中文標題不適合作 Apple Music 主力策略。AI-generated songs 在部分 Content ID / 社群平台變現上也有限制，不能只看能不能上架。'
+      why:       '如果你主要做英文 AI Music、發行量不高、每月不超過 12 首，且重視低年費與停止續費後留架，LANDR 類型的發行路線可能適合你。',
+      risk:      'LANDR 對 AI-generated songs 有每月數量限制，而且中文標題不適合作 Apple Music 主力策略。AI-generated songs 在部分 Content ID / social platform monetization上也有限制，不能只看能不能上架。'
     },
     r6: {
-      title:     '系統化 Catalog 管理型',
+      title:     'Systematic Catalog Management Path',
       platforms: 'Too Lost',
-      why:       '你不是只想發幾首歌，而是想把音樂作品做成 catalog、流程管理、發行資料、收益、payout 與長期資產。你比較適合觀察系統型發行後台，而不是只看單次上架費用。',
+      why:       'You are not just releasing a few songs. You are thinking about catalog, workflow, release data, royalties, payouts, and long-term assets. A system-oriented backend matters more than one-time upload costs.',
       risk:      'Too Lost 具備 catalog、release、royalty、payout、analytics、API 等系統化特徵，但 AI-generated content 仍需要 QC，也可能被發行商或 DSP 拒收。AI-generated 或 AI-assisted elements 不應被視為一定符合 YouTube Content ID eligibility。'
     },
     r7: {
-      title:     'Content ID / UGC 變現型',
+      title:     'Content ID / UGC Monetization Path',
       platforms: 'TuneCore / UnitedMasters / DistroKid / Too Lost',
-      why:       '你很在意 YouTube、TikTok、Instagram、Facebook 等平台上的音樂辨識、使用追蹤與可能收益。這條路線的核心不是只看能不能上架，而是看作品是否符合 Content ID / UGC 變現條件。',
-      risk:      '不能只看平台有沒有 Content ID 功能，還要看 AI 音樂是否符合 eligibility、是否要加購、抽成比例、平台支援範圍，以及 non-exclusive loops、samples、AI-generated elements 是否會影響資格。'
+      why:       'You care about music identification, usage tracking, and potential revenue across YouTube, TikTok, Instagram, and Facebook. The key is not only release access, but whether your work qualifies for Content ID / UGC monetization.',
+      risk:      '不能只看平台有沒有 Content ID 功能，還要看 AI Music是否符合 eligibility、是否要加購、抽成比例、平台支援範圍，以及 non-exclusive loops、samples、AI-generated elements 是否會影響資格。'
     }
   };
 
@@ -708,7 +708,7 @@
   const specialNotices = {
     q3c: {
       label: 'AI 內容提醒',
-      text:  '高比例 AI-generated 作品更需要整理創作來源、工具使用紀錄、授權依據與人工參與證明。部分平台或 DSP 可能要求 QC，也可能拒收或限制 Content ID / UGC 變現。'
+      text:  'High-ratio AI-generated 作品更需要整理創作來源、工具使用紀錄、授權依據與人工參與證明。部分平台或 DSP 可能要求 QC，也可能拒收或限制 Content ID / UGC 變現。'
     },
     q3d: {
       label: '華語作品提醒',
@@ -716,7 +716,7 @@
     },
     q4c: {
       label: 'Content ID 提醒',
-      text:  'AI 音樂不應預設一定能做 Content ID 或 UGC 變現。請確認平台 eligibility、加購費用、抽成比例、是否支援 AI-assisted / AI-generated 內容，以及是否使用 non-exclusive loops / samples。'
+      text:  'AI Musicshould not be assumed eligible for Content ID or UGC monetization。請確認平台 eligibility、加購費用、抽成比例、是否支援 AI-assisted / AI-generated 內容，以及是否使用 non-exclusive loops / samples。'
     }
   };
 
@@ -777,7 +777,7 @@
     const q     = questions[currentQ];
     const total = questions.length;
 
-    // 進度
+    // Progress
     document.getElementById('progress-num').textContent  = `${currentQ + 1} / ${total}`;
     document.getElementById('progress-fill').style.width = `${(currentQ / total) * 100}%`;
 
@@ -803,7 +803,7 @@
     // 按鈕狀態
     document.getElementById('btn-back').disabled    = currentQ === 0;
     document.getElementById('btn-next').disabled    = !hasAnswer(currentQ);
-    document.getElementById('btn-next').textContent = currentQ === total - 1 ? '查看結果 →' : '繼續';
+    document.getElementById('btn-next').textContent = currentQ === total - 1 ? 'See Result →' : 'Continue';
   }
 
   /** 渲染選項按鈕（含已選狀態還原、dimmed 狀態） */
@@ -904,7 +904,7 @@
     if (emailInput) { emailInput.value = ''; emailInput.disabled = false; }
     if (submitBtn)  {
       submitBtn.disabled    = false;
-      submitBtn.textContent = '寄送比較表給我';
+      submitBtn.textContent = 'Send me the comparison';
       submitBtn.style.background = '';
       submitBtn.style.color      = '';
     }
@@ -1002,7 +1002,7 @@
     ROUTENOTE: "https://www.routenote.com"
   };
 
-  // 每個結果固定 2 張平台卡：primary（推薦優先）+ secondary（備選方案）
+  // 每個結果固定 2 張平台卡：primary（Recommended first）+ secondary（Alternative option）
   const resultAffiliates = {
     r1: [
       { key: 'DISTROKID', label: 'DistroKid', role: 'primary'   },
@@ -1051,25 +1051,25 @@
   function getAffiliateCardMeta(role) {
     if (role === 'primary') {
       return {
-        kicker: '推薦優先',
+        kicker: 'Recommended first',
         benefits: [
-          '可能取得新用戶優惠',
-          '不會因此多付費',
-          '支持本工具持續更新'
+          'May unlock new-user offers',
+          'No extra cost to you',
+          'Supports this tool’s updates'
         ]
       };
     }
     return {
-      kicker: '備選方案',
+      kicker: 'Alternative option',
       benefits: [
-        '多一個比較選項',
-        '適合不同預算或發行需求',
-        '實際優惠以平台顯示為準'
+        'One more comparison option',
+        'Fits different budgets or release needs',
+        'Actual offers depend on the platform'
       ]
     };
   }
 
-  /** 注入推薦平台連結區塊：每個平台有主要推薦連結 + 次要了解平台 */
+  /** 注入Recommended platform links區塊：每個平台有主要推薦連結 + 次要了解平台 */
   function renderAffiliateButtons(resultKey) {
     const container = document.getElementById('affiliate-buttons');
     const cards     = resultAffiliates[resultKey] || [];
@@ -1079,9 +1079,9 @@
       <div class="aff-block">
         <div class="aff-panel">
           <div class="aff-heading">
-            <div class="aff-title">推薦平台連結</div>
+            <div class="aff-title">Recommended platform links</div>
             <div class="aff-desc">
-              你可以先了解平台差異，再決定是否使用推薦連結註冊。使用推薦連結通常可以獲得平台提供的新用戶優惠、折扣或推薦獎勵；實際優惠以平台頁面顯示為準。你不會因此多付費，部分平台也會提供我推薦獎勵，支持我持續整理這類免費工具與比較資料。
+              You can learn about platform differences first, then decide whether to use a referral link. Referral links may include new-user offers, discounts, or referral rewards depending on the platform. You do not pay extra, and some platforms may provide me a referral reward that supports this free research.
             </div>
           </div>
           <div class="aff-cards">
@@ -1096,10 +1096,10 @@
                   </ul>
                   <div class="aff-actions">
                     <button class="aff-btn primary" onclick="goAffiliate('${card.key}')">
-                      使用推薦連結 →
+                      Use referral link →
                     </button>
                     <button class="aff-btn secondary" onclick="goInfo('${card.key}')">
-                      先了解平台
+                      Learn about platform
                     </button>
                   </div>
                 </div>
@@ -1161,7 +1161,7 @@
 
       feedback.textContent = data.status === 'duplicate'
         ? '你已經登記過了，之後會優先收到完整比較表。'
-        : '已登記成功，完整比較表將在正式開放時優先寄送給你。';
+        : 'Registered. The full comparison will be sent when it is ready.';
       feedback.classList.add('visible');
 
       input.value    = '';

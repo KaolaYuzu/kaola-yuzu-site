@@ -100,6 +100,27 @@ a { color: inherit; text-decoration: none; transition: color var(--trans); }
 .btn-link--light { color: rgba(255,255,255,0.8); }
 .btn-link--light::after { background: var(--yuzu); }
 
+
+/* V1.3 CTA polish */
+.btn-outline-soft {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 28px;
+  border: 1.5px solid var(--forest);
+  color: var(--forest) !important;
+  background: transparent !important;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all var(--trans);
+}
+.btn-outline-soft:hover {
+  background: rgba(30,47,35,0.06) !important;
+  transform: translateY(-1px);
+}
+
 /* Navigation */
 .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: transparent; z-index: 1000; transition: all var(--trans); }
 .nav.scrolled { background: rgba(249,246,240,0.92); backdrop-filter: blur(12px); height: 68px; border-bottom: 1px solid var(--mist); }
@@ -1331,8 +1352,8 @@ const i18n = {
     'home.floatingLabel': 'Countries Explored',
     'home.floatingDesc': '橫跨歐亞的純素感官之旅，記錄那些被忽略的城市細節。',
     'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': '內容支柱',
-    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': '你在找什麼？', 'home.gatewayDesc': '保留品牌質感，但讓搜尋者能快速進入真正需要的內容與工具。',
-    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI 音樂發行商測驗', 'home.gatewayQuizDesc': '用 1 分鐘判斷你適合 LANDR、DistroKid、RouteNote 或其他發行路線，避免只看年費做錯決定。', 'home.gatewayQuizLink': '開始測驗 →',
+    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': '你在找什麼？', 'home.gatewayDesc': '快速找到適合你的工具與內容：從 AI 音樂發行、生活指南，到可實際使用的系統與資源。',
+    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI 音樂發行商測驗', 'home.gatewayQuizDesc': '用 1 分鐘釐清你的發行需求，再依你的情境選擇合適的平台。', 'home.gatewayQuizLink': '開始免費 1 分鐘測驗 →',
     'home.gatewayBlogLabel': 'Guides & Journal', 'home.gatewayBlogTitle': '純素生活與實用指南', 'home.gatewayBlogDesc': '整理旅行、居家、購物與生活實測內容，讓每一篇都能被搜尋、被收藏、被回訪。', 'home.gatewayBlogLink': '閱讀 Blog →',
     'pillar1.title': '純素旅遊', 'pillar1.desc': '從紐西蘭的自然原味到日本的職人精神，探索全球最值得造訪的純素角落。', 'pillar1.link': 'Explore Travel',
     'pillar2.title': '居家生活', 'pillar2.desc': '擁抱動手做的樂趣，從植物養護到居家維修，打造一個真正屬於自己的避風港。', 'pillar2.link': 'Living Journal',
@@ -1340,7 +1361,7 @@ const i18n = {
     'home.latestTitle': '最新文章', 'home.viewAll': 'View All Articles',
     'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living', 'cat.aiMusic': 'AI Music',
     'postMusic.title': 'AI 音樂發行商比較｜LANDR vs DistroKid vs RouteNote',
-    'postMusic.excerpt': '完整比較費用、Content ID、停止續費後留架方式與 AI 音樂創作者該注意的風險。',
+    'postMusic.excerpt': '比較費用、Content ID、留架規則與 AI 音樂創作者需要先釐清的判斷條件。',
     'post1.title': '紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦',
     'post1.excerpt': '在奧克蘭的街道間，隱藏著許多令人驚豔的蔬食美味。這份清單不僅關於食物，更關於那些尊重土地的經營者。',
     'post1.short': '從早午餐到晚餐，6 間讓我每次都想回去的純素餐廳完整介紹。',
@@ -1425,7 +1446,7 @@ const i18n = {
     'footer.content': 'Content', 'footer.journal': 'Journal',
     'footer.music': 'Music', 'footer.works': '作品', 'footer.more': 'More',
     'footer.copyright': '© 2025 Kaola Yuzu · kaolayuzu.com',
-    'form.subSuccess': '✓ 已收到！感謝訂閱。',
+    'form.subSuccess': '✓ 已收到！完整比較表開放時會優先寄給你。',
     'form.subError': '請輸入有效的 Email',
     'form.subDup': '此 Email 已訂閱，謝謝！',
   },
@@ -1439,8 +1460,8 @@ const i18n = {
     'home.floatingLabel': 'Countries Explored',
     'home.floatingDesc': 'A vegan sensory journey across Asia and beyond, capturing overlooked city details.',
     'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': 'Content Pillars',
-    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': 'What are you looking for?', 'home.gatewayDesc': 'Keep the brand feel, while helping visitors quickly find the content and tools they actually need.',
-    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI Music Distributor Quiz', 'home.gatewayQuizDesc': 'Use a 1-minute quiz to find whether LANDR, DistroKid, RouteNote, or another release path fits you better — before choosing based only on annual fees.', 'home.gatewayQuizLink': 'Start the Quiz →',
+    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': 'What are you looking for?', 'home.gatewayDesc': 'Quickly find the right tools and guides — from AI music distribution to practical systems and lifestyle resources.',
+    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI Music Distributor Quiz', 'home.gatewayQuizDesc': 'Use a 1-minute quiz to clarify your release needs, then compare platforms based on your own situation.', 'home.gatewayQuizLink': 'Start the free 1-minute quiz →',
     'home.gatewayBlogLabel': 'Guides & Journal', 'home.gatewayBlogTitle': 'Vegan Living & Practical Guides', 'home.gatewayBlogDesc': 'Travel, home living, shopping, and real-life notes designed to be searchable, saved, and revisited.', 'home.gatewayBlogLink': 'Read the Blog →',
     'pillar1.title': 'Vegan Travel', 'pillar1.desc': 'From New Zealand\'s natural flavors to Japan\'s craftsmanship, exploring the world\'s best vegan corners.', 'pillar1.link': 'Explore Travel',
     'pillar2.title': 'Home Living', 'pillar2.desc': 'Embracing DIY — from plant care to home repairs, building a sanctuary that is truly your own.', 'pillar2.link': 'Living Journal',
@@ -1448,7 +1469,7 @@ const i18n = {
     'home.latestTitle': 'Latest Articles', 'home.viewAll': 'View All Articles',
     'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living', 'cat.aiMusic': 'AI Music',
     'postMusic.title': 'AI Music Distributor Comparison | LANDR vs DistroKid vs RouteNote',
-    'postMusic.excerpt': 'A practical comparison of pricing, Content ID, post-cancellation catalog status, and key risks for AI-assisted music creators.',
+    'postMusic.excerpt': 'A practical comparison of pricing, Content ID, catalog status, and decision points for AI-assisted music creators.',
     'post1.title': 'Auckland Vegan Restaurant Guide | 2025 First-Hand Recommendations',
     'post1.excerpt': 'Hidden among Auckland\'s streets are amazing plant-based gems. This list is about more than food — it\'s about the people who respect their ingredients.',
     'post1.short': 'A complete guide to 6 vegan restaurants I keep going back to, from brunch to dinner.',
@@ -1533,7 +1554,7 @@ const i18n = {
     'footer.content': 'Content', 'footer.journal': 'Journal',
     'footer.music': 'Music', 'footer.works': 'Works', 'footer.more': 'More',
     'footer.copyright': '© 2025 Kaola Yuzu · kaolayuzu.com',
-    'form.subSuccess': '✓ Subscribed! Thank you.',
+    'form.subSuccess': '✓ Received! I’ll send the full comparison when it is ready.',
     'form.subError': 'Please enter a valid email.',
     'form.subDup': 'Already subscribed. Thank you!',
   }
@@ -1542,6 +1563,72 @@ const i18n = {
 /* ============================================================
    2. LANGUAGE SYSTEM
    ============================================================ */
+
+const staticTextTranslations = {
+  "完整頁面結構與 URL 規劃": "Complete page structure and URL plan",
+  "母品牌官網 — 內容 · 音樂 · 服務 · 訂閱": "Main brand site — Content · Music · Services · Subscribe",
+  "品牌入口、三大支柱、音樂、服務 CTA、訂閱": "Brand entry, core pillars, music, service CTA, and subscription",
+  "必做": "Required",
+  "品牌定位、主理人背景": "Brand positioning and creator background",
+  "三大分類 + 文章列表": "Three categories + article list",
+  "純素旅遊": "Vegan Travel",
+  "居家生活": "Home Living",
+  "省錢技巧": "Smart Living",
+  "作品展示、串流平台": "Works and streaming platforms",
+  "服務說明、流程、詢問表單": "Service overview, process, and inquiry form",
+  "工具、聯盟推薦清單": "Tools and affiliate resource list",
+  "建議": "Recommended",
+  "Email 訂閱、訂閱說明": "Email subscription and signup overview",
+  "網域策略": "Domain Strategy",
+  "主網域：": "Primary domain:",
+  "| 保護型：veganwanders.com → 301 轉址至 /blog/vegan-travel": "| Protective domain: veganwanders.com → 301 redirect to /blog/vegan-travel",
+  "紐西蘭": "New Zealand",
+  "純素": "Vegan",
+  "日本": "Japan",
+  "香港": "Hong Kong",
+  "省錢": "Saving",
+  "植物": "Plants",
+  "沖繩": "Okinawa",
+  "AI 音樂": "AI Music",
+  "發行商": "Distributor",
+  "奧克蘭": "Auckland",
+  "不知道該選哪個音樂發行商？": "Not sure which music distributor to choose?",
+  "如果你正在用 AI 協作創作音樂，真正要比較的不只是年費，還包含 Content ID、留架成本、AI 內容限制與華語作品支援。": "If you create music with AI assistance, annual fees are only one part of the decision. Content ID, catalog status, AI-content policies, and Chinese-language support also matter.",
+  "免費測發行路線": "Start the free release-path quiz",
+  "看完整比較": "View full comparison",
+  "🎧 AI 音樂發行工具": "🎧 AI Music Distribution Tools",
+  "免費發行商測驗": "Free distributor quiz",
+  "工具": "Tool",
+  "完整發行商比較": "Full distributor comparison",
+  "指南": "Guide",
+  "推薦": "Recommended",
+  "發行商推薦": "Distributor Quiz",
+  "發行商比較": "Distributor Comparison"
+};
+const staticTextTranslationsReverse = Object.fromEntries(Object.entries(staticTextTranslations).map(([zh,en]) => [en, zh]));
+function applyStaticTextTranslations(lang) {
+  const map = lang === 'en' ? staticTextTranslations : staticTextTranslationsReverse;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const parent = node.parentElement;
+      if (!parent) return NodeFilter.FILTER_REJECT;
+      if (parent.closest('script, style, textarea, input')) return NodeFilter.FILTER_REJECT;
+      if (parent.hasAttribute('data-i18n') || parent.hasAttribute('data-i18n-placeholder')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const raw = node.nodeValue;
+    const trimmed = raw.trim();
+    if (map[trimmed]) {
+      node.nodeValue = raw.replace(trimmed, map[trimmed]);
+    }
+  });
+}
+
 let currentLang = 'zh';
 
 function applyLang(lang) {
@@ -1565,6 +1652,7 @@ function applyLang(lang) {
   });
   // HTML lang attribute
   document.getElementById('htmlRoot').lang = lang === 'zh' ? 'zh-TW' : 'en';
+  applyStaticTextTranslations(lang);
 }
 
 function setLang(lang) {
