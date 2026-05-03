@@ -623,26 +623,26 @@ body.menu-open { overflow: hidden; }
   <section class="section" style="background:var(--cream);border-top:1px solid var(--mist)">
     <div class="wrap">
       <div class="text-center mb-48">
-        <span class="label">Start Here</span>
-        <h2 style="margin-top:12px">你在找什麼？</h2>
-        <p style="max-width:620px;margin:16px auto 0">保留品牌質感，但讓搜尋者能快速進入真正需要的內容與工具。</p>
+        <span class="label" data-i18n="home.gatewayLabel">Start Here</span>
+        <h2 style="margin-top:12px" data-i18n="home.gatewayTitle">你在找什麼？</h2>
+        <p style="max-width:620px;margin:16px auto 0" data-i18n="home.gatewayDesc">保留品牌質感，但讓搜尋者能快速進入真正需要的內容與工具。</p>
       </div>
       <div class="gateway-grid">
         <a href="/quiz.html" class="gateway-card">
           <div>
-            <span class="seo-note">AI Music Tool</span>
-            <h3>AI 音樂發行商測驗</h3>
-            <p>用 1 分鐘判斷你適合 LANDR、DistroKid、RouteNote 或其他發行路線，避免只看年費做錯決定。</p>
+            <span class="seo-note" data-i18n="home.gatewayQuizLabel">AI Music Tool</span>
+            <h3 data-i18n="home.gatewayQuizTitle">AI 音樂發行商測驗</h3>
+            <p data-i18n="home.gatewayQuizDesc">用 1 分鐘判斷你適合 LANDR、DistroKid、RouteNote 或其他發行路線，避免只看年費做錯決定。</p>
           </div>
-          <span class="btn-link">開始測驗 →</span>
+          <span class="btn-link" data-i18n="home.gatewayQuizLink">開始測驗 →</span>
         </a>
         <a href="#" onclick="showPage('blog');return false;" class="gateway-card">
           <div>
-            <span class="seo-note">Guides & Journal</span>
-            <h3>純素生活與實用指南</h3>
-            <p>整理旅行、居家、購物與生活實測內容，讓每一篇都能被搜尋、被收藏、被回訪。</p>
+            <span class="seo-note" data-i18n="home.gatewayBlogLabel">Guides & Journal</span>
+            <h3 data-i18n="home.gatewayBlogTitle">純素生活與實用指南</h3>
+            <p data-i18n="home.gatewayBlogDesc">整理旅行、居家、購物與生活實測內容，讓每一篇都能被搜尋、被收藏、被回訪。</p>
           </div>
-          <span class="btn-link">閱讀 Blog →</span>
+          <span class="btn-link" data-i18n="home.gatewayBlogLink">閱讀 Blog →</span>
         </a>
       </div>
     </div>
@@ -661,10 +661,10 @@ body.menu-open { overflow: hidden; }
         <a class="post-row" href="/blog/ai-music-distributor-comparison.html">
           <div class="post-row__thumb" style="background:linear-gradient(135deg,var(--forest),var(--sage));"></div>
           <div>
-            <span class="post-row__cat">AI Music</span>
-            <h2 class="post-row__title">AI 音樂發行商比較｜LANDR vs DistroKid vs RouteNote</h2>
-            <p class="post-row__excerpt">完整比較費用、Content ID、停止續費後留架方式與 AI 音樂創作者該注意的風險。</p>
-            <span class="btn-link">Read More</span>
+            <span class="post-row__cat" data-i18n="cat.aiMusic">AI Music</span>
+            <h2 class="post-row__title" data-i18n="postMusic.title">AI 音樂發行商比較｜LANDR vs DistroKid vs RouteNote</h2>
+            <p class="post-row__excerpt" data-i18n="postMusic.excerpt">完整比較費用、Content ID、停止續費後留架方式與 AI 音樂創作者該注意的風險。</p>
+            <span class="btn-link" data-i18n="common.readMore">Read More</span>
           </div>
         </a>
         <div class="post-row" onclick="showPage('post');return false;">
@@ -1331,11 +1331,16 @@ const i18n = {
     'home.floatingLabel': 'Countries Explored',
     'home.floatingDesc': '橫跨歐亞的純素感官之旅，記錄那些被忽略的城市細節。',
     'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': '內容支柱',
+    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': '你在找什麼？', 'home.gatewayDesc': '保留品牌質感，但讓搜尋者能快速進入真正需要的內容與工具。',
+    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI 音樂發行商測驗', 'home.gatewayQuizDesc': '用 1 分鐘判斷你適合 LANDR、DistroKid、RouteNote 或其他發行路線，避免只看年費做錯決定。', 'home.gatewayQuizLink': '開始測驗 →',
+    'home.gatewayBlogLabel': 'Guides & Journal', 'home.gatewayBlogTitle': '純素生活與實用指南', 'home.gatewayBlogDesc': '整理旅行、居家、購物與生活實測內容，讓每一篇都能被搜尋、被收藏、被回訪。', 'home.gatewayBlogLink': '閱讀 Blog →',
     'pillar1.title': '純素旅遊', 'pillar1.desc': '從紐西蘭的自然原味到日本的職人精神，探索全球最值得造訪的純素角落。', 'pillar1.link': 'Explore Travel',
     'pillar2.title': '居家生活', 'pillar2.desc': '擁抱動手做的樂趣，從植物養護到居家維修，打造一個真正屬於自己的避風港。', 'pillar2.link': 'Living Journal',
     'pillar3.title': '省錢技巧', 'pillar3.desc': '聰明消費不是吝嗇，而是將資源精準投入在能提升生命質感的體驗上。', 'pillar3.link': 'Smart Living',
     'home.latestTitle': '最新文章', 'home.viewAll': 'View All Articles',
-    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living',
+    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living', 'cat.aiMusic': 'AI Music',
+    'postMusic.title': 'AI 音樂發行商比較｜LANDR vs DistroKid vs RouteNote',
+    'postMusic.excerpt': '完整比較費用、Content ID、停止續費後留架方式與 AI 音樂創作者該注意的風險。',
     'post1.title': '紐西蘭奧克蘭純素餐廳全攻略｜2025 親訪推薦',
     'post1.excerpt': '在奧克蘭的街道間，隱藏著許多令人驚豔的蔬食美味。這份清單不僅關於食物，更關於那些尊重土地的經營者。',
     'post1.short': '從早午餐到晚餐，6 間讓我每次都想回去的純素餐廳完整介紹。',
@@ -1434,11 +1439,16 @@ const i18n = {
     'home.floatingLabel': 'Countries Explored',
     'home.floatingDesc': 'A vegan sensory journey across Asia and beyond, capturing overlooked city details.',
     'home.pillarsLabel': 'Our Pillars', 'home.pillarsTitle': 'Content Pillars',
+    'home.gatewayLabel': 'Start Here', 'home.gatewayTitle': 'What are you looking for?', 'home.gatewayDesc': 'Keep the brand feel, while helping visitors quickly find the content and tools they actually need.',
+    'home.gatewayQuizLabel': 'AI Music Tool', 'home.gatewayQuizTitle': 'AI Music Distributor Quiz', 'home.gatewayQuizDesc': 'Use a 1-minute quiz to find whether LANDR, DistroKid, RouteNote, or another release path fits you better — before choosing based only on annual fees.', 'home.gatewayQuizLink': 'Start the Quiz →',
+    'home.gatewayBlogLabel': 'Guides & Journal', 'home.gatewayBlogTitle': 'Vegan Living & Practical Guides', 'home.gatewayBlogDesc': 'Travel, home living, shopping, and real-life notes designed to be searchable, saved, and revisited.', 'home.gatewayBlogLink': 'Read the Blog →',
     'pillar1.title': 'Vegan Travel', 'pillar1.desc': 'From New Zealand\'s natural flavors to Japan\'s craftsmanship, exploring the world\'s best vegan corners.', 'pillar1.link': 'Explore Travel',
     'pillar2.title': 'Home Living', 'pillar2.desc': 'Embracing DIY — from plant care to home repairs, building a sanctuary that is truly your own.', 'pillar2.link': 'Living Journal',
     'pillar3.title': 'Smart Living', 'pillar3.desc': 'Spending wisely isn\'t being frugal — it\'s directing resources toward what truly elevates your life.', 'pillar3.link': 'Smart Living',
     'home.latestTitle': 'Latest Articles', 'home.viewAll': 'View All Articles',
-    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living',
+    'cat.veganTravel': 'Vegan Travel', 'cat.homeLiving': 'Home Living', 'cat.smartLiving': 'Smart Living', 'cat.aiMusic': 'AI Music',
+    'postMusic.title': 'AI Music Distributor Comparison | LANDR vs DistroKid vs RouteNote',
+    'postMusic.excerpt': 'A practical comparison of pricing, Content ID, post-cancellation catalog status, and key risks for AI-assisted music creators.',
     'post1.title': 'Auckland Vegan Restaurant Guide | 2025 First-Hand Recommendations',
     'post1.excerpt': 'Hidden among Auckland\'s streets are amazing plant-based gems. This list is about more than food — it\'s about the people who respect their ingredients.',
     'post1.short': 'A complete guide to 6 vegan restaurants I keep going back to, from brunch to dinner.',
