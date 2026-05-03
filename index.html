@@ -77,6 +77,20 @@ a { color: inherit; text-decoration: none; transition: color var(--trans); }
 .btn-primary:hover { background: #111c14; transform: translateY(-2px); }
 .btn-outline { background: transparent; color: var(--forest); border-color: var(--forest); }
 .btn-outline:hover { background: var(--forest); color: var(--white); }
+.btn-elegant-outline {
+  background: rgba(255,255,255,0.18) !important;
+  color: var(--forest) !important;
+  border: 1px solid rgba(30,47,35,0.38) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+  text-transform: none;
+  letter-spacing: 0.08em;
+}
+.btn-elegant-outline:hover {
+  background: rgba(30,47,35,0.055) !important;
+  color: var(--forest) !important;
+  border-color: var(--forest) !important;
+  transform: translateY(-1px);
+}
 .btn-yuzu { background: var(--yuzu); color: var(--white); border-color: var(--yuzu); }
 .btn-yuzu:hover { background: #c08a38; }
 .btn-white { background: var(--white); color: var(--charcoal); border-color: var(--white); }
@@ -920,7 +934,7 @@ body.menu-open { overflow: hidden; }
         </div>
         <div>
           <a href="/quiz.html" class="btn btn-yuzu" style="width:100%;text-align:center;margin-bottom:14px">免費測發行路線</a>
-          <a href="/blog/ai-music-distributor-comparison.html" class="btn btn-outline" style="width:100%;text-align:center;background:transparent;color:var(--forest);border-color:var(--forest)">看完整比較</a>
+          <a href="/blog/ai-music-distributor-comparison.html" class="btn btn-outline btn-elegant-outline" style="width:100%;text-align:center;">看完整比較</a>
         </div>
       </div>
     </div>
