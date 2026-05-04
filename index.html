@@ -487,50 +487,96 @@ body.menu-open { overflow: hidden; }
   .cm-split__info { padding: 72px 16px 40px; }
   .hero__floating-label { display: none; }
 }
- /* === Balanced CTA Button Override === */
-a.btn {
-  display: inline-block !important;
-  padding: 14px 28px !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
 
-  background: #D6A04C !important;
-  color: #1E2F23 !important;
 
-  border: 1px solid #D6A04C !important;
-  border-radius: 3px !important;
-
-  box-shadow: 0 6px 18px rgba(30,47,35,0.08) !important;
-  transition: all 0.2s ease !important;
+/* === Balanced CTA + Music Spacing Patch v1 === */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  box-shadow: 0 6px 18px rgba(30,47,35,0.08);
+  transition: all 0.2s ease;
 }
-
-a.btn:hover {
+.btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(30,47,35,0.12) !important;
+  box-shadow: 0 8px 22px rgba(30,47,35,0.12);
+}
+.btn-primary {
+  background: var(--forest);
+  color: var(--white);
+  border-color: var(--forest);
+}
+.btn-yuzu {
+  background: var(--yuzu);
+  color: var(--forest);
+  border-color: var(--yuzu);
+}
+.btn-outline {
+  background: rgba(30,47,35,0.02);
+  color: var(--forest);
+  border: 1px solid rgba(30,47,35,0.35);
+  box-shadow: none;
+}
+.btn-outline:hover {
+  background: rgba(30,47,35,0.04);
+}
+.btn-white {
+  background: var(--white);
+  color: var(--charcoal);
+  border-color: var(--white);
+}
+.nav__cta {
+  padding: 18px 28px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+}
+.hero__actions {
+  gap: 18px 20px;
+  align-items: center;
+}
+.hero__actions .btn {
+  min-width: 170px;
+  text-align: center;
+}
+.hero__actions .btn-yuzu {
+  margin-top: 6px;
+}
+.platform-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.platform-btn {
+  padding: 10px 18px;
+  line-height: 1;
+}
+.music-tool-card {
+  padding: 44px 48px;
+}
+.music-tool-card h2,
+.music-tool-card p {
+  max-width: 720px;
+}
+.music-tool-card .btn {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 14px;
+}
+@media (max-width: 768px) {
+  .hero__actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+  .music-tool-card {
+    padding: 34px 22px;
+  }
 }
 
-a.btn-outline {
-  display: inline-block !important;
-  padding: 14px 28px !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.08em !important;
-
-  background:  rgba(30,47,35,0.02) !important;
-  color: #1E2F23 !important;
-
-  border: 1px solid rgba(30,47,35,0.35) !important;
-  border-radius: 2px !important;
-
-  box-shadow: none !important;
-}
-
-a.btn-outline:hover {
-  background: rgba(30,47,35,0.04) !important;
-  transform: translateY(-1px);
-}
 </style>
 </head>
 
@@ -786,23 +832,23 @@ a.btn-outline:hover {
           <p style="margin-bottom:28px" data-i18n="home.musicDesc">音樂是旅途的聲音紀錄。在各大串流平台收聽。</p>
           <div class="platform-links">
             <!-- REPLACE each href with your actual streaming profile URLs -->
-            <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
-            <a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
-            <a href="https://music.youtube.com/channel/REPLACE_YT_ID" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
-            <a href="https://www.kkbox.com/tw/tc/artist/REPLACE_KKBOX_ID" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
+            <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
+            <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
+            <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
+            <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener" class="platform-btn">LINE MUSIC</a>
           </div>
           <a href="#" class="btn-link btn-link--light" style="margin-top:32px;display:inline-block" onclick="showPage('music');return false;" data-i18n="home.musicViewAll">查看全部作品</a>
         </div>
         <div>
           <!-- REPLACE href with actual streaming links for each track -->
-          <a href="https://open.spotify.com/track/REPLACE_TRACK_1" target="_blank" rel="noopener" class="music-card-mini">
+          <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="music-card-mini">
             <div class="music-card-mini__cover"></div>
             <div class="music-card-mini__info">
               <h4 data-i18n="track1.title">作品名稱 01</h4>
               <p data-i18n="track1.type">Single · 2025</p>
             </div>
           </a>
-          <a href="https://open.spotify.com/track/REPLACE_TRACK_2" target="_blank" rel="noopener" class="music-card-mini">
+          <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="music-card-mini">
             <div class="music-card-mini__cover"></div>
             <div class="music-card-mini__info">
               <h4 data-i18n="track2.title">作品名稱 02</h4>
@@ -981,11 +1027,11 @@ a.btn-outline:hover {
       <h1 data-i18n="music.heroTitle">Sonic Journey</h1>
       <p data-i18n="music.heroDesc">音樂是我旅程的聲音記錄。從環境音採樣到獨立創作，每一首歌都是一段記憶的切片。</p>
       <div class="platform-links">
-        <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
-        <a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
-        <a href="https://music.youtube.com/channel/REPLACE_YT_ID" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
-        <a href="https://www.kkbox.com/tw/tc/artist/REPLACE_KKBOX_ID" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
-        <a href="https://tidal.com/browse/artist/REPLACE_TIDAL_ID" target="_blank" rel="noopener" class="platform-btn">Tidal</a>
+        <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
+        <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
+        <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
+        <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener" class="platform-btn">LINE MUSIC</a>
+        <a href="http://www.tidal.com/album/516136356" target="_blank" rel="noopener" class="platform-btn">Tidal</a>
       </div>
     </div>
   </div>
@@ -1017,9 +1063,9 @@ a.btn-outline:hover {
             <h3 data-i18n="track1.title">作品名稱 01</h3>
             <p data-i18n="track1.type">Single · 2025</p>
             <div class="streaming-links">
-              <a href="https://open.spotify.com/track/REPLACE_TRACK_1" target="_blank" rel="noopener">Spotify</a>
-              <a href="https://music.apple.com/song/REPLACE_TRACK_1" target="_blank" rel="noopener">Apple</a>
-              <a href="https://youtu.be/REPLACE_TRACK_1_YT" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple</a>
+              <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
             </div>
           </div>
         </div>
@@ -1029,9 +1075,9 @@ a.btn-outline:hover {
             <h3 data-i18n="track2.title">作品名稱 02</h3>
             <p data-i18n="track2.type">Single · 2024</p>
             <div class="streaming-links">
-              <a href="https://open.spotify.com/track/REPLACE_TRACK_2" target="_blank" rel="noopener">Spotify</a>
-              <a href="https://music.apple.com/song/REPLACE_TRACK_2" target="_blank" rel="noopener">Apple</a>
-              <a href="https://www.kkbox.com/tw/tc/song/REPLACE_TRACK_2" target="_blank" rel="noopener">KKBOX</a>
+              <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple</a>
+              <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE MUSIC</a>
             </div>
           </div>
         </div>
@@ -1041,8 +1087,8 @@ a.btn-outline:hover {
             <h3 data-i18n="track3.title">作品名稱 03</h3>
             <p data-i18n="track3.type">Single · 2024</p>
             <div class="streaming-links">
-              <a href="https://open.spotify.com/track/REPLACE_TRACK_3" target="_blank" rel="noopener">Spotify</a>
-              <a href="https://youtu.be/REPLACE_TRACK_3_YT" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
             </div>
           </div>
         </div>
@@ -1346,8 +1392,8 @@ a.btn-outline:hover {
           <li><a href="/blog/ai-music-distributor-comparison.html">發行商比較</a></li>
           <li><a href="#" onclick="showPage('custom-music');return false;">Custom Music</a></li>
           <!-- REPLACE hrefs with your streaming profile URLs -->
-          <li><a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener">Spotify</a></li>
-          <li><a href="https://music.apple.com/artist/REPLACE_APPLE_ID" target="_blank" rel="noopener">Apple Music</a></li>
+          <li><a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a></li>
+          <li><a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple Music</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -1366,8 +1412,8 @@ a.btn-outline:hover {
       <div class="footer__socials">
         <!-- REPLACE each href with your actual social profile URLs -->
         <a href="https://www.instagram.com/REPLACE_YOUR_IG_HANDLE/" target="_blank" rel="noopener">IG</a>
-        <a href="https://www.youtube.com/@REPLACE_YT_HANDLE" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://open.spotify.com/artist/REPLACE_SPOTIFY_ID" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
       </div>
     </div>
   </div>
