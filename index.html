@@ -121,6 +121,81 @@ a { color: inherit; text-decoration: none; transition: color var(--trans); }
   transform: translateY(-1px);
 }
 
+
+
+/* V1.4 Music page action system */
+.music-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.music-action-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 28px 24px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--trans);
+}
+.music-action-card:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(217,160,75,0.42);
+  transform: translateY(-3px);
+}
+.music-action-card .label { color: var(--yuzu); margin-bottom: 14px; }
+.music-action-card h3 {
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+.music-action-card p {
+  color: rgba(255,255,255,0.64);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.music-action-card .platform-links,
+.music-action-card .music-action-buttons {
+  margin-top: 22px;
+}
+.music-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.music-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,0.20);
+  color: rgba(255,255,255,0.74);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all var(--trans);
+}
+.music-action-link:hover {
+  border-color: var(--yuzu);
+  color: var(--yuzu);
+}
+.music-action-link.disabled {
+  cursor: default;
+  opacity: 0.68;
+  pointer-events: none;
+  border-style: dashed;
+}
+.music-wait-note {
+  margin-top: 14px;
+  color: rgba(255,255,255,0.46) !important;
+  font-size: 0.78rem !important;
+}
+
 /* Navigation */
 .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: transparent; z-index: 1000; transition: all var(--trans); }
 .nav.scrolled { background: rgba(249,246,240,0.92); backdrop-filter: blur(12px); height: 68px; border-bottom: 1px solid var(--mist); }
@@ -476,6 +551,10 @@ body.menu-open { overflow: hidden; }
   .reel-item { width: 136px; height: 240px; }
   .post-hero__thumb { height: 220px; }
   .platform-links { gap: 8px; }
+
+  .music-actions { grid-template-columns: 1fr; gap: 14px; }
+  .music-action-card { min-height: auto; padding: 24px 20px; }
+
   .footer-subscribe { max-width: 100%; }
   /* Mobile: make all clickable areas larger */
   .blog-cat { padding: 8px 0; }
@@ -487,96 +566,6 @@ body.menu-open { overflow: hidden; }
   .cm-split__info { padding: 72px 16px 40px; }
   .hero__floating-label { display: none; }
 }
-
-
-/* === Balanced CTA + Music Spacing Patch v1 === */
-.btn {
-  display: inline-block;
-  padding: 14px 28px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 3px;
-  box-shadow: 0 6px 18px rgba(30,47,35,0.08);
-  transition: all 0.2s ease;
-}
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(30,47,35,0.12);
-}
-.btn-primary {
-  background: var(--forest);
-  color: var(--white);
-  border-color: var(--forest);
-}
-.btn-yuzu {
-  background: var(--yuzu);
-  color: var(--forest);
-  border-color: var(--yuzu);
-}
-.btn-outline {
-  background: rgba(30,47,35,0.02);
-  color: var(--forest);
-  border: 1px solid rgba(30,47,35,0.35);
-  box-shadow: none;
-}
-.btn-outline:hover {
-  background: rgba(30,47,35,0.04);
-}
-.btn-white {
-  background: var(--white);
-  color: var(--charcoal);
-  border-color: var(--white);
-}
-.nav__cta {
-  padding: 18px 28px;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-}
-.hero__actions {
-  gap: 18px 20px;
-  align-items: center;
-}
-.hero__actions .btn {
-  min-width: 170px;
-  text-align: center;
-}
-.hero__actions .btn-yuzu {
-  margin-top: 6px;
-}
-.platform-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-}
-.platform-btn {
-  padding: 10px 18px;
-  line-height: 1;
-}
-.music-tool-card {
-  padding: 44px 48px;
-}
-.music-tool-card h2,
-.music-tool-card p {
-  max-width: 720px;
-}
-.music-tool-card .btn {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 14px;
-}
-@media (max-width: 768px) {
-  .hero__actions .btn {
-    width: 100%;
-    min-width: 0;
-  }
-  .music-tool-card {
-    padding: 34px 22px;
-  }
-}
-
 </style>
 </head>
 
@@ -831,11 +820,11 @@ body.menu-open { overflow: hidden; }
           <h2 data-i18n="home.musicTitle">最新音樂作品</h2>
           <p style="margin-bottom:28px" data-i18n="home.musicDesc">音樂是旅途的聲音紀錄。在各大串流平台收聽。</p>
           <div class="platform-links">
-            <!-- REPLACE each href with your actual streaming profile URLs -->
             <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
             <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
             <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
             <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener" class="platform-btn">LINE MUSIC</a>
+            <a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
           </div>
           <a href="#" class="btn-link btn-link--light" style="margin-top:32px;display:inline-block" onclick="showPage('music');return false;" data-i18n="home.musicViewAll">查看全部作品</a>
         </div>
@@ -1026,12 +1015,54 @@ body.menu-open { overflow: hidden; }
       <span class="label">Independent Artist</span>
       <h1 data-i18n="music.heroTitle">Sonic Journey</h1>
       <p data-i18n="music.heroDesc">音樂是我旅程的聲音記錄。從環境音採樣到獨立創作，每一首歌都是一段記憶的切片。</p>
-      <div class="platform-links">
-        <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
-        <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
-        <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
-        <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener" class="platform-btn">LINE MUSIC</a>
-        <a href="http://www.tidal.com/album/516136356" target="_blank" rel="noopener" class="platform-btn">Tidal</a>
+      <div class="music-actions">
+        <div class="music-action-card">
+          <div>
+            <span class="label" data-i18n="music.listenLabel">Listen</span>
+            <h3 data-i18n="music.listenTitle">串流收聽</h3>
+            <p data-i18n="music.listenDesc">在你習慣的平台收聽作品。</p>
+          </div>
+          <div class="platform-links">
+            <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener" class="platform-btn">Spotify</a>
+            <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener" class="platform-btn">Apple Music</a>
+            <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener" class="platform-btn">YouTube Music</a>
+            <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener" class="platform-btn">LINE MUSIC</a>
+            <a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener" class="platform-btn">KKBOX</a>
+          </div>
+        </div>
+        <div class="music-action-card">
+          <div>
+            <span class="label" data-i18n="music.buyLabel">Buy</span>
+            <h3 data-i18n="music.buyTitle">購買支持</h3>
+            <p data-i18n="music.buyDesc">單曲與完整專輯購買功能準備中。開放後會提供下載與支持作品的選項。</p>
+          </div>
+          <div class="music-action-buttons">
+            <span class="music-action-link disabled" data-i18n="music.buySingle">單曲購買｜準備中</span>
+            <span class="music-action-link disabled" data-i18n="music.buyAlbum">整張專輯｜準備中</span>
+            <a href="#" onclick="showPage('subscribe');return false;" class="music-action-link" data-i18n="music.buyNotify">等候可訂購通知</a>
+            <p class="music-wait-note" data-i18n="music.buyNote">正式開放前，會先透過訂閱名單通知。</p>
+          </div>
+        </div>
+        <div class="music-action-card">
+          <div>
+            <span class="label" data-i18n="music.licenseLabel">License</span>
+            <h3 data-i18n="music.licenseTitle">授權使用</h3>
+            <p data-i18n="music.licenseDesc">如果你想把音樂用在影片、品牌內容、活動紀錄或商業專案中，可以進一步洽談授權。</p>
+          </div>
+          <div class="music-action-buttons">
+            <a href="#" onclick="showPage('custom-music');return false;" class="music-action-link" data-i18n="music.licenseBtn">了解授權合作</a>
+          </div>
+        </div>
+        <div class="music-action-card">
+          <div>
+            <span class="label" data-i18n="music.customLabel">Custom Music</span>
+            <h3 data-i18n="music.customTitle">訂製你的音樂</h3>
+            <p data-i18n="music.customDesc">如果你需要一首專屬於你的音樂，像是品牌主題曲、紀念作品或活動影片配樂，也可以訂製。</p>
+          </div>
+          <div class="music-action-buttons">
+            <a href="#" onclick="showPage('custom-music');return false;" class="music-action-link" data-i18n="music.customBtn">訂製你的音樂</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1066,6 +1097,8 @@ body.menu-open { overflow: hidden; }
               <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
               <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple</a>
               <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE</a>
+              <a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener">KKBOX</a>
             </div>
           </div>
         </div>
@@ -1077,7 +1110,9 @@ body.menu-open { overflow: hidden; }
             <div class="streaming-links">
               <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
               <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple</a>
-              <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE MUSIC</a>
+              <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE</a>
+              <a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener">KKBOX</a>
             </div>
           </div>
         </div>
@@ -1088,7 +1123,10 @@ body.menu-open { overflow: hidden; }
             <p data-i18n="track3.type">Single · 2024</p>
             <div class="streaming-links">
               <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple</a>
               <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE</a>
+              <a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener">KKBOX</a>
             </div>
           </div>
         </div>
@@ -1391,9 +1429,11 @@ body.menu-open { overflow: hidden; }
           <li><a href="/quiz.html">發行商推薦</a></li>
           <li><a href="/blog/ai-music-distributor-comparison.html">發行商比較</a></li>
           <li><a href="#" onclick="showPage('custom-music');return false;">Custom Music</a></li>
-          <!-- REPLACE hrefs with your streaming profile URLs -->
           <li><a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a></li>
           <li><a href="https://music.apple.com/tw/artist/kaola-yuzu/1895522456" target="_blank" rel="noopener">Apple Music</a></li>
+          <li><a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube Music</a></li>
+          <li><a href="https://music.line.me/webapp/album/mb0000000005352953" target="_blank" rel="noopener">LINE MUSIC</a></li>
+          <li><a href="https://kkbox.fm/naJj38" target="_blank" rel="noopener">KKBOX</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -1410,7 +1450,6 @@ body.menu-open { overflow: hidden; }
     <div class="footer__bottom">
       <p data-i18n="footer.copyright">© 2025 Kaola Yuzu · kaolayuzu.com</p>
       <div class="footer__socials">
-        <!-- REPLACE each href with your actual social profile URLs -->
         <a href="https://www.instagram.com/REPLACE_YOUR_IG_HANDLE/" target="_blank" rel="noopener">IG</a>
         <a href="https://youtube.com/playlist?list=OLAK5uy_ncWu3M7PPuhzotl2W43XTcG-0m2aFsTD4&si=YpmdtwG6xU67TUnZ" target="_blank" rel="noopener">YouTube</a>
         <a href="https://open.spotify.com/playlist/69tJRvx58t4Tg1sjmcAqdA?si=LM0XD3DNRTe_a2Unia3jRw&pt=58e101f754098d984feaa222f78378b9" target="_blank" rel="noopener">Spotify</a>
@@ -1491,6 +1530,10 @@ const i18n = {
     'blog.catAll': 'All', 'blog.catVegan': '🌿 Vegan Travel', 'blog.catHome': '🏡 Home Living', 'blog.catSmart': '💰 Smart Living',
     'blog.tags': 'Tags',
     'music.heroTitle': 'Sonic Journey', 'music.heroDesc': '音樂是我旅程的聲音記錄。從環境音採樣到獨立創作，每一首歌都是一段記憶的切片。',
+    'music.listenLabel': 'Listen', 'music.listenTitle': '串流收聽', 'music.listenDesc': '在你習慣的平台收聽作品。',
+    'music.buyLabel': 'Buy', 'music.buyTitle': '購買支持', 'music.buyDesc': '單曲與完整專輯購買功能準備中。開放後會提供下載與支持作品的選項。', 'music.buySingle': '單曲購買｜準備中', 'music.buyAlbum': '整張專輯｜準備中', 'music.buyNotify': '等候可訂購通知', 'music.buyNote': '正式開放前，會先透過訂閱名單通知。',
+    'music.licenseLabel': 'License', 'music.licenseTitle': '授權使用', 'music.licenseDesc': '如果你想把音樂用在影片、品牌內容、活動紀錄或商業專案中，可以進一步洽談授權。', 'music.licenseBtn': '了解授權合作',
+    'music.customLabel': 'Custom Music', 'music.customTitle': '訂製你的音樂', 'music.customDesc': '如果你需要一首專屬於你的音樂，像是品牌主題曲、紀念作品或活動影片配樂，也可以訂製。', 'music.customBtn': '訂製你的音樂',
     'music.discography': '全部作品', 'music.ctaTitle': '需要客製音樂？', 'music.ctaDesc': '品牌、活動、影片 — 量身製作。', 'music.ctaBtn': '了解 Custom Music',
     'music.subTitle': '新歌第一時間通知', 'music.subDesc': '新作品上線、幕後故事、創作日記。',
     'cm.heroSub': 'for your stories', 'cm.heroDesc': '為您的品牌、影像或個人時刻訂製獨一無二的聲音。我不只是製作音樂，我是在為您的故事尋找最貼切的聽覺頻率。',
@@ -1599,6 +1642,10 @@ const i18n = {
     'blog.catAll': 'All', 'blog.catVegan': '🌿 Vegan Travel', 'blog.catHome': '🏡 Home Living', 'blog.catSmart': '💰 Smart Living',
     'blog.tags': 'Tags',
     'music.heroTitle': 'Sonic Journey', 'music.heroDesc': 'Music is the sound record of my travels — from field recordings to original compositions, each track is a memory.',
+    'music.listenLabel': 'Listen', 'music.listenTitle': 'Listen on streaming platforms', 'music.listenDesc': 'Listen on the platform you already use.',
+    'music.buyLabel': 'Buy', 'music.buyTitle': 'Support by purchasing', 'music.buyDesc': 'Single-track and full-album purchases are being prepared. Download and direct support options will be added when ready.', 'music.buySingle': 'Single purchase | Coming soon', 'music.buyAlbum': 'Full album | Coming soon', 'music.buyNotify': 'Notify me when orders open', 'music.buyNote': 'Before purchases open, updates will be sent to subscribers first.',
+    'music.licenseLabel': 'License', 'music.licenseTitle': 'License for use', 'music.licenseDesc': 'For videos, brand content, event recaps, or commercial projects, you can discuss music licensing options.', 'music.licenseBtn': 'Learn about licensing',
+    'music.customLabel': 'Custom Music', 'music.customTitle': 'Custom music for your story', 'music.customDesc': 'If you need a song made specifically for your brand, memory, event, or video, custom music is available.', 'music.customBtn': 'Order custom music',
     'music.discography': 'All Works', 'music.ctaTitle': 'Need Custom Music?', 'music.ctaDesc': 'Brand, events, film — tailor-made.', 'music.ctaBtn': 'Learn about Custom Music',
     'music.subTitle': 'New Music Alerts', 'music.subDesc': 'New releases, behind-the-scenes stories, and creative diaries.',
     'cm.heroSub': 'for your stories', 'cm.heroDesc': 'I create unique sounds for your brand, visuals, or personal moments — not just music, but the right sonic frequency for your story.',
