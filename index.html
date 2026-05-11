@@ -1172,7 +1172,7 @@ body.menu-open { overflow: hidden; }
     <div class="wrap">
       <span class="label">Discography</span>
       <h2 style="margin-top:12px" data-i18n="music.discography">全部作品</h2>
-      <div class="music-grid mt-48">
+      <div id="sanity-music-releases" class="music-grid mt-48">
         <div class="album-card">
           <div class="album-art"></div>
           <!-- REPLACE: album art → background-image:url('album1.jpg') -->
@@ -2174,6 +2174,111 @@ document.querySelector('.translate-widget').addEventListener('keydown', e => {
   if (e.key === 'Enter') toggleLang();
 });
 </script>
+<script>
+  const SANITY_PROJECT_ID = '6jr0oaws';
+  const SANITY_DATASET = 'production';
+  const SANITY_API_VERSION = '2026-05-05';
 
+  const musicQuery = `*[_type == "musicRelease" && status == "published"] | order(sortOrder asc) {
+    title,
+    "slug": slug.current,
+    type,
+    year,
+    featured,
+    sortOrder,
+    description,
+    spotifyUrl,
+    appleMusicUrl,
+    youtubeMusicUrl,
+    kkboxUrl,
+    lineMusicUrl,
+    amazonMusicUrl,
+    tidalUrl,
+    buyUrl,
+    "coverImageUrl": coverImage.asset->url
+  }`;
+
+  function escapeHTML(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function formatReleaseType(type) {
+    if (!type) return '';
+    const map = {
+      single: 'Single',
+      album: 'Album',
+      ep: 'EP',
+      instrumental: 'Instrumental'
+    };
+    return map[type] || type;
+  }
+
+  function renderMusicLinks(release) {
+    const links = [
+      ['Spotify', release.spotifyUrl],
+      ['Apple', release.appleMusicUrl],
+      ['YouTube Music', release.youtubeMusicUrl],
+      ['KKBOX', release.kkboxUrl],
+      ['LINE', release.lineMusicUrl],
+      ['Amazon', release.amazonMusicUrl],
+      ['TIDAL', release.tidalUrl],
+      ['Buy', release.buyUrl]
+    ].filter(([, url]) => Boolean(url));
+
+    if (!links.length) return '';
+
+    return `
+      <div class="streaming-links">
+        ${links.map(([label, url]) => `
+          <a href="${escapeHTML(url)}" target="_blank" rel="noopener">${escapeHTML(label)}</a>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  async function loadMusicReleasesFromSanity() {
+    const container = document.getElementById('sanity-music-releases');
+    if (!container) return;
+
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${encodeURIComponent(musicQuery)}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const releases = data.result || [];
+
+      if (!releases.length) return;
+
+      container.innerHTML = releases.map((release) => {
+        const imageStyle = release.coverImageUrl
+          ? `style="background-image:url('${escapeHTML(release.coverImageUrl)}')"`
+          : '';
+
+        const meta = [formatReleaseType(release.type), release.year].filter(Boolean).join('・');
+
+        return `
+          <div class="album-card">
+            <div class="album-art" ${imageStyle}></div>
+            <div class="album-info">
+              <h3>${escapeHTML(release.title)}</h3>
+              <p>${escapeHTML(meta)}</p>
+              ${release.description ? `<p>${escapeHTML(release.description)}</p>` : ''}
+              ${renderMusicLinks(release)}
+            </div>
+          </div>
+        `;
+      }).join('');
+    } catch (error) {
+      console.warn('Sanity music releases failed to load:', error);
+    }
+  }
+
+  loadMusicReleasesFromSanity();
+</script>
 </body>
 </html>
