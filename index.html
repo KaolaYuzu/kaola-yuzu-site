@@ -648,6 +648,28 @@ body.menu-open { overflow: hidden; }
   .music-tool-copy h2 { font-size: 2rem; }
 }
 
+  #sanity-music-releases .album-card {
+  cursor: pointer;
+}
+
+#sanity-music-releases .album-cover-link {
+  display: block;
+  text-decoration: none;
+}
+
+#sanity-music-releases .album-art {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#sanity-music-releases .streaming-links a {
+  cursor: pointer;
+}
+  
 </style>
 </head>
 
@@ -2218,6 +2240,20 @@ document.querySelector('.translate-widget').addEventListener('keydown', e => {
     return map[type] || type;
   }
 
+  function getPrimaryReleaseUrl(release) {
+  return (
+    release.spotifyUrl ||
+    release.appleMusicUrl ||
+    release.youtubeMusicUrl ||
+    release.kkboxUrl ||
+    release.lineMusicUrl ||
+    release.amazonMusicUrl ||
+    release.tidalUrl ||
+    release.buyUrl ||
+    ''
+  );
+}
+  
   function renderMusicLinks(release) {
     const links = [
       ['Spotify', release.spotifyUrl],
@@ -2260,10 +2296,17 @@ document.querySelector('.translate-widget').addEventListener('keydown', e => {
           : '';
 
         const meta = [formatReleaseType(release.type), release.year].filter(Boolean).join('・');
+const primaryUrl = getPrimaryReleaseUrl(release);
 
-        return `
-          <div class="album-card">
+return `
+  <div class="album-card">
+    ${
+      primaryUrl
+        ? `<a class="album-cover-link" href="${escapeHTML(primaryUrl)}" target="_blank" rel="noopener" aria-label="Listen to ${escapeHTML(release.title)}">
             <div class="album-art" ${imageStyle}></div>
+          </a>`
+        : `<div class="album-art" ${imageStyle}></div>`
+    }
             <div class="album-info">
               <h3>${escapeHTML(release.title)}</h3>
               <p>${escapeHTML(meta)}</p>
