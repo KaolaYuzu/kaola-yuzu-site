@@ -2320,8 +2320,57 @@ return `
       console.warn('Sanity music releases failed to load:', error);
     }
   }
-
+ 
   loadMusicReleasesFromSanity();
+  const blogQuery = `*[_type == "blogPost" && status == "published"] | order(sortOrder asc, publishedAt desc) {
+  title,
+  "slug": slug.current,
+  canonicalUrl,
+  category,
+  excerpt,
+  featured,
+  sortOrder,
+  publishedAt,
+  "coverImageUrl": coverImage.asset->url
+}`;
+
+async function loadBlogPostsFromSanity() {
+  const container = document.getElementById('sanity-blog-posts');
+  if (!container) return;
+
+  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${encodeURIComponent(blogQuery)}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const posts = data.result || [];
+
+    if (!posts.length) return;
+
+    container.innerHTML = posts.map((post) => {
+      const postUrl = post.canonicalUrl || `/blog/${post.slug || ''}.html`;
+      const imageStyle = post.coverImageUrl
+        ? `style="background-image:url('${escapeHTML(post.coverImageUrl)}')"`
+        : '';
+
+      return `
+        <a class="post-row" href="${escapeHTML(postUrl)}">
+          <div class="post-row__thumb" ${imageStyle}></div>
+          <div>
+            <span class="post-row__cat">${escapeHTML(post.category || '')}</span>
+            <h2 class="post-row__title">${escapeHTML(post.title || '')}</h2>
+            ${post.excerpt ? `<p class="post-row__excerpt">${escapeHTML(post.excerpt)}</p>` : ''}
+            <span class="btn-link">Read More</span>
+          </div>
+        </a>
+      `;
+    }).join('');
+  } catch (error) {
+    console.warn('Sanity blog posts failed to load:', error);
+  }
+}
+
+loadBlogPostsFromSanity();
 </script>
 </body>
 </html>
