@@ -262,7 +262,11 @@ body.menu-open { overflow: hidden; }
 .post-row { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; padding: 64px 0; border-bottom: 1px solid var(--mist); cursor: pointer; transition: all var(--trans); }
 .post-row:first-child { border-top: 1px solid var(--mist); }
 .post-row:hover .post-row__title { color: var(--yuzu); }
-.post-row__thumb { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg, var(--sage), var(--forest)); }
+.post-row__thumb { aspect-ratio: 4/3; overflow: hidden;
+  background: linear-gradient(135deg, var(--sage), var(--forest));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;}
 .post-row:nth-child(2) .post-row__thumb { background: linear-gradient(135deg, #c4d8c6, #7a9e7e); }
 .post-row:nth-child(3) .post-row__thumb { background: linear-gradient(135deg, #f2e0cc, #D9A04B); }
 .post-row__cat { font-family: var(--mono); font-size: 0.68rem; color: var(--yuzu); display: block; margin-bottom: 12px; letter-spacing: 0.08em; }
